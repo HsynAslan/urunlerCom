@@ -4,10 +4,10 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const errorHandler = require('./middlewares/errorHandler');
-
+const { i18next, middleware } = require('./utils/i18nConfig');
 dotenv.config();
 connectDB();
-
+require('dotenv').config();
 const app = express();
 
 // Middlewares
@@ -24,7 +24,7 @@ app.use('/api/themes', require('./routes/themeRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api/mails', require('./routes/mailRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
-
+app.use(middleware.handle(i18next));
 // Error handling middleware
 app.use(errorHandler);
 
