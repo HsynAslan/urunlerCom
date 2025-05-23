@@ -10,7 +10,9 @@ const {
 const { protect } = require('../middlewares/authMiddleware');
 const { allowRoles } = require('../middlewares/roleMiddleware');
 
-router.get('/', getSellerProducts);
+// Satıcının kendi ürünlerini listelemek için route, auth zorunlu
+router.get('/', protect, allowRoles('seller'), getSellerProducts);
+
 router.get('/:id', getSingleProduct);
 router.post('/', protect, allowRoles('seller'), createProduct);
 router.put('/:id', protect, allowRoles('seller'), updateProduct);

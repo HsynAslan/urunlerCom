@@ -21,3 +21,16 @@ exports.updateSellerInfo = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getStats = async (req, res) => {
+  try {
+    // Örnek olarak basit istatistik verisi döndürüyoruz
+    const stats = {
+      totalProducts: 100,
+      totalSales: 50,
+    };
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
