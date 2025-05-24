@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema(
     isCustomer: { type: Boolean, default: false },
     role: { type: mongoose.Schema.Types.ObjectId, ref: 'Role' },
     verified: { type: Boolean, default: false },
+    emailVerificationToken: String,
+emailVerificationExpires: Date,
   },
   { timestamps: true }
 );

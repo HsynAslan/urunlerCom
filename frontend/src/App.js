@@ -4,7 +4,7 @@ import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Spinner from './components/Spinner';
-
+import VerifyEmailPage from './pages/VerifyEmailPage';
 function LoadingWrapper({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -36,6 +36,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/verify-email" element={<VerifyEmailPage />} />
         </Routes>
       </LoadingWrapper>
     </Router>
