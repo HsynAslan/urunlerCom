@@ -26,19 +26,27 @@
     "registerNow": "Hemen Kayıt Ol"
   },
 
+ 
   "RegisterPage": {
-  "title": "Kayıt Ol",
-  "name": "Ad Soyad",
-  "email": "Email",
-  "password": "Şifre",
-  "confirmPassword": "Şifreyi Onayla",
-  "registerButton": "Kayıt Ol",
-  "alreadyHaveAccount": "Zaten bir hesabınız var mı?",
-  "loginNow": "Şimdi Giriş Yap",
-  "isSeller": "Satıcı mısınız?",
-"passwordMismatch": "Şifreler eşleşmiyor",
-"registering": "Kayıt oluyor..."
+    "title": "Kayıt Ol",
+    "name": "Ad Soyad",
+    "email": "Email",
+    "password": "Şifre",
+    "confirmPassword": "Şifreyi Onayla",
+    "registerButton": "Kayıt Ol",
+    "alreadyHaveAccount": "Zaten bir hesabınız var mı?",
+    "loginNow": "Şimdi Giriş Yap",
+    "isSeller": "Satıcı mısınız?",
+    "passwordMismatch": "Şifreler eşleşmiyor",
+    "registering": "Kayıt oluyor...",
+    "termsTitle": "Hizmet Şartları",
+    "termsText": "1. Kabul ve Tanımlar\n- \"urunlerim.com\" (Platform) üzerinden satıcı hesabı açarak bu şartları kabul etmiş sayılırsınız.\n- \"Satıcı\": Ürün/hizmet listeyen gerçek veya tüzel kişi.\n- \"Alıcı\": Platform üzerinden satıcılarla iletişime geçen kullanıcı.\n\n2. Hesap ve Plan Koşulları\n- Free Plan: 3 tema seçeneği, ürün ekleme/düzenleme ve Türkçe dil desteği sunar. QR kod üretimi ücretsizdir.\n- Premium Plan: Dinamik URL, çoklu dil ve sipariş alma özellikleri için aylık ücret gereklidir.\n- Hesap bilgileriniz (e-posta, firma bilgileri) doğru ve güncel olmalıdır.\n\n3. Satıcı Yükümlülükleri\n- Yasa dışı, sahte veya telif hakkı ihlali içeren ürün/hizmet ekleyemezsiniz.\n- Alıcılara karşı dürüst ve şeffaf iletişim kurmalısınız.\n- Premium satıcılar, siparişleri zamanında ve belirtilen koşullarda yerine getirmekle yükümlüdür.\n\n4. Fikri Mülkiyet\n- Yüklediğiniz içeriklerin (resim, metin) kullanım haklarına sahip olduğunuzu taahhüt edersiniz.\n\n5. İptal ve İhlaller\n- Platform, şartları ihlal eden hesapları uyarı yapmaksızın askıya alabilir veya silebilir.\n- Ücretli plan iptallerinde iade politikası geçerlidir.\n\n6. Sorumluluk Sınırı\n- Platform, satıcı-alıcı arasındaki anlaşmazlıklardan sorumlu değildir.\n\n7. Gizlilik ve Veri Kullanımı\n- Kişisel verileriniz, Gizlilik Politikası uyarınca işlenir.\n\n8. Değişiklikler\n- Hizmet şartları, önceden duyurularak güncellenebilir.",
+    "acceptTerms": "Okudum ve anladım",
+    "confirm": "Onayla",
+    "cancel": "Vazgeç",
+    "pleaseAcceptTerms": "Lütfen hizmet şartlarını okuyup onaylayınız."
+  }
 
-}
+
 
 }

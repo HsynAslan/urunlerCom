@@ -27,20 +27,27 @@
     "registerNow": "Register Now"
   },
 
-  "RegisterPage": {
-  "title": "Register",
-  "name": "Full Name",
-  "email": "Email",
-  "password": "Password",
-  "confirmPassword": "Confirm Password",
-  "registerButton": "Register",
-  "alreadyHaveAccount": "Already have an account?",
-  "loginNow": "Login Now",
-  "isSeller": "Are you a seller?",
-"passwordMismatch": "Passwords do not match",
-"registering": "Registering..."
 
-}
+  "RegisterPage": {
+    "title": "Register",
+    "name": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "registerButton": "Register",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginNow": "Login Now",
+    "isSeller": "Are you a seller?",
+    "passwordMismatch": "Passwords do not match",
+    "registering": "Registering...",
+    "termsTitle": "Terms of Service",
+    "termsText": "1. Acceptance and Definitions\n- By creating a seller account on \"urunlerim.com\" (the Platform), you agree to these terms.\n- \"Seller\": Real person or legal entity listing products/services.\n- \"Buyer\": User contacting sellers through the Platform.\n\n2. Account and Plan Conditions\n- Free Plan: 3 theme options, product add/edit features, and Turkish language support. QR code generation is free.\n- Premium Plan: Dynamic URLs, multi-language support, and order acceptance features require monthly payment.\n- Your account information (email, company details) must be accurate and up-to-date.\n\n3. Seller Obligations\n- You may not list illegal, counterfeit, or copyright-infringing products/services.\n- You must communicate honestly and transparently with buyers.\n- Premium sellers are obligated to fulfill orders promptly under specified conditions.\n\n4. Intellectual Property\n- You warrant that you have rights to all uploaded content (images, text).\n\n5. Termination and Violations\n- The Platform may suspend or delete accounts violating these terms without warning.\n- Paid plan cancellations are subject to refund policies.\n\n6. Liability Limitation\n- The Platform is not responsible for disputes between sellers and buyers.\n\n7. Privacy and Data Usage\n- Your personal data will be processed per the Privacy Policy.\n\n8. Modifications\n- These terms may be updated with prior notice.",
+    "acceptTerms": "I have read and understood",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "pleaseAcceptTerms": "Please read and accept the terms of service."
+  }
+
 
 
 }
