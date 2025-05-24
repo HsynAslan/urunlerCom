@@ -44,8 +44,13 @@
     "acceptTerms": "Okudum ve anladım",
     "confirm": "Onayla",
     "cancel": "Vazgeç",
-    "pleaseAcceptTerms": "Lütfen hizmet şartlarını okuyup onaylayınız."
+    "pleaseAcceptTerms": "Lütfen hizmet şartlarını okuyup onaylayınız.",
+     "verificationSentTitle": "Doğrulama Maili Gönderildi",
+  "verificationSentMessage": "Mail adresinize bir doğrulama maili iletildi, lütfen kontrol ediniz.",
+  "ok": "Tamam"
   }
+
+
 
 
 

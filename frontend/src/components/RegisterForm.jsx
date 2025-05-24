@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 const RegisterForm = () => {
   const { t } = useTranslation();
@@ -11,11 +12,11 @@ const RegisterForm = () => {
     isSeller: false,
   });
 
-  // Modal görünürlüğü
   const [showTermsModal, setShowTermsModal] = useState(false);
-
-  // Modal içindeki "okudum" checkbox
   const [termsAccepted, setTermsAccepted] = useState(false);
+
+  // Yeni: Başarı mesaj modalı
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
 
   const termsRef = useRef(null);
 
@@ -29,18 +30,15 @@ const RegisterForm = () => {
 
   const handleSellerClick = e => {
     if (!formData.isSeller && !termsAccepted) {
-      e.preventDefault(); // Checkbox seçimini engelle
+      e.preventDefault();
       setShowTermsModal(true);
     } else {
       setFormData(prev => ({ ...prev, isSeller: e.target.checked }));
     }
   };
 
-  // Modal açılırken onay kaldır
   useEffect(() => {
-    if (showTermsModal) {
-      setTermsAccepted(false);
-    }
+    if (showTermsModal) setTermsAccepted(false);
   }, [showTermsModal]);
 
   const handleAcceptTermsChange = e => {
@@ -56,9 +54,26 @@ const RegisterForm = () => {
     }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: kayıt işlemini backend'e gönder
+
+    try {
+      const url = 'http://localhost:5000/api/auth/register';
+      const response = await axios.post(url, formData);
+
+      // İstek başarılı, doğrulama modalını aç
+      setShowVerificationModal(true);
+
+      // İstersen formu sıfırlayabilirsin
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        isSeller: false,
+      });
+    } catch (error) {
+      alert(error.response?.data?.message || 'Bir hata oluştu');
+    }
   };
 
   return (
@@ -102,6 +117,7 @@ const RegisterForm = () => {
         <button type="submit">{t('RegisterPage.registerButton')}</button>
       </form>
 
+      {/* Hizmet şartları modalı */}
       {showTermsModal && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -140,6 +156,31 @@ const RegisterForm = () => {
             <button onClick={() => setShowTermsModal(false)}>
               {t('RegisterPage.cancel')}
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Doğrulama maili gönderildi modalı */}
+      {showVerificationModal && (
+        <div className="modal-overlay">
+          <div className="modal-content verification-modal">
+            <h2>{t('RegisterPage.verificationSentTitle')}</h2>
+
+           {/* Animasyonlu mail ikonu (MP4 video olarak) */}
+      <div className="mail-animation" style={{ margin: '20px auto' }}>
+        <video
+          src="/images/mail-send.mp4" // Videonun public klasöründeki yolu
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{ width: '100%', height: '100%' }}
+        />
+      </div>
+
+            <p>{t('RegisterPage.verificationSentMessage')}</p>
+
+            <button onClick={() => setShowVerificationModal(false)}>{t('RegisterPage.ok')}</button>
           </div>
         </div>
       )}

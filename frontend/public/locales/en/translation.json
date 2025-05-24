@@ -45,7 +45,10 @@
     "acceptTerms": "I have read and understood",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "pleaseAcceptTerms": "Please read and accept the terms of service."
+    "pleaseAcceptTerms": "Please read and accept the terms of service.",
+     "verificationSentTitle": "Verification Email Sent",
+"verificationSentMessage": "A verification email has been sent to your email address, please check it.",
+"ok":"Okey"
   }
 
 
