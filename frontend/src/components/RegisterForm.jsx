@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import Spinner from '../components/Spinner'; // Spinner dosyanın yoluna göre ayarla
 
 const RegisterForm = () => {
   const { t } = useTranslation();
@@ -14,9 +15,10 @@ const RegisterForm = () => {
 
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
-
-  // Yeni: Başarı mesaj modalı
   const [showVerificationModal, setShowVerificationModal] = useState(false);
+
+  // Spinner durumu için yeni state
+  const [loading, setLoading] = useState(false);
 
   const termsRef = useRef(null);
 
@@ -57,9 +59,15 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Spinner başlat
+    setLoading(true);
+
     try {
       const url = 'http://localhost:5000/api/auth/register';
       const response = await axios.post(url, formData);
+
+      // Spinner durdur (mail gönderildi popup öncesi)
+      setLoading(false);
 
       // İstek başarılı, doğrulama modalını aç
       setShowVerificationModal(true);
@@ -72,12 +80,15 @@ const RegisterForm = () => {
         isSeller: false,
       });
     } catch (error) {
+      setLoading(false);
       alert(error.response?.data?.message || 'Bir hata oluştu');
     }
   };
 
   return (
     <>
+      {loading && <Spinner />}
+
       <form onSubmit={handleSubmit} className="register-form">
         <input
           type="text"
@@ -166,17 +177,16 @@ const RegisterForm = () => {
           <div className="modal-content verification-modal">
             <h2>{t('RegisterPage.verificationSentTitle')}</h2>
 
-           {/* Animasyonlu mail ikonu (MP4 video olarak) */}
-      <div className="mail-animation" style={{ margin: '20px auto' }}>
-        <video
-          src="/images/mail-send.mp4" // Videonun public klasöründeki yolu
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{ width: '100%', height: '100%' }}
-        />
-      </div>
+            <div className="mail-animation" style={{ margin: '20px auto' }}>
+              <video
+                src="/images/mail-send.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{ width: '100%', height: '100%' }}
+              />
+            </div>
 
             <p>{t('RegisterPage.verificationSentMessage')}</p>
 
