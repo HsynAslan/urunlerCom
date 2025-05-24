@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FaStore, FaGlobe, FaMobileAlt, FaLock, FaClipboardList, FaLanguage } from 'react-icons/fa';
 import '../styles/MainPage.css'; // CSS dosyasını import et
 import { Link } from 'react-router-dom';
+import LanguageSelector from '../components/LanguageSelector';
 const MainPage = () => {
   const { t, i18n } = useTranslation();
 
@@ -23,13 +24,9 @@ const MainPage = () => {
             <button className="register-btn">{t('mainPage.register')}</button>
           </Link>
         </div>
-        <div className="language-selector">
-          <FaLanguage class="biggerIcon" />
-          <select onChange={handleLanguageChange} defaultValue={i18n.language}>
-            <option value="tr">Türkçe</option>
-            <option value="en">English</option>
-          </select>
-        </div>
+        <div className="language-selector-container">
+        <LanguageSelector />
+      </div>
       </header>
 
       <section className="hero-section">

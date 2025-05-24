@@ -14,7 +14,15 @@
   "mainPage.footerAbout": "Urunler.com - Dijital mağazanız için ideal çözüm.",
   "mainPage.footerContact": "Bize Ulaşın",
   "mainPage.footerRights": "Tüm hakları saklıdır.",
-  "mainPage.languageSwitch": "Dil Değiştir"
+  "mainPage.languageSwitch": "Dil Değiştir",
 
-  
+  "LoginPage": {
+    "title": "Giriş Yap",
+    "email": "E-posta",
+    "password": "Şifre",
+    "loginButton": "Giriş Yap",
+    "forgotPassword": "Şifremi unuttum?",
+    "noAccount": "Hesabınız yok mu?",
+    "registerNow": "Hemen Kayıt Ol"
+  }
 }

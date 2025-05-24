@@ -14,5 +14,18 @@
   "mainPage.footerAbout": "Urunler.com - The ideal solution for your digital store.",
   "mainPage.footerContact": "Contact Us",
   "mainPage.footerRights": "All rights reserved.",
-  "mainPage.languageSwitch": "Switch Language"
+  "mainPage.languageSwitch": "Switch Language",
+  
+  
+  "LoginPage": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Login",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "registerNow": "Register Now"
+  }
+
+
 }

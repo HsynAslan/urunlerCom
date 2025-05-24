@@ -1,0 +1,71 @@
+.login-page-container {
+  min-height: 100vh;
+  background-image: url('../public/images/pexels-fauxels-3184306.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 40px 20px; */
+}
+
+.login-card {
+  background-color: rgba(255, 255, 255, 0.88);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 24px;
+}
+
+.login-extra {
+  margin-top: 20px;
+}
+
+.forgot-password {
+  display: block;
+  font-size: 0.9rem;
+  color: #3498db;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.no-account {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.register-link {
+  color: #2ecc71;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .login-card {
+    padding: 30px 20px;
+  }
+
+  .login-title {
+    font-size: 1.6rem;
+  }
+}
+
