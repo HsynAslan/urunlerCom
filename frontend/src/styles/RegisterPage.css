@@ -1,0 +1,134 @@
+/* Genel container */
+.main-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  background-color: rgba(255, 255, 255, 0.9);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Başlık bölümü */
+.hero-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  color: #27ae60;
+}
+
+/* Form stili */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 18px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus {
+  border-color: #27ae60;
+  outline: none;
+}
+
+/* Checkbox ve label */
+form label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  margin-bottom: 18px;
+  color: #444;
+  cursor: pointer;
+}
+
+form input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+/* Submit butonu */
+form button {
+  width: 100%;
+  padding: 14px 0;
+  background-color: #27ae60;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:disabled {
+  background-color: #8dcaa3;
+  cursor: not-allowed;
+}
+
+form button:hover:not(:disabled) {
+  background-color: #1e8e42;
+}
+
+/* Hata mesajı */
+.error-message {
+  color: #e74c3c;
+  margin-top: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1500;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+
+
+/* Responsive */
+@media (max-width: 480px) {
+  form {
+    padding: 25px 15px;
+  }
+
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+}

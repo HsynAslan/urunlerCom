@@ -25,7 +25,22 @@
     "forgotPassword": "Forgot password?",
     "noAccount": "Don't have an account?",
     "registerNow": "Register Now"
-  }
+  },
+
+  "RegisterPage": {
+  "title": "Register",
+  "name": "Full Name",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "registerButton": "Register",
+  "alreadyHaveAccount": "Already have an account?",
+  "loginNow": "Login Now",
+  "isSeller": "Are you a seller?",
+"passwordMismatch": "Passwords do not match",
+"registering": "Registering..."
+
+}
 
 
 }
