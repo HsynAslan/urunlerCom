@@ -48,7 +48,8 @@
     "pleaseAcceptTerms": "Please read and accept the terms of service.",
      "verificationSentTitle": "Verification Email Sent",
 "verificationSentMessage": "A verification email has been sent to your email address, please check it.",
-"ok":"Okey"
+"ok":"Okey",
+"isCustomer": "Are You Customer?"
   }
 
 
