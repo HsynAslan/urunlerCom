@@ -7,11 +7,17 @@ const axios = require('axios');
 
 const generateToken = (user) => {
   return jwt.sign(
-    { id: user._id, isAdmin: user.isAdmin, isSeller: user.isSeller },
+    {
+      id: user._id,
+      isAdmin: user.isAdmin,
+      isSeller: user.isSeller,
+      isCustomer: user.isCustomer, // <-- Bunu ekle
+    },
     process.env.JWT_SECRET,
     { expiresIn: '7d' }
   );
 };
+
 
 exports.register = async (req, res) => {
   try {
@@ -22,6 +28,7 @@ exports.register = async (req, res) => {
 
     const emailVerificationToken = crypto.randomBytes(32).toString('hex');
     const emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 saat
+    console.log('DB kayıt token: 1)', emailVerificationToken);
 
     const user = await User.create({
       name,
@@ -33,12 +40,12 @@ exports.register = async (req, res) => {
       emailVerificationExpires,
       verified: false,
     });
-
+    console.log('DB’ye kaydedilen: 2)', user.emailVerificationToken);
     await axios.post(`${process.env.BACKEND_URL}/api/mails/send-verification`, {
       to: email,
       token: emailVerificationToken,
     });
-
+    console.log('Gönderilen token: 3)', emailVerificationToken);
     const token = generateToken(user);
     res.status(201).json({ token, user });
   } catch (error) {

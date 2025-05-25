@@ -6,6 +6,9 @@ import RegisterPage from './pages/RegisterPage';
 import Spinner from './components/Spinner';
 import VerifyEmailPage from './pages/VerifyEmailPage';
 import NotFoundPage from './pages/NotFoundPage'; 
+import SellerDashboard from './pages/SellerDashboard'; 
+import CustomerHome from './pages/CustomerHome'; 
+import ProtectedRoute from './components/ProtectedRoute';
 function LoadingWrapper({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -38,6 +41,18 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/verify-email" element={<VerifyEmailPage />} />
+          
+              <Route path="/seller/dashboard" element={<ProtectedRoute requireSeller><SellerDashboard /></ProtectedRoute>}/>
+          <Route
+          path="/customer/home"
+          element={
+            <ProtectedRoute requireCustomer>
+              <CustomerHome />
+            </ProtectedRoute>
+          }
+        />
+          
+           <Route path="/unauthorized" element={<div>Erişim izniniz yok.</div>} />
             <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </LoadingWrapper>
