@@ -43,11 +43,12 @@ exports.register = async (req, res) => {
 
     // Seller ise seller koleksiyonuna da kayıt ekle
     if (isSeller) {
-  await Seller.create({
+        const tempSlug = slug || `temp-${Date.now()}`; // geçici benzersiz slug
+ await Seller.create({
     user: user._id,
-    contactInfo: { email }, // sadece temel bilgi
-    companyName: companyName || '', // boş gönder
-    slug: slug || '', // boş gönder
+    companyName: companyName || '',
+    slug: tempSlug,
+    contactInfo: { email },
   });
 }
 
