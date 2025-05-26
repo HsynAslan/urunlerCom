@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  ChevronLeft, ChevronRight, Building2, PackagePlus,
+  BarChart3, Store, CheckCircle, CircleDollarSign
+} from 'lucide-react';
 import '../styles/SellerSidebar.css';
 
 const SellerSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [openDropdown, setOpenDropdown] = useState(null);
   const [seller, setSeller] = useState(null);
+  const navigate = useNavigate();
 
-  const [openDropdown, setOpenDropdown] = useState(null); // dropdown kontrolü
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const toggleDropdown = (key) => {
-    setOpenDropdown(prev => (prev === key ? null : key));
-  };
+  const toggleSidebar = () => setIsOpen(!isOpen);
+  const toggleDropdown = (key) => setOpenDropdown(prev => (prev === key ? null : key));
 
   useEffect(() => {
     const fetchSeller = async () => {
@@ -29,59 +28,74 @@ const SellerSidebar = () => {
         console.error('Sidebar seller fetch error:', error);
       }
     };
-
     fetchSeller();
   }, []);
 
   return (
     <>
       {!isOpen && (
-        <button
-          onClick={toggleSidebar}
-          className="fixed top-4 left-2 z-[10000] bg-blue-600 text-white p-1 rounded-full"
-        >
+        <button className="sidebar-toggle" onClick={toggleSidebar}>
           <ChevronRight size={20} />
         </button>
       )}
 
-      <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
-        <div className="p-4 flex items-center justify-between border-b border-white">
-          <h2 className="text-lg font-semibold">
-            {seller?.user?.name || 'Yükleniyor...'}
-          </h2>
-
-          {isOpen && (
-            <button
-              onClick={toggleSidebar}
-              className="text-white ml-2 bg-blue-500 p-1 rounded-full"
-            >
-              <ChevronLeft size={20} />
-            </button>
-          )}
+      <div className={`seller-sidebar ${isOpen ? 'open' : 'closed'}`}>
+        <div className="sidebar-header">
+          <span>{seller?.user?.name || 'Yükleniyor...'}</span>
+          <button onClick={toggleSidebar} className="toggle-button">
+            <ChevronLeft size={20} />
+          </button>
         </div>
 
-        <div className="p-4">
-          {/* Mağaza Dropdown */}
-          <div className="section">
+        <div className="sidebar-content">
+          {/* Mağaza */}
+          <div className="sidebar-section">
             <div className="section-header" onClick={() => toggleDropdown('store')}>
-              Mağaza
+              <Store size={18} /> <span className='bigger-icon'>Mağaza</span>
             </div>
-            <div className={`section-items ${openDropdown === 'store' ? 'open' : ''}`}>
-              <button className="hover:underline text-left">Mağaza Oluştur</button>
-              <button className="hover:underline text-left">Ürün Düzenleme</button>
-            </div>
+            {openDropdown === 'store' && (
+              <div className="section-items">
+                <button  onClick={() => navigate('/seller/company/create')}>
+                  <Building2 size={20} /> <span className='bigger-icon'>Şirketini Oluştur</span>
+                </button>
+                <button onClick={() => navigate('/seller/company/info')}>
+                  <Building2 size={16} /> Şirket Bilgileri
+                </button>
+                <button onClick={() => navigate('/seller/products/add')}>
+                  <PackagePlus size={16} /> Ürün Ekle
+                </button>
+                <button onClick={() => navigate('/seller/products')}>
+                  <PackagePlus size={16} /> Ürünleri Düzenle
+                </button>
+              </div>
+            )}
           </div>
 
-          {/* Şirket Dropdown */}
-          <div className="section">
-            <div className="section-header" onClick={() => toggleDropdown('company')}>
-              Şirket
+          {/* İstatistikler */}
+          <div className="sidebar-section">
+            <button className="section-header" onClick={() => navigate('/seller/statistics')}>
+              <BarChart3 size={18} /> <span>Şirket İstatistikleri</span>
+            </button>
+          </div>
+
+          {/* Planlar */}
+          <div className="sidebar-section">
+            <div className="section-header" onClick={() => toggleDropdown('plans')}>
+              <CircleDollarSign size={18} /> <span>Planlar</span>
             </div>
-            <div className={`section-items ${openDropdown === 'company' ? 'open' : ''}`}>
-              <button className="hover:underline text-left">1</button>
-              <button className="hover:underline text-left">2</button>
-              <button className="hover:underline text-left">3</button>
-            </div>
+            {openDropdown === 'plans' && (
+              <div className="section-items">
+                <button onClick={() => navigate('/seller/plans/free')}>
+                  <CheckCircle size={16} /> Free Plan
+                </button>
+                <button onClick={() => navigate('/seller/plans/premium')}>
+                  <CheckCircle size={16} /> Premium Plan
+                </button>
+                <button onClick={() => navigate('/seller/plans/business')}>
+                  <CheckCircle size={16} /> Business Plan
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
