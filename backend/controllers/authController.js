@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const axios = require('axios');
-
+const Seller = require('../models/Seller');
 
 const generateToken = (user) => {
   return jwt.sign(
@@ -21,15 +21,15 @@ const generateToken = (user) => {
 
 exports.register = async (req, res) => {
   try {
-    const { name, email, password, isSeller, isCustomer } = req.body;
+    const { name, email, password, isSeller, isCustomer, companyName, slug } = req.body;
 
     const userExists = await User.findOne({ email });
     if (userExists) return res.status(400).json({ message: 'Email already in use' });
 
     const emailVerificationToken = crypto.randomBytes(32).toString('hex');
-    const emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 saat
-    console.log('DB kayıt token: 1)', emailVerificationToken);
+    const emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000;
 
+    // User oluştur
     const user = await User.create({
       name,
       email,
@@ -40,12 +40,25 @@ exports.register = async (req, res) => {
       emailVerificationExpires,
       verified: false,
     });
-    console.log('DB’ye kaydedilen: 2)', user.emailVerificationToken);
+
+    // Seller ise seller koleksiyonuna da kayıt ekle
+    if (isSeller) {
+  await Seller.create({
+    user: user._id,
+    contactInfo: { email }, // sadece temel bilgi
+    companyName: companyName || '', // boş gönder
+    slug: slug || '', // boş gönder
+  });
+}
+
+
+    // Customer için de benzer kayıt eklenebilir
+
     await axios.post(`${process.env.BACKEND_URL}/api/mails/send-verification`, {
       to: email,
       token: emailVerificationToken,
     });
-    console.log('Gönderilen token: 3)', emailVerificationToken);
+
     const token = generateToken(user);
     res.status(201).json({ token, user });
   } catch (error) {

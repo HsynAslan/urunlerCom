@@ -2,8 +2,13 @@ const Seller = require('../models/Seller');
 
 exports.getSellerInfo = async (req, res) => {
   try {
+    console.log('User ID:', req.user.id);
+
     const seller = await Seller.findOne({ user: req.user.id })
-  .populate({ path: 'theme', select: 'name previewImage' });
+      .populate({ path: 'theme', select: 'name previewImage' })
+      .populate({ path: 'user', select: 'name email' }); // 👈 user bilgilerini dahil et
+
+    console.log('Seller Info:', seller);
 
     if (!seller) return res.status(404).json({ message: 'Seller not found' });
     res.json(seller);
@@ -11,6 +16,7 @@ exports.getSellerInfo = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 exports.updateSellerInfo = async (req, res) => {
   try {
