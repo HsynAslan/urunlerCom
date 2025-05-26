@@ -1,18 +1,14 @@
-import { useTranslation } from 'react-i18next';
-import '../styles/SellerDashboard.css';
+import SellerSidebar from '../components/SellerSidebar';
 
 const SellerDashboard = () => {
-  const { t } = useTranslation();
-
   return (
-    <div className="seller-dashboard-container">
-      <h1>{t('SellerDashboard.title')}</h1>
-      <ul className="seller-dashboard-goals">
-        <li>{t('SellerDashboard.goal1')}</li>
-        <li>{t('SellerDashboard.goal2')}</li>
-        <li>{t('SellerDashboard.goal3')}</li>
-        <li>{t('SellerDashboard.goal4')}</li>
-      </ul>
+    <div className="flex">
+      <SellerSidebar />
+      <div className="flex-1 p-4 ml-[30%] max-w-[70%]">
+        <h1 className="text-2xl font-bold mb-4">Mağaza Paneli</h1>
+        {/* İleride buraya route’a göre içerikler gelecek */}
+        <p>Buraya ürün yönetimi, tema seçimi vs. gelecek</p>
+      </div>
     </div>
   );
 };

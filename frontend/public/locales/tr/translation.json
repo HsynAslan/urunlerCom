@@ -49,16 +49,9 @@
   "verificationSentMessage": "Mail adresinize bir doğrulama maili iletildi, lütfen kontrol ediniz.",
   "ok": "Tamam",
   "isCustomer": "Müşteri misiniz?"
-  },
+  }
 
-  "SellerDashboard": {
-  "title": "Satıcı Paneli",
-  "goal1": "Ürünleri listele ve yönet",
-  "goal2": "Siparişleri takip et",
-  "goal3": "Kazanç istatistiklerini gör",
-  "goal4": "Kampanya ve indirimleri yönet"
-}
-
+  
 
 
 

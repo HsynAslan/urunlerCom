@@ -2,7 +2,9 @@ const Seller = require('../models/Seller');
 
 exports.getSellerInfo = async (req, res) => {
   try {
-    const seller = await Seller.findOne({ user: req.user.id }).populate('theme');
+    const seller = await Seller.findOne({ user: req.user.id })
+  .populate({ path: 'theme', select: 'name previewImage' });
+
     if (!seller) return res.status(404).json({ message: 'Seller not found' });
     res.json(seller);
   } catch (error) {
