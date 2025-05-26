@@ -11,7 +11,7 @@
 }
 
 .sidebar.open {
-  width: 30%;
+  width: 20%;
   min-width: 250px;
   overflow: auto;
 }
