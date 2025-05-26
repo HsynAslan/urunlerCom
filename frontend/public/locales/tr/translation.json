@@ -54,7 +54,22 @@
   "SellerDashboard":{
     "welcome": "Mağaza Paneline Hoş Geldiniz!",
   "description": "Bu panelden mağaza bilgilerinizi güncelleyebilir, ürünlerinizi yönetebilir ve temaları özelleştirebilirsiniz."
-  }
+  },
+
+  "sellerSidebar": {
+  "store": "Mağaza",
+  "createCompany": "Şirketini Oluştur",
+  "companyInfo": "Şirket Bilgileri",
+  "addProduct": "Ürün Ekle",
+  "editProducts": "Ürünleri Düzenle",
+  "statistics": "Şirket İstatistikleri",
+  "plans": "Planlar",
+  "freePlan": "Free Plan",
+  "premiumPlan": "Premium Plan",
+  "businessPlan": "Business Plan",
+  "loadingUser": "Yükleniyor..."
+}
+
 
   
 

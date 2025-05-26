@@ -55,7 +55,22 @@
   "SellerDashboard":{
      "welcome": "Welcome to Your Store Dashboard!",
   "description": "From this panel, you can update your store information, manage your products, and customize your themes."
-  }
+  },
+
+  "sellerSidebar": {
+  "store": "Store",
+  "createCompany": "Create Your Company",
+  "companyInfo": "Company Information",
+  "addProduct": "Add Product",
+  "editProducts": "Edit Products",
+  "statistics": "Company Statistics",
+  "plans": "Plans",
+  "freePlan": "Free Plan",
+  "premiumPlan": "Premium Plan",
+  "businessPlan": "Business Plan",
+  "loadingUser": "Loading..."
+}
+
 
 
 
