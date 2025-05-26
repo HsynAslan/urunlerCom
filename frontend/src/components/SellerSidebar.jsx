@@ -49,50 +49,47 @@ const SellerSidebar = () => {
 
         <div className="sidebar-content">
           {/* Mağaza */}
-          <div className="sidebar-section">
-            <div className="section-header" onClick={() => toggleDropdown('store')}>
-              <Store size={18} /> <span className='bigger-icon'>Mağaza</span>
+          <div className="sidebar-section marginBott1em">
+            <div className="section-header marginBott1em" onClick={() => toggleDropdown('store')}>
+              <Store size={25} /> <span className='bigger-icon'>Mağaza</span>
             </div>
             {openDropdown === 'store' && (
               <div className="section-items">
-                <button  onClick={() => navigate('/seller/company/create')}>
+                <button  onClick={() => navigate('/seller/company/create')} className='marginBott1em'>
                   <Building2 size={20} /> <span className='bigger-icon'>Şirketini Oluştur</span>
                 </button>
-                <button onClick={() => navigate('/seller/company/info')}>
-                  <Building2 size={16} /> Şirket Bilgileri
+                <button onClick={() => navigate('/seller/company/info')} className='marginBott1em'>
+                  <Building2 size={20} /> <span className='bigger-icon'>Şirket Bilgileri</span>
                 </button>
-                <button onClick={() => navigate('/seller/products/add')}>
-                  <PackagePlus size={16} /> Ürün Ekle
+                <button onClick={() => navigate('/seller/products/add')} className='marginBott1em'>
+                  <PackagePlus size={20} /> <span className='bigger-icon'>Ürün Ekle</span>
                 </button>
                 <button onClick={() => navigate('/seller/products')}>
-                  <PackagePlus size={16} /> Ürünleri Düzenle
+                  <PackagePlus size={20} /> <span className='bigger-icon' >Ürünleri Düzenle</span>
                 </button>
               </div>
             )}
           </div>
 
-          {/* İstatistikler */}
-          <div className="sidebar-section">
-            <button className="section-header" onClick={() => navigate('/seller/statistics')}>
-              <BarChart3 size={18} /> <span>Şirket İstatistikleri</span>
-            </button>
-          </div>
+            <div className="section-header marginBott1em" onClick={() => navigate('/seller/statistics')}>
+              <Store size={25} /> <span className='bigger-icon'>Şirket İstatistikleri</span>
+            </div>
 
           {/* Planlar */}
-          <div className="sidebar-section">
-            <div className="section-header" onClick={() => toggleDropdown('plans')}>
-              <CircleDollarSign size={18} /> <span>Planlar</span>
+          <div className="marginBott1em">
+            <div className="section-header marginBott1em" onClick={() => toggleDropdown('plans')}>
+              <CircleDollarSign size={25} /> <span>Planlar</span>
             </div>
             {openDropdown === 'plans' && (
               <div className="section-items">
-                <button onClick={() => navigate('/seller/plans/free')}>
-                  <CheckCircle size={16} /> Free Plan
+                <button onClick={() => navigate('/seller/plans/free')} className='marginBott1em'>
+                  <CheckCircle size={20} /> <span className='bigger-icon'>Free Plan</span>
                 </button>
-                <button onClick={() => navigate('/seller/plans/premium')}>
-                  <CheckCircle size={16} /> Premium Plan
+                <button onClick={() => navigate('/seller/plans/premium')} className='marginBott1em'>
+                  <CheckCircle size={20} /> <span className='bigger-icon'>Premium Plan</span>
                 </button>
-                <button onClick={() => navigate('/seller/plans/business')}>
-                  <CheckCircle size={16} /> Business Plan
+                <button onClick={() => navigate('/seller/plans/business')} className='marginBott1em'>
+                  <CheckCircle size={20} /> <span className='bigger-icon'>Business Plan</span>
                 </button>
               </div>
             )}
