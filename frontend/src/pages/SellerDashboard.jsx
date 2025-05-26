@@ -1,16 +1,27 @@
 import SellerSidebar from '../components/SellerSidebar';
 import LanguageSelector from '../components/LanguageSelector';
+import { useTranslation } from 'react-i18next';
+import '../styles/SellerDashboard.css'; // CSS dosyasını ekle
+
 const SellerDashboard = () => {
+  const { t } = useTranslation();
+
   return (
-    <div className="flex">
-      <SellerSidebar />
-       <div className="language-selector-container">
-        <LanguageSelector />
+    <div className="dashboard-container">
+      <div className="sidebar-wrapper">
+        <SellerSidebar />
       </div>
-      <div className="flex-1 p-4 ml-[30%] max-w-[70%]">
-        <h1 className="text-2xl font-bold mb-4">Mağaza Paneli</h1>
-        {/* İleride buraya route’a göre içerikler gelecek */}
-        <p>Buraya ürün yönetimi, tema seçimi vs. gelecek</p>
+       <div className="language-selector-container">
+          <LanguageSelector />
+        </div>
+
+      <div className="dashboard-content">
+       
+
+        <div className="dashboard-text">
+          <h1 className="dashboard-title">{t('SellerDashboard.welcome')}</h1>
+          <p className="dashboard-description">{t('SellerDashboard.description')}</p>
+        </div>
       </div>
     </div>
   );

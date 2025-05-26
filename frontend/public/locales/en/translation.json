@@ -50,6 +50,11 @@
 "verificationSentMessage": "A verification email has been sent to your email address, please check it.",
 "ok":"Okey",
 "isCustomer": "Are You Customer?"
+  },
+
+  "SellerDashboard":{
+     "welcome": "Welcome to Your Store Dashboard!",
+  "description": "From this panel, you can update your store information, manage your products, and customize your themes."
   }
 
 

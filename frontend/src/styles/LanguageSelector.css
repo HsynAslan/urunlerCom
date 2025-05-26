@@ -1,19 +1,19 @@
 .language-selector-container {
-  position: absolute;
+  position: absolute !important;
   top: 20px !important;
   right: 20px !important;
-  background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.8) !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(10px) !important;
     z-index: 1000 !important;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease !important;
 }
 
 .language-dropdown {
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
+  padding: 8px 12px !important;
+  border-radius: 6px !important;
+  font-size: 1rem !important;
+  border: 1px solid #ccc !important;
 }

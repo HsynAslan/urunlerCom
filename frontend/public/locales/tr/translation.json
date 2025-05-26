@@ -49,6 +49,11 @@
   "verificationSentMessage": "Mail adresinize bir doğrulama maili iletildi, lütfen kontrol ediniz.",
   "ok": "Tamam",
   "isCustomer": "Müşteri misiniz?"
+  },
+
+  "SellerDashboard":{
+    "welcome": "Mağaza Paneline Hoş Geldiniz!",
+  "description": "Bu panelden mağaza bilgilerinizi güncelleyebilir, ürünlerinizi yönetebilir ve temaları özelleştirebilirsiniz."
   }
 
   

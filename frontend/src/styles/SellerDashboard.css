@@ -1,15 +1,57 @@
-.seller-dashboard-container {
+.dashboard-container {
+    
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar-wrapper {
+  width: 20%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 50;
+}
+
+.dashboard-content {
+
+    display: flex;
+    margin-left: 20%;
+    width: 80%;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: center;
+    align-items: center;
+}
+
+.language-selector-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-text {
   max-width: 800px;
-  margin: auto;
-  padding: 2rem;
+  margin: 0 auto;
+  text-align: left;
+  padding: 20px;
+  background-color: aliceblue;
 }
 
-.seller-dashboard-goals {
-  margin-top: 1rem;
-  padding-left: 1.2rem;
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1e3a8a; /* mavi ton */
 }
 
-.seller-dashboard-goals li {
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
+.dashboard-description {
+  font-size: 1.125rem;
+  color: #374151; /* gri ton */
+  line-height: 1.6;
 }
