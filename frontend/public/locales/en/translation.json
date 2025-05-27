@@ -69,7 +69,24 @@
   "premiumPlan": "Premium Plan",
   "businessPlan": "Business Plan",
   "loadingUser": "Loading..."
+},
+
+"sellerCreateCompany": {
+  "title": "Create or Edit Company",
+  "companyName": "Company Name",
+  "phone": "Phone",
+  "email": "Email",
+  "address": "Address",
+  "website": "Website",
+  "location": "Location",
+  "instagram": "Instagram",
+  "edit": "Edit",
+  "editCompany": "Edit Company Information",
+  "save": "Save",
+  "cancel": "Cancel",
+  "loading": "Loading..."
 }
+
 
 
 
