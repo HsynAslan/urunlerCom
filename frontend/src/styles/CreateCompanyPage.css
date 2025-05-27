@@ -82,6 +82,8 @@
   width: 90%;
   max-width: 500px;
   box-sizing: border-box;
+  height: 70% !important;
+  overflow-y: auto !important;
 }
 
 .modal-title {

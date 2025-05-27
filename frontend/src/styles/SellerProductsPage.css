@@ -40,3 +40,60 @@
   background-color: #dc2626;
   color: white;
 }
+
+.desc-section-wrapper {
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.desc-section {
+  margin-bottom: 1rem;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+.add-desc, .delete-desc {
+  margin-top: 0.5rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+.add-desc {
+  background-color: #3498db;
+  color: white;
+}
+.delete-desc {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.modal-contentEdit{
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+  height: 70%;
+  overflow-y: auto;
+
+}
+.desc-section {
+  margin-bottom: 1rem;
+}
+
+.section-items {
+  margin-left: 1rem;
+}
+
+.section-item {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+.section-item button{
+  background-color: #e74c3c;
+}
