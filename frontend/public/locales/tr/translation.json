@@ -84,7 +84,19 @@
     "save": "Kaydet",
     "cancel": "İptal",
     "loading": "Yükleniyor..."
-  }
+  },
+
+  "productAdd": {
+  "title": "Yeni Ürün Ekle",
+  "name": "Ürün Adı",
+  "slug": "Slug",
+  "description": "Açıklama",
+  "price": "Fiyat",
+  "stock": "Stok",
+  "add": "Ekle",
+  "success": "Ürün başarıyla eklendi.",
+  "error": "Ürün eklenirken hata oluştu."
+}
 
   
 
