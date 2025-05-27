@@ -30,7 +30,7 @@ const ProtectedAdminRoute = ({ children, requireRoles = [] }) => {
     };
 
     checkAuthorization();
-  }, [requireRoles]);
+  }, []);
 
   if (isAuthorized === null) return <div>Yükleniyor...</div>;
 
