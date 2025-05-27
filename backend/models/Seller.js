@@ -18,6 +18,15 @@ const sellerSchema = new mongoose.Schema(
       default: 'free',
     },
     languages: [String],
+contactInfo: {
+  phone: String,
+  email: String,
+  address: String,
+  website: String,
+  location: String,
+  instagram: String,
+},
+
   },
   { timestamps: true }
 );

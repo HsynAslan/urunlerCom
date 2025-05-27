@@ -68,8 +68,23 @@
   "premiumPlan": "Premium Plan",
   "businessPlan": "Business Plan",
   "loadingUser": "Yükleniyor..."
-}
+},
 
+ "sellerCreateCompany": {
+    "title": "Şirket Oluştur veya Düzenle",
+    "companyName": "Şirket Adı",
+    "phone": "Telefon",
+    "email": "E-posta",
+    "address": "Adres",
+    "website": "Web Sitesi",
+    "location": "Konum",
+    "instagram": "Instagram",
+    "edit": "Düzenle",
+    "editCompany": "Şirket Bilgilerini Düzenle",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "loading": "Yükleniyor..."
+  }
 
   
 

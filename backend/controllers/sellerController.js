@@ -42,3 +42,20 @@ exports.getStats = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.createOrGetSeller = async (req, res) => {
+  try {
+    let seller = await Seller.findOne({ user: req.user.id })
+      .populate({ path: 'theme', select: 'name previewImage' })
+      .populate({ path: 'user', select: 'name email' });
+
+    if (!seller) {
+      seller = new Seller({ user: req.user.id });
+      await seller.save();
+    }
+
+    res.json(seller);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
