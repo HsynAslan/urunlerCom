@@ -11,7 +11,7 @@ import CustomerHome from './pages/CustomerHome';
 import ProtectedRoute from './components/ProtectedRoute';
 import CreateCompanyPage from './pages/CreateCompanyPage';
 import AddProductPage from './pages/AddProductPage';
-
+import SellerProductsPage from './pages/SellerProductsPage';
 function LoadingWrapper({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -68,6 +68,12 @@ function App() {
   </ProtectedRoute>
 } />
 
+
+          <Route path="/seller/products" element={
+            <ProtectedRoute requireSeller>
+              <SellerProductsPage />
+            </ProtectedRoute>
+          } />
            <Route path="/unauthorized" element={<div>Erişim izniniz yok.</div>} />
             <Route path="*" element={<NotFoundPage />} />
         </Routes>

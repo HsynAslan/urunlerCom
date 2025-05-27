@@ -109,7 +109,15 @@
   "noPhoto": "Henüz fotoğraf yok.",
   "makeShowcase": "Vitrin fotoğrafı yap",
   "photoAlt": "Ürün fotoğrafı"
+},
+
+"productList": {
+  "title": "Ürünlerim",
+  "edit": "Düzenle",
+  "delete": "Sil",
+  "confirmDelete": "Bu ürünü silmek istediğinize emin misiniz?"
 }
+
 
 
 

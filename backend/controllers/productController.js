@@ -1,5 +1,6 @@
 const Product = require('../models/Product');
 const Seller = require('../models/Seller');
+const mongoose = require('mongoose');
 
 exports.getSellerProducts = async (req, res) => {
   try {
@@ -18,7 +19,10 @@ const slugify = require('slugify'); // slug otomatik oluşturmak için
 
 exports.createProduct = async (req, res) => {
   try {
+    console.log('User ID:', req.user._id);
     const seller = await Seller.findOne({ user: req.user._id });
+    console.log('Seller found:', seller);
+
     if (!seller) return res.status(404).json({ message: 'Seller profile not found' });
 
     let {
@@ -51,13 +55,16 @@ exports.createProduct = async (req, res) => {
       isPublished: true,
     });
 
+    console.log('Product to save:', product);
     await product.save();
     res.status(201).json(product);
 
   } catch (error) {
+    console.error('Error creating product:', error);
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 exports.updateProduct = async (req, res) => {
@@ -98,4 +105,27 @@ exports.deleteProduct = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getMyProducts = async (req, res) => {
+  try {
+    if (!req.user || !req.user._id) {
+      return res.status(401).json({ message: 'Kullanıcı doğrulanamadı.' });
+    }
+    
+    // Önce kullanıcının Seller kaydını bul
+    const seller = await Seller.findOne({ user: req.user._id });
+    if (!seller) {
+      return res.status(404).json({ message: 'Satıcı bulunamadı.' });
+    }
+
+    const products = await Product.find({ seller: seller._id });
+    res.json(products);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Ürünler alınamadı.' });
+  }
+};
+
+
 
