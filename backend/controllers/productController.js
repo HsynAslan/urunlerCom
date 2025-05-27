@@ -14,27 +14,51 @@ exports.getSellerProducts = async (req, res) => {
   }
 };
 
+const slugify = require('slugify'); // slug otomatik oluşturmak için
+
 exports.createProduct = async (req, res) => {
   try {
-    const { name, slug, price, description, stock } = req.body;
     const seller = await Seller.findOne({ user: req.user._id });
-    if (!seller) {
-      return res.status(404).json({ message: 'Seller profile not found' });
-    }
-    const product = new Product({
+    if (!seller) return res.status(404).json({ message: 'Seller profile not found' });
+
+    let {
       name,
       slug,
       price,
-      description,
+      priceCurrency,
+      descriptionSections,
       stock,
+      stockUnit,
+      images,
+      showcaseImageIndex,
+    } = req.body;
+
+    if (!slug && name) {
+      slug = slugify(name, { lower: true, strict: true });
+    }
+
+    const product = new Product({
       seller: seller._id,
+      name,
+      slug,
+      price,
+      priceCurrency,
+      descriptionSections,
+      stock,
+      stockUnit,
+      images,
+      showcaseImageIndex,
+      isPublished: true,
     });
+
     await product.save();
     res.status(201).json(product);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 exports.updateProduct = async (req, res) => {
   try {

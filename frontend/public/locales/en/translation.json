@@ -85,7 +85,32 @@
   "save": "Save",
   "cancel": "Cancel",
   "loading": "Loading..."
+},
+"productAdd": {
+  "title": "Add New Product",
+  "name": "Product Name",
+  "slug": "Slug",
+  "description": "Description",
+  "price": "Price",
+  "priceCurrency": "Currency",
+  "stock": "Stock",
+  "stockUnit": "Stock Unit",
+  "add": "Add",
+  "success": "Product added successfully.",
+  "error": "An error occurred while adding the product.",
+  "photos": "Photos",
+  "addPhoto": "Add Photo",
+  "showcasePhoto": "Showcase Photo",
+  "descriptionSections": "Description Sections",
+  "addSection": "Add New Section",
+  "addItem": "Add Item",
+  "sectionTitle": "Section Title",
+  "sectionItem": "Item",
+    "noPhoto": "No photos yet.",
+  "makeShowcase": "Set as showcase photo",
+  "photoAlt": "Product photo"
 }
+
 
 
 

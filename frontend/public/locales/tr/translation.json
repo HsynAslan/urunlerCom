@@ -86,19 +86,31 @@
     "loading": "Yükleniyor..."
   },
 
-  "productAdd": {
+ "productAdd": {
   "title": "Yeni Ürün Ekle",
   "name": "Ürün Adı",
   "slug": "Slug",
   "description": "Açıklama",
   "price": "Fiyat",
+  "priceCurrency": "Para Birimi",
   "stock": "Stok",
+  "stockUnit": "Stok Birimi",
   "add": "Ekle",
   "success": "Ürün başarıyla eklendi.",
-  "error": "Ürün eklenirken hata oluştu."
+  "error": "Ürün eklenirken hata oluştu.",
+  "photos": "Fotoğraflar",
+  "addPhoto": "Fotoğraf Ekle",
+  "showcasePhoto": "Vitrin Fotoğrafı",
+  "descriptionSections": "Açıklama Bölümleri",
+  "addSection": "Yeni Bölüm Ekle",
+  "addItem": "Madde Ekle",
+  "sectionTitle": "Başlık",
+  "sectionItem": "Madde",
+  "noPhoto": "Henüz fotoğraf yok.",
+  "makeShowcase": "Vitrin fotoğrafı yap",
+  "photoAlt": "Ürün fotoğrafı"
 }
 
-  
 
 
 
