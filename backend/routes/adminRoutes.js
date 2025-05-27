@@ -6,9 +6,12 @@ const {
   createSubAdmin,
   getAdminSettings,
   updateAdminSettings,
+  getMe 
 } = require('../controllers/adminController');
 
 const { adminProtect, allowAdminRoles } = require('../middlewares/adminAuthMiddleware');
+
+router.get('/me', adminProtect, getMe);
 
 // Auth
 router.post('/login', loginAdmin);

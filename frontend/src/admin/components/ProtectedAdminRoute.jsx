@@ -10,7 +10,7 @@ const ProtectedAdminRoute = ({ children, requireRoles = [] }) => {
     const checkAuthorization = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/admins/me', {
+        const res = await axios.get('http://localhost:5000/api/admin/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
 

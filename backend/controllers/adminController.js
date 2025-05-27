@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const SiteSettings = require('../models/SiteSettings');
-
+require('dotenv').config();
 exports.loginAdmin = async (req, res) => {
   const { username, password } = req.body;
 
@@ -45,4 +45,16 @@ exports.updateAdminSettings = async (req, res) => {
 
   await settings.save();
   res.json(settings);
+};
+
+exports.getMe = async (req, res) => {
+  if (!req.admin) {
+    return res.status(401).json({ message: 'Yetkisiz' });
+  }
+
+  res.status(200).json({
+    id: req.admin._id,
+    username: req.admin.username,
+    roles: req.admin.roles,
+  });
 };

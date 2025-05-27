@@ -20,7 +20,8 @@ const createDefaultAdmin = async () => {
           'edit_site_settings',
           'manage_users',
           'view_everything',
-          'edit_theme'
+          'edit_theme',
+          'super_admin'
         ]
       });
       console.log('✅ Default admin created');

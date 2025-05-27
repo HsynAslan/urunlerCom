@@ -10,7 +10,7 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:5000/api/admin/login', { username, password });
-      localStorage.setItem('adminToken', res.data.token);
+      localStorage.setItem('token', res.data.token);
       window.location.href = '/admin/dashboard'; // panel yönlendirmesi
     } catch (err) {
       setError('Giriş başarısız');
