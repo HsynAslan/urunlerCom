@@ -71,7 +71,7 @@ const AdminSidebar = () => {
             </button>
           )}
           {hasRole('manage_admins') && (
-            <button onClick={() => navigate('/admin/manage-admins')} className="marginBott1em">
+            <button onClick={() => navigate('/admin/subadmin')} className="marginBott1em">
               <UserPlus size={20} /> Alt Adminler
             </button>
           )}

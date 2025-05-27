@@ -18,13 +18,22 @@ exports.loginAdmin = async (req, res) => {
 
 exports.createSubAdmin = async (req, res) => {
   const { username, password, roles } = req.body;
-  const existing = await Admin.findOne({ username });
-  if (existing) return res.status(400).json({ message: 'Admin already exists' });
 
-  const hashed = await bcrypt.hash(password, 10);
-  const newAdmin = await Admin.create({ username, password: hashed, roles });
-  res.json(newAdmin);
+  if (!username || !password || !Array.isArray(roles)) {
+    return res.status(400).json({ message: 'Geçersiz veriler' });
+  }
+
+  const existingAdmin = await Admin.findOne({ username });
+  if (existingAdmin) {
+    return res.status(400).json({ message: 'Bu kullanıcı adı zaten kullanılıyor' });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newAdmin = await Admin.create({ username, password: hashedPassword, roles });
+
+  res.status(201).json({ message: 'Alt admin oluşturuldu', admin: newAdmin });
 };
+
 
 exports.getAdminSettings = async (req, res) => {
   const settings = await SiteSettings.findOne();

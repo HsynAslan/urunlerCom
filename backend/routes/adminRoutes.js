@@ -17,7 +17,8 @@ router.get('/me', adminProtect, getMe);
 router.post('/login', loginAdmin);
 
 // Sub Admin (Sadece 'manage_admins' yetkisi olanlar)
-router.post('/subadmin', adminProtect, allowAdminRoles(['manage_admins']), createSubAdmin);
+router.post('/subadmin', adminProtect, allowAdminRoles('manage_admins'), createSubAdmin);
+
 
 // Site Ayarları (Sadece 'edit_site_settings' yetkisi olanlar)
 router.get('/settings', adminProtect, allowAdminRoles(['edit_site_settings']), getAdminSettings);
