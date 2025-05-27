@@ -28,6 +28,10 @@ const AdminSidebar = () => {
   }, []);
 
   const hasRole = (role) => admin?.roles?.includes(role);
+const handleLogout = () => {
+  localStorage.removeItem('token');  // Token'ı temizle
+  navigate('/admin/login');           // Giriş sayfasına yönlendir
+};
 
   return (
     <>
@@ -75,6 +79,10 @@ const AdminSidebar = () => {
               <UserPlus size={20} /> Alt Adminler
             </button>
           )}
+          <button onClick={handleLogout} className="logout-button marginTopAuto">
+  Çıkış Yap
+</button>
+
         </div>
       </div>
     </>
