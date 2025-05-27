@@ -60,9 +60,9 @@ const SellerSidebar = () => {
                 <button  onClick={() => navigate('/seller/company/create')} className='marginBott1em'>
                   <Building2 size={20} /> <span className='bigger-icon'>{t('sellerSidebar.createCompany')}</span>
                 </button>
-                <button onClick={() => navigate('/seller/company/info')} className='marginBott1em'>
+                {/* <button onClick={() => navigate('/seller/company/info')} className='marginBott1em'>
                   <Building2 size={20} /> <span className='bigger-icon'>{t('sellerSidebar.companyInfo')}</span>
-                </button>
+                </button> */}
                 <button onClick={() => navigate('/seller/products/add')} className='marginBott1em'>
                   <PackagePlus size={20} /> <span className='bigger-icon'>{t('sellerSidebar.addProduct')}</span>
                 </button>
