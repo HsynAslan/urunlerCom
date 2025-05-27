@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import CreateCompanyPage from './pages/CreateCompanyPage';
 import AddProductPage from './pages/AddProductPage';
 import SellerProductsPage from './pages/SellerProductsPage';
+import AdminLogin from './admin/panel/AdminLogin';
 function LoadingWrapper({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -74,6 +75,10 @@ function App() {
               <SellerProductsPage />
             </ProtectedRoute>
           } />
+
+
+ <Route path="/admin/login" element={<AdminLogin />} />
+  {/* <Route path="/admin/panel" element={<ProtectedRoute requireAdmin><AdminDashboard /></ProtectedRoute>} /> */}
            <Route path="/unauthorized" element={<div>Erişim izniniz yok.</div>} />
             <Route path="*" element={<NotFoundPage />} />
         </Routes>
