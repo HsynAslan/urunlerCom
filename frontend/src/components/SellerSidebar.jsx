@@ -32,7 +32,10 @@ const SellerSidebar = () => {
     };
     fetchSeller();
   }, []);
-
+const handleLogout = () => {
+  localStorage.removeItem('token');  // Token'ı temizle
+  navigate('/admin/login');           // Giriş sayfasına yönlendir
+};
   return (
     <>
       {!isOpen && (
@@ -96,6 +99,9 @@ const SellerSidebar = () => {
               </div>
             )}
           </div>
+           <button onClick={handleLogout} className="logout-button marginTopAuto">
+  Çıkış Yap
+</button>
         </div>
       </div>
     </>
