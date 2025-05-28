@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import AdminSidebar from '../components/AdminSidebar';
 const rolesList = [
   'manage_admins',
   'edit_site_settings',
@@ -42,6 +42,8 @@ const CreateSubAdminPage = () => {
   };
 
   return (
+    <>
+    <AdminSidebar />
     <div style={{ maxWidth: 600, margin: 'auto' }}>
       <h2>Alt Admin Oluştur</h2>
       <form onSubmit={handleSubmit}>
@@ -84,6 +86,7 @@ const CreateSubAdminPage = () => {
       </form>
       {message && <p>{message}</p>}
     </div>
+    </>
   );
 };
 
