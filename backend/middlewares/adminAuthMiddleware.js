@@ -22,12 +22,22 @@ exports.adminProtect = async (req, res, next) => {
   }
 };
 
-exports.allowAdminRoles = (...roles) => {
+exports.allowAdminRoles = (...requiredRoles) => {
   return (req, res, next) => {
-    const hasPermission = req.admin?.roles?.some(role => roles.includes(role));
-    if (!hasPermission) {
-      return res.status(403).json({ message: 'Insufficient admin permissions' });
+    if (!req.admin || !Array.isArray(req.admin.roles)) {
+      return res.status(401).json({ message: 'Admin yetkileri tanımsız veya geçersiz' });
     }
+
+    const hasPermission = req.admin.roles.some(role => requiredRoles.includes(role));
+
+    if (!hasPermission) {
+      return res.status(403).json({
+        message: 'Yetkisiz erişim: Gerekli admin rolüne sahip değilsiniz.',
+        requiredRoles,
+        yourRoles: req.admin.roles,
+      });
+    }
+
     next();
   };
 };

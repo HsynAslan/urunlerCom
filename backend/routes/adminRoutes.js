@@ -21,7 +21,7 @@ router.post('/subadmin', adminProtect, allowAdminRoles('manage_admins'), createS
 
 
 // Site Ayarları (Sadece 'edit_site_settings' yetkisi olanlar)
-router.get('/settings', adminProtect, allowAdminRoles(['edit_site_settings']), getAdminSettings);
-router.put('/settings', adminProtect, allowAdminRoles(['edit_site_settings']), updateAdminSettings);
+router.get('/settings', adminProtect, allowAdminRoles('edit_site_settings'), getAdminSettings);
+router.put('/settings', adminProtect, allowAdminRoles('edit_site_settings'), updateAdminSettings);
 
 module.exports = router;

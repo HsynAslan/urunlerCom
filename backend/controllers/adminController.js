@@ -35,27 +35,61 @@ exports.createSubAdmin = async (req, res) => {
 };
 
 
+// Tüm site ayarlarını getir
 exports.getAdminSettings = async (req, res) => {
-  const settings = await SiteSettings.findOne();
-  res.json(settings);
-};
-
-exports.updateAdminSettings = async (req, res) => {
-  const { siteName, backgroundImage, apiUrl } = req.body;
-  let settings = await SiteSettings.findOne();
-
-  if (!settings) {
-    settings = new SiteSettings({ siteName, backgroundImage, apiUrl });
-  } else {
-    settings.siteName = siteName;
-    settings.backgroundImage = backgroundImage;
-    settings.apiUrl = apiUrl;
+  try {
+    let settings = await SiteSettings.findOne();
+    if (!settings) {
+      settings = await SiteSettings.create({}); // Varsayılan boş ayarlar oluştur
+    }
+    res.json(settings);
+  } catch (err) {
+    res.status(500).json({ message: 'Ayarlar getirilirken bir hata oluştu.' });
   }
-
-  await settings.save();
-  res.json(settings);
 };
 
+// Site ayarlarını güncelle
+exports.updateAdminSettings = async (req, res) => {
+  try {
+    const {
+      siteName,
+      frontendUrl,
+      apiUrl,
+      mailSettings,
+      defaultLanguage,
+      maintenanceMode,
+      socialLinks,
+      contactPhone,
+      contactAddress,
+      apiEndpoints
+    } = req.body;
+
+    let settings = await SiteSettings.findOne();
+    if (!settings) {
+      settings = new SiteSettings({});
+    }
+
+    settings.siteName = siteName || settings.siteName;
+    settings.frontendUrl = frontendUrl || settings.frontendUrl;
+    settings.apiUrl = apiUrl || settings.apiUrl;
+    settings.mailSettings = {
+      email: mailSettings?.email || '',
+      password: mailSettings?.password || ''
+    };
+    settings.defaultLanguage = defaultLanguage || 'tr';
+    settings.maintenanceMode = maintenanceMode || false;
+    settings.socialLinks = socialLinks || {};
+    settings.contactPhone = contactPhone || '';
+    settings.contactAddress = contactAddress || '';
+    settings.apiEndpoints = Array.isArray(apiEndpoints) ? apiEndpoints : [];
+
+    await settings.save();
+    res.json(settings);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: 'Site ayarları güncellenirken hata oluştu.' });
+  }
+};
 exports.getMe = async (req, res) => {
   if (!req.admin) {
     return res.status(401).json({ message: 'Yetkisiz' });
