@@ -16,7 +16,7 @@ import AdminLogin from './admin/panel/AdminLogin';
 import AdminDashboardPage from './admin/panel/AdminDashboardPage';
 import ProtectedAdminRoute from './admin/components/ProtectedAdminRoute';
 import CreateSubAdminPage from './admin/panel/CreateSubAdminPage';
-
+import AdminSiteSettingsPage from './admin/panel/AdminSiteSettingsPage';
 function LoadingWrapper({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -95,6 +95,15 @@ function App() {
       </ProtectedAdminRoute>
     } />
 
+
+<Route
+  path="/admin/site-settings"
+  element={
+    <ProtectedAdminRoute requireRoles={['edit_site_settings']}>
+      <AdminSiteSettingsPage />
+    </ProtectedAdminRoute>
+  }
+/>
 
  <Route path="/admin/login" element={<AdminLogin />} />
   {/* <Route path="/admin/panel" element={<ProtectedRoute requireAdmin><AdminDashboard /></ProtectedRoute>} /> */}
