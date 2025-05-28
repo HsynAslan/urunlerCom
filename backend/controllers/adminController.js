@@ -2,6 +2,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const SiteSettings = require('../models/SiteSettings');
+const User = require('../models/User'); // veya doğru path neyse
+const Product = require('../models/Product');
+const Seller = require('../models/Seller');
 require('dotenv').config();
 exports.loginAdmin = async (req, res) => {
   const { username, password } = req.body;
@@ -100,4 +103,64 @@ exports.getMe = async (req, res) => {
     username: req.admin.username,
     roles: req.admin.roles,
   });
+};
+
+exports.searchUsers = async (req, res) => {
+  const { query } = req.query;
+
+  const searchFilter = query
+    ? {
+        $or: [
+          { name: { $regex: query, $options: 'i' } },
+          { email: { $regex: query, $options: 'i' } },
+        ],
+      }
+    : {};
+
+  try {
+    const users = await User.find(searchFilter); // User modelini içe aktar
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: 'Kullanıcılar getirilirken hata oluştu.' });
+  }
+};
+
+
+
+
+exports.updateProduct = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const updateData = req.body;
+
+    const updatedProduct = await Product.findByIdAndUpdate(productId, updateData, { new: true });
+
+    if (!updatedProduct) {
+      return res.status(404).json({ message: 'Ürün bulunamadı' });
+    }
+
+    res.json(updatedProduct);
+  } catch (error) {
+    res.status(500).json({ message: 'Ürün güncellenemedi', error: error.message });
+  }
+};
+
+// Satıcının ürünlerini getir
+exports.getUserProducts = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // User ID ile Seller'ı bul
+    const seller = await Seller.findOne({ user: userId });
+    if (!seller) {
+      return res.status(404).json({ message: 'Satıcı bulunamadı.' });
+    }
+
+    // Seller ID ile ürünleri bul
+    const products = await Product.find({ seller: seller._id });
+
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: 'Ürünler alınamadı', error: error.message });
+  }
 };

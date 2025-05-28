@@ -17,6 +17,9 @@ import AdminDashboardPage from './admin/panel/AdminDashboardPage';
 import ProtectedAdminRoute from './admin/components/ProtectedAdminRoute';
 import CreateSubAdminPage from './admin/panel/CreateSubAdminPage';
 import AdminSiteSettingsPage from './admin/panel/AdminSiteSettingsPage';
+import AdminUsersPage from './admin/panel/AdminUsers';
+
+
 function LoadingWrapper({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -104,6 +107,17 @@ function App() {
     </ProtectedAdminRoute>
   }
 />
+
+
+<Route
+  path="/admin/users"
+  element={
+    <ProtectedAdminRoute requireRoles={['manage_users']}>
+      <AdminUsersPage />
+    </ProtectedAdminRoute>
+  }
+/>
+
 
  <Route path="/admin/login" element={<AdminLogin />} />
   {/* <Route path="/admin/panel" element={<ProtectedRoute requireAdmin><AdminDashboard /></ProtectedRoute>} /> */}

@@ -6,7 +6,10 @@ const {
   createSubAdmin,
   getAdminSettings,
   updateAdminSettings,
-  getMe 
+  getMe,
+  searchUsers,
+  getUserProducts,
+  updateProduct
 } = require('../controllers/adminController');
 
 const { adminProtect, allowAdminRoles } = require('../middlewares/adminAuthMiddleware');
@@ -20,8 +23,13 @@ router.post('/login', loginAdmin);
 router.post('/subadmin', adminProtect, allowAdminRoles('manage_admins'), createSubAdmin);
 
 
+router.get('/users/:userId/products', adminProtect, allowAdminRoles('manage_users'), getUserProducts);
 // Site Ayarları (Sadece 'edit_site_settings' yetkisi olanlar)
 router.get('/settings', adminProtect, allowAdminRoles('edit_site_settings'), getAdminSettings);
 router.put('/settings', adminProtect, allowAdminRoles('edit_site_settings'), updateAdminSettings);
+router.get('/users', adminProtect, allowAdminRoles('manage_users'), searchUsers);
+
+router.patch('/products/:id', adminProtect, allowAdminRoles('manage_products'), updateProduct);
+
 
 module.exports = router;

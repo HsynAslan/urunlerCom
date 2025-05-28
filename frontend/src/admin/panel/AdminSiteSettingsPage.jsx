@@ -119,8 +119,24 @@ const SiteSettingsPage = () => {
           {settings.apiEndpoints?.map((api, index) => (
             <div key={index} className="api-row">
               <input placeholder="Adı" value={api.name} onChange={(e) => handleApiChange(index, 'name', e.target.value)} className="input" />
+             
               <input placeholder="Yol" value={api.path} onChange={(e) => handleApiChange(index, 'path', e.target.value)} className="input" />
-              <input placeholder="Yöntem" value={api.method} onChange={(e) => handleApiChange(index, 'method', e.target.value)} className="input" />
+              {/* <input placeholder="Yöntem" value={api.method} onChange={(e) => handleApiChange(index, 'method', e.target.value)} className="input" /> */}
+             
+            <select
+  value={api.method}
+  onChange={(e) => handleApiChange(index, 'method', e.target.value)}
+  className="input" style={{ width: 'fit-content', minWidth: '100px' }}
+>
+  <option value="">Yöntem Seçin</option>
+  <option value="GET">GET</option>
+  <option value="POST">POST</option>
+  <option value="PUT">PUT</option>
+  <option value="DELETE">DELETE</option>
+  <option value="PATCH">PATCH</option>
+</select>
+
+
               <input placeholder="Açıklama" value={api.description} onChange={(e) => handleApiChange(index, 'description', e.target.value)} className="input" />
               <button onClick={() => removeApiEndpoint(index)} className="delete">Sil</button>
             </div>
