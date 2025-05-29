@@ -69,15 +69,17 @@ const handleLogout = () => {
                 <button onClick={() => navigate('/seller/products/add')} className='marginBott1em'>
                   <PackagePlus size={20} /> <span className='bigger-icon'>{t('sellerSidebar.addProduct')}</span>
                 </button>
-                <button onClick={() => navigate('/seller/products')}>
+
+                <button onClick={() => navigate('/seller/products')} className='marginBott1em'>
                   <PackagePlus size={20} /> <span className='bigger-icon' >{t('sellerSidebar.editProducts')}</span>
                 </button>
+
                 <button onClick={() => navigate('/seller/about')} className='marginBott1em'>
-  <BarChart3 size={20} /> <span>Hakkımda Sayfası</span>
-</button>
-<button onClick={() => navigate('/seller/photos')} className='marginBott1em'>
-  <BarChart3 size={20} /> <span>Fotoğraf Galerisi</span>
-</button>
+                  <BarChart3 size={20} /> <span className='bigger-icon'>Hakkımda Sayfası</span>
+                </button>
+                <button onClick={() => navigate('/seller/photos')} className='marginBott1em'>
+                  <BarChart3 size={20} /> <span className='bigger-icon'>Fotoğraf Galerisi</span>
+                </button>
 
               </div>
             )}
