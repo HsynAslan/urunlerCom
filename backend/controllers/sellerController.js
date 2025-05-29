@@ -108,3 +108,14 @@ exports.addSellerPhoto = async (req, res) => {
     res.status(500).json({ message: 'Fotoğraf eklenemedi' });
   }
 };
+
+exports.deleteSellerPhoto = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await SellerPhoto.findOneAndDelete({ _id: id, seller: req.user.id });
+    if (!result) return res.status(404).json({ message: 'Fotoğraf bulunamadı' });
+    res.json({ message: 'Silindi' });
+  } catch (err) {
+    res.status(500).json({ message: 'Silme işlemi başarısız' });
+  }
+};
