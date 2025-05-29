@@ -18,7 +18,8 @@ import ProtectedAdminRoute from './admin/components/ProtectedAdminRoute';
 import CreateSubAdminPage from './admin/panel/CreateSubAdminPage';
 import AdminSiteSettingsPage from './admin/panel/AdminSiteSettingsPage';
 import AdminUsersPage from './admin/panel/AdminUsers';
-
+import SellerAboutPage from './pages/SellerAboutPage';
+import SellerPhotosPage from './pages/SellerPhotosPage';
 
 function LoadingWrapper({ children }) {
   const location = useLocation();
@@ -118,6 +119,8 @@ function App() {
   }
 />
 
+<Route path="/seller/about" element={<ProtectedRoute requireSeller><SellerAboutPage /></ProtectedRoute>} />
+<Route path="/seller/photos" element={<ProtectedRoute requireSeller><SellerPhotosPage /></ProtectedRoute>} />
 
  <Route path="/admin/login" element={<AdminLogin />} />
   {/* <Route path="/admin/panel" element={<ProtectedRoute requireAdmin><AdminDashboard /></ProtectedRoute>} /> */}

@@ -1,4 +1,6 @@
 const Seller = require('../models/Seller');
+const SellerAbout = require('../models/SellerAbout');
+const SellerPhoto = require('../models/SellerPhoto');
 
 exports.getSellerInfo = async (req, res) => {
   try {
@@ -57,5 +59,52 @@ exports.createOrGetSeller = async (req, res) => {
     res.json(seller);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+exports.getSellerAbout = async (req, res) => {
+  try {
+    const about = await SellerAbout.findOne({ seller: req.user.id });
+    res.json(about || {});
+  } catch (err) {
+    res.status(500).json({ message: 'Hakkımda bilgisi alınamadı' });
+  }
+};
+
+exports.updateSellerAbout = async (req, res) => {
+  try {
+    const { content } = req.body;
+    const updated = await SellerAbout.findOneAndUpdate(
+      { seller: req.user.id },
+      { content },
+      { upsert: true, new: true }
+    );
+    console.log('Updated About:', updated);
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: 'Hakkımda bilgisi güncellenemedi' });
+  }
+};
+
+exports.getSellerPhotos = async (req, res) => {
+  try {
+    const photos = await SellerPhoto.find({ seller: req.user.id });
+    res.json(photos);
+  } catch (err) {
+    res.status(500).json({ message: 'Fotoğraflar alınamadı' });
+  }
+};
+
+exports.addSellerPhoto = async (req, res) => {
+  try {
+    const { imageUrl, caption } = req.body;
+    const newPhoto = new SellerPhoto({
+      seller: req.user.id,
+      imageUrl,
+      caption,
+    });
+    await newPhoto.save();
+    res.json(newPhoto);
+  } catch (err) {
+    res.status(500).json({ message: 'Fotoğraf eklenemedi' });
   }
 };

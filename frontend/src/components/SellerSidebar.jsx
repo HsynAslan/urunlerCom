@@ -34,7 +34,7 @@ const SellerSidebar = () => {
   }, []);
 const handleLogout = () => {
   localStorage.removeItem('token');  // Token'ı temizle
-  navigate('/admin/login');           // Giriş sayfasına yönlendir
+  navigate('/login');           // Giriş sayfasına yönlendir
 };
   return (
     <>
@@ -72,6 +72,13 @@ const handleLogout = () => {
                 <button onClick={() => navigate('/seller/products')}>
                   <PackagePlus size={20} /> <span className='bigger-icon' >{t('sellerSidebar.editProducts')}</span>
                 </button>
+                <button onClick={() => navigate('/seller/about')} className='marginBott1em'>
+  <BarChart3 size={20} /> <span>Hakkımda Sayfası</span>
+</button>
+<button onClick={() => navigate('/seller/photos')} className='marginBott1em'>
+  <BarChart3 size={20} /> <span>Fotoğraf Galerisi</span>
+</button>
+
               </div>
             )}
           </div>
