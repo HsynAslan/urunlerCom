@@ -14,7 +14,7 @@ const generateToken = (user) => {
       isCustomer: user.isCustomer, // <-- Bunu ekle
     },
     process.env.JWT_SECRET,
-    { expiresIn: '7d' }
+    { expiresIn: '30d' }
   );
 };
 

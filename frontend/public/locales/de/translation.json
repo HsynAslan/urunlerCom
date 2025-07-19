@@ -1,0 +1,119 @@
+{
+  "mainPage.title": "Bringen Sie Ihre Produkte in die digitale Welt",
+  "mainPage.subtitle": "Erstellen Sie Ihren eigenen Shop, verwalten Sie Ihre Produkte einfach und erreichen Sie Ihre Kunden.",
+  "mainPage.featuresTitle": "Was bieten wir?",
+  "mainPage.feature1": "Einfache Shop-Einrichtung",
+  "mainPage.feature2": "Produkt- und Bestellverfolgung",
+  "mainPage.feature3": "Mehrsprachige Unterstützung",
+  "mainPage.feature4": "Sichere Zahlungsinfrastruktur",
+  "mainPage.feature5": "Mobile optimierte Oberfläche",
+  "mainPage.ctaTitle": "Starten Sie jetzt!",
+  "mainPage.ctaText": "Kostenloses Konto erstellen, in Minuten mit dem Verkauf beginnen.",
+  "mainPage.login": "Anmelden",
+  "mainPage.register": "Registrieren",
+  "mainPage.footerAbout": "Urunler.com - Die ideale Lösung für Ihren digitalen Shop.",
+  "mainPage.footerContact": "Kontaktieren Sie uns",
+  "mainPage.footerRights": "Alle Rechte vorbehalten.",
+  "mainPage.languageSwitch": "Sprache ändern",
+
+  "LoginPage": {
+    "title": "Anmelden",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "loginButton": "Anmelden",
+    "forgotPassword": "Passwort vergessen?",
+    "noAccount": "Noch kein Konto?",
+    "registerNow": "Jetzt registrieren"
+  },
+
+  "RegisterPage": {
+    "title": "Registrieren",
+    "name": "Vor- und Nachname",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "registerButton": "Registrieren",
+    "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
+    "loginNow": "Jetzt anmelden",
+    "isSeller": "Sind Sie Verkäufer?",
+    "passwordMismatch": "Passwörter stimmen nicht überein",
+    "registering": "Registrierung läuft...",
+    "termsTitle": "Nutzungsbedingungen",
+    "termsText": "1. Annahme und Definitionen\n- Durch die Eröffnung eines Verkäuferkontos auf \"urunlerim.com\" (Plattform) akzeptieren Sie diese Bedingungen.\n- \"Verkäufer\": Natürliche oder juristische Person, die Produkte/Dienstleistungen anbietet.\n- \"Käufer\": Nutzer, der über die Plattform mit Verkäufern in Kontakt tritt.\n\n2. Konto- und Planbedingungen\n- Free Plan: Bietet 3 Designoptionen, Produkthinzufügung/-bearbeitung und deutsche Sprachunterstützung. QR-Code-Generierung ist kostenlos.\n- Premium Plan: Dynamische URL, mehrsprachige Unterstützung und Bestellannahme erfordern eine monatliche Gebühr.\n- Ihre Kontodaten (E-Mail, Firmeninformationen) müssen korrekt und aktuell sein.\n\n3. Verkäuferpflichten\n- Sie dürfen keine illegalen, gefälschten oder urheberrechtlich geschützten Produkte/Dienstleistungen anbieten.\n- Sie müssen ehrlich und transparent mit Käufern kommunizieren.\n- Premium-Verkäufer sind verpflichtet, Bestellungen zeitnah und gemäß den angegebenen Bedingungen zu erfüllen.\n\n4. Geistiges Eigentum\n- Sie bestätigen, dass Sie die Nutzungsrechte an hochgeladenen Inhalten (Bilder, Texte) besitzen.\n\n5. Kündigung und Verstöße\n- Die Plattform kann Konten bei Verstößen ohne Vorwarnung sperren oder löschen.\n- Für kostenpflichtige Pläne gelten Rückerstattungsrichtlinien bei Kündigungen.\n\n6. Haftungsbeschränkung\n- Die Plattform haftet nicht für Streitigkeiten zwischen Verkäufern und Käufern.\n\n7. Datenschutz und Datenverwendung\n- Ihre persönlichen Daten werden gemäß der Datenschutzrichtlinie verarbeitet.\n\n8. Änderungen\n- Die Nutzungsbedingungen können mit vorheriger Ankündigung aktualisiert werden.",
+    "acceptTerms": "Ich habe gelesen und verstanden",
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen",
+    "pleaseAcceptTerms": "Bitte lesen und akzeptieren Sie die Nutzungsbedingungen.",
+    "verificationSentTitle": "Bestätigungs-E-Mail gesendet",
+    "verificationSentMessage": "Eine Bestätigungs-E-Mail wurde an Ihre Adresse gesendet, bitte überprüfen Sie Ihren Posteingang.",
+    "ok": "OK",
+    "isCustomer": "Sind Sie Kunde?"
+  },
+
+  "SellerDashboard": {
+    "welcome": "Willkommen im Shop-Dashboard!",
+    "description": "Hier können Sie Shop-Informationen aktualisieren, Produkte verwalten und Designs anpassen."
+  },
+
+  "sellerSidebar": {
+    "store": "Shop",
+    "createCompany": "Ihr Unternehmen",
+    "companyInfo": "Firmeninformationen",
+    "addProduct": "Produkt hinzufügen",
+    "editProducts": "Produkte bearbeiten",
+    "statistics": "Unternehmensstatistiken",
+    "plans": "Pläne",
+    "freePlan": "Free Plan",
+    "premiumPlan": "Premium Plan",
+    "businessPlan": "Business Plan",
+    "loadingUser": "Laden..."
+  },
+
+  "sellerCreateCompany": {
+    "title": "Unternehmen erstellen oder bearbeiten",
+    "companyName": "Firmenname",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "website": "Webseite",
+    "location": "Standort",
+    "instagram": "Instagram",
+    "edit": "Bearbeiten",
+    "editCompany": "Firmeninformationen bearbeiten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "loading": "Laden..."
+  },
+
+  "productAdd": {
+    "title": "Neues Produkt hinzufügen",
+    "name": "Produktname",
+    "slug": "Slug",
+    "description": "Beschreibung",
+    "price": "Preis",
+    "priceCurrency": "Währung",
+    "stock": "Bestand",
+    "stockUnit": "Mengeneinheit",
+    "add": "Hinzufügen",
+    "success": "Produkt erfolgreich hinzugefügt.",
+    "error": "Fehler beim Hinzufügen des Produkts.",
+    "photos": "Fotos",
+    "addPhoto": "Foto hinzufügen",
+    "showcasePhoto": "Schaufensterfoto",
+    "descriptionSections": "Beschreibungsabschnitte",
+    "addSection": "Neuen Abschnitt hinzufügen",
+    "addItem": "Punkt hinzufügen",
+    "sectionTitle": "Titel",
+    "sectionItem": "Punkt",
+    "noPhoto": "Noch keine Fotos vorhanden.",
+    "makeShowcase": "Als Schaufensterfoto festlegen",
+    "photoAlt": "Produktfoto"
+  },
+
+  "productList": {
+    "title": "Meine Produkte",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "confirmDelete": "Sind Sie sicher, dass Sie dieses Produkt löschen möchten?"
+  }
+}

@@ -1,0 +1,48 @@
+.publish-page-container {
+  display: flex;
+}
+
+.publish-page-content {
+  flex: 1;
+  padding: 2em;
+  background: #f9f9f9;
+}
+
+.section {
+  margin-bottom: 2em;
+  background: white;
+  padding: 1em;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.photo-preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.photo-preview-grid img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.error-box {
+  background-color: #ffe6e6;
+  padding: 1em;
+  border: 1px solid #ff4d4d;
+  border-radius: 6px;
+  margin-top: 1em;
+}
+
+.publish-btn {
+  padding: 1em 2em;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

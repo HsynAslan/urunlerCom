@@ -80,6 +80,9 @@ const handleLogout = () => {
                 <button onClick={() => navigate('/seller/photos')} className='marginBott1em'>
                   <BarChart3 size={20} /> <span className='bigger-icon'>Fotoğraf Galerisi</span>
                 </button>
+                  <button onClick={() => navigate('/seller/publish-page')} className='marginBott1em'>
+  <BarChart3 size={20} /> <span className='bigger-icon'>Sayfayı Yayınla</span>
+</button>
 
               </div>
             )}

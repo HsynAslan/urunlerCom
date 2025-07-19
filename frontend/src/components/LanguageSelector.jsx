@@ -16,6 +16,9 @@ const LanguageSelector = () => {
       <select onChange={handleLanguageChange} defaultValue={i18n.language}>
         <option value="tr">Türkçe</option>
         <option value="en">English</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
       </select>
     </div>
   );

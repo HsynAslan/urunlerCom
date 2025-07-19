@@ -10,7 +10,7 @@ const apiEndpointSchema = new mongoose.Schema({
 const siteSettingsSchema = new mongoose.Schema({
   siteName: { type: String, default: 'Urunlerim.com' },
   backgroundImage: { type: String },
-  frontendUrl: { type: String, default: 'http://localhost:3000' },
+  frontendUrl: { type: String, default: 'http://localhost:3002' },
   apiUrl: { type: String, default: 'http://localhost:5000/api' },
 
   mailSettings: {

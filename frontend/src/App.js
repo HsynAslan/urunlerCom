@@ -20,7 +20,7 @@ import AdminSiteSettingsPage from './admin/panel/AdminSiteSettingsPage';
 import AdminUsersPage from './admin/panel/AdminUsers';
 import SellerAboutPage from './pages/SellerAboutPage';
 import SellerPhotosPage from './pages/SellerPhotosPage';
-
+import SellerPublishPage from './pages/SellerPublishPage';
 function LoadingWrapper({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -76,6 +76,14 @@ function App() {
     <AddProductPage />
   </ProtectedRoute>
 } />
+<Route
+  path="/seller/publish-page"
+  element={
+    <ProtectedRoute requireSeller>
+      <SellerPublishPage />
+    </ProtectedRoute>
+  }
+/>
 
 
           <Route path="/seller/products" element={
