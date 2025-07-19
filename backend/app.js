@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const errorHandler = require('./middlewares/errorHandler');
 const { i18next, middleware } = require('./utils/i18nConfig');
+const publicRoutes = require('./routes/publicRoutes');
 dotenv.config();
 connectDB();
 require('dotenv').config();
@@ -14,6 +15,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
+app.use('/api/public', require('./routes/publicRoutes'));
+
 app.use('/public', express.static('public')); // public klasörünü /public olarak sunuyor
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));

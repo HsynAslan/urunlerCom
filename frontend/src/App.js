@@ -22,6 +22,7 @@ import SellerAboutPage from './pages/SellerAboutPage';
 import SellerPhotosPage from './pages/SellerPhotosPage';
 import SellerPublishPage from './pages/SellerPublishPage';
 import AdminThemePage from './admin/panel/AdminThemePage';
+import SellerPublicPage from './pages/SellerPublicPage';
 function LoadingWrapper({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -101,6 +102,12 @@ function App() {
     </ProtectedAdminRoute>
   }
 />
+
+
+  
+  <Route path="/seller/:sellerId" element={<SellerPublicPage />} />
+
+
 
 
 <Route
