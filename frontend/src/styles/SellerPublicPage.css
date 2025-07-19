@@ -1,86 +1,35 @@
-.seller-public-page {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* SellerPublicPage.css */
+
+body {
+  background-color: #f9fafb;
+  color: #111827;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
   padding: 20px;
 }
-.spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-}
-.seller-nav ul {
-  display: flex;
-  gap: 15px;
-  list-style: none;
-  padding: 0;
-  border-bottom: 2px solid #ccc;
-  margin-bottom: 20px;
+
+header {
+  background: #1f2937;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
 }
 
-.seller-nav ul li {
-  cursor: pointer;
-  padding: 10px 15px;
-  border-bottom: 3px solid transparent;
-  transition: border-color 0.3s ease;
-}
-
-.seller-nav ul li.active,
-.seller-nav ul li:hover {
-  border-bottom: 3px solid #007bff;
-  font-weight: bold;
-}
-
-.tab-content h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.product-list {
-  list-style: none;
-  padding: 0;
-}
-
-.product-item {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #fafafa;
-}
-
-.product-image {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.no-image {
-  width: 150px;
-  height: 150px;
-  background-color: #ddd;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #555;
-  border-radius: 5px;
-}
-
-.product-info h3 {
-  margin: 0 0 5px 0;
+h1, h2 {
+  color: #2563eb;
 }
 
 .photo-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.photo-grid img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 5px;
+.product-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
