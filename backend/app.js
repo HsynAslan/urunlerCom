@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const errorHandler = require('./middlewares/errorHandler');
 const { i18next, middleware } = require('./utils/i18nConfig');
-const publicRoutes = require('./routes/publicRoutes');
+// const publicRoutes = require('./routes/publicRoutes');
 dotenv.config();
 connectDB();
 require('dotenv').config();
