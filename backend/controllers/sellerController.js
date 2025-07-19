@@ -1,6 +1,7 @@
 const Seller = require('../models/Seller');
 const SellerAbout = require('../models/SellerAbout');
 const SellerPhoto = require('../models/SellerPhoto');
+const Theme = require('../models/Theme');
 
 exports.getSellerInfo = async (req, res) => {
   try {
@@ -45,6 +46,43 @@ exports.getStats = async (req, res) => {
   }
 };
 
+
+exports.selectSchema = async (req, res) => {
+  try {
+    const userId = req.user._id; // kullanıcı id
+
+    const { schemaId } = req.body;
+    if (!schemaId) {
+      return res.status(400).json({ message: 'schemaId gönderilmedi.' });
+    }
+
+    const theme = await Theme.findById(schemaId);
+    if (!theme) {
+      return res.status(404).json({ message: 'Seçilen tema bulunamadı.' });
+    }
+
+    // seller kaydını userId ile bulup güncelle
+    const updatedSeller = await Seller.findOneAndUpdate(
+      { user: userId },  // burada user alanını kendi modeline göre değiştir
+      { selectedTheme: schemaId },
+      { new: true }
+    );
+
+    if (!updatedSeller) {
+      return res.status(404).json({ message: 'Seller bulunamadı.' });
+    }
+
+    const publishedUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/seller/${updatedSeller._id}`;
+
+
+    res.json({ message: 'Tema seçildi.', publishedUrl });
+  } catch (error) {
+    console.error('Şema seçme hatası:', error);
+    res.status(500).json({ message: 'Şema seçilirken hata oluştu.' });
+  }
+};
+
+
 exports.createOrGetSeller = async (req, res) => {
   try {
     let seller = await Seller.findOne({ user: req.user.id })
@@ -61,6 +99,8 @@ exports.createOrGetSeller = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 exports.getSellerAbout = async (req, res) => {
   try {
     const about = await SellerAbout.findOne({ seller: req.user.id });

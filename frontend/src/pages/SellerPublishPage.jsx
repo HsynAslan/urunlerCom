@@ -182,20 +182,29 @@ const fetchSchemas = async () => {
                 <p>Şema bulunamadı.</p>
               ) : (
                 <ul>
-                  {schemas.map(schema => (
-                    <li key={schema._id}>
-                      <label>
-                        <input
-                          type="radio"
-                          name="schema"
-                          value={schema._id}
-                          onChange={() => setSelectedSchemaId(schema._id)}
-                          checked={selectedSchemaId === schema._id}
-                        />
-                        {schema.name}
-                      </label>
-                    </li>
-                  ))}
+                 {schemas.map(schema => (
+  <li key={schema._id} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
+    <label style={{ flex: 1, cursor: 'pointer' }}>
+      <input
+        type="radio"
+        name="schema"
+        value={schema._id}
+        onChange={() => setSelectedSchemaId(schema._id)}
+        checked={selectedSchemaId === schema._id}
+        style={{ marginRight: '0.5rem' }}
+      />
+      {schema.name}
+    </label>
+    {schema.previewImageUrl && (
+      <img
+        src={schema.previewImageUrl}
+        alt={`${schema.name} önizlemesi`}
+        style={{ width: '100px', height: '60px', objectFit: 'cover', borderRadius: '4px', marginLeft: '1rem' }}
+      />
+    )}
+  </li>
+))}
+
                 </ul>
               )}
 
