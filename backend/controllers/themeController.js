@@ -16,7 +16,7 @@ exports.uploadTheme = async (req, res) => {
       name,
       cssFileUrl,
       previewImageUrl,
-      createdBy: req.user.id,
+      createdBy: req.admin._id,  // burası önemli
     });
     res.status(201).json(theme);
   } catch (error) {

@@ -21,6 +21,7 @@ import AdminUsersPage from './admin/panel/AdminUsers';
 import SellerAboutPage from './pages/SellerAboutPage';
 import SellerPhotosPage from './pages/SellerPhotosPage';
 import SellerPublishPage from './pages/SellerPublishPage';
+import AdminThemePage from './admin/panel/AdminThemePage';
 function LoadingWrapper({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -100,6 +101,17 @@ function App() {
     </ProtectedAdminRoute>
   }
 />
+
+
+<Route
+  path="/admin/theme"
+  element={
+    <ProtectedAdminRoute requireRoles={['edit_theme']}>
+      <AdminThemePage />
+    </ProtectedAdminRoute>
+  }
+/>
+
 
  <Route path="/admin/subadmin" element={
       <ProtectedAdminRoute requireRoles={['super_admin']}>

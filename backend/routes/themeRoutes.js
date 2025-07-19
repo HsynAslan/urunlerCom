@@ -5,11 +5,14 @@ const {
   uploadTheme,
   deleteTheme
 } = require('../controllers/themeController');
-const { protect } = require('../middlewares/authMiddleware');
-const { allowRoles } = require('../middlewares/roleMiddleware');
+const { adminProtect, allowAdminRoles } = require('../middlewares/adminAuthMiddleware');
 
+// Public: temaları listele
 router.get('/', getAllThemes);
-router.post('/', protect, allowRoles('admin'), uploadTheme);
-router.delete('/:id', protect, allowRoles('admin'), deleteTheme);
+
+// Admin korumalı ve yetkili route'lar
+router.post('/', adminProtect, allowAdminRoles('edit_theme'), uploadTheme);
+router.delete('/:id', adminProtect, allowAdminRoles('edit_theme'), deleteTheme);
+
 
 module.exports = router;
