@@ -5,12 +5,7 @@ import axios from 'axios';
 const SellerPublicPage = () => {
   const { sellerId } = useParams();
 
-  const [company, setCompany] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [about, setAbout] = useState('');
-  const [photos, setPhotos] = useState([]);
-  const [theme, setTheme] = useState(null);
-
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -22,19 +17,8 @@ const SellerPublicPage = () => {
         setLoading(true);
         setError(null);
 
-        // Paralel veri çekme
-        const [companyRes, productsRes, aboutRes, photosRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/public/sellers/${sellerId}/store`),
-          axios.get(`http://localhost:5000/api/public/sellers/${sellerId}/products`),
-          axios.get(`http://localhost:5000/api/public/sellers/${sellerId}/about`),
-          axios.get(`http://localhost:5000/api/public/sellers/${sellerId}/photos`)
-        ]);
-
-        setCompany(companyRes.data);
-        setTheme(companyRes.data.theme || null);
-        setProducts(productsRes.data || []);
-        setAbout(aboutRes.data?.content || '');
-        setPhotos(photosRes.data || []);
+        const res = await axios.get(`http://localhost:5000/api/public/sellers/${sellerId}/full`);
+        setData(res.data);
       } catch (err) {
         setError('Veriler yüklenirken hata oluştu.');
         console.error(err);
@@ -49,24 +33,26 @@ const SellerPublicPage = () => {
   if (loading) return <div>Yükleniyor...</div>;
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
+  const { company, products, about, photos } = data;
+
   return (
     <div className="seller-public-page">
-      {theme?.cssContent && (
-        <style dangerouslySetInnerHTML={{ __html: theme.cssContent }} />
+      {company.theme?.cssContent && (
+        <style dangerouslySetInnerHTML={{ __html: company.theme.cssContent }} />
       )}
 
       <header>
-        <h1>{company?.companyName || 'Şirket Adı Bulunamadı'}</h1>
+        <h1>{company.companyName || 'Şirket Adı Bulunamadı'}</h1>
       </header>
 
       <section id="about">
         <h2>Hakkımızda</h2>
-        <p>{about || 'Hakkımızda bilgisi bulunamadı.'}</p>
+        <p>{about.content || 'Hakkımızda bilgisi bulunamadı.'}</p>
       </section>
 
       <section id="contact">
         <h2>İletişim</h2>
-        {company?.contactInfo ? (
+        {company.contactInfo ? (
           <ul>
             {company.contactInfo.phone && <li><strong>Telefon:</strong> {company.contactInfo.phone}</li>}
             {company.contactInfo.email && <li><strong>Email:</strong> {company.contactInfo.email}</li>}
@@ -153,7 +139,7 @@ const SellerPublicPage = () => {
       </section>
 
       <footer style={{ marginTop: '2rem', borderTop: '1px solid #ccc', paddingTop: '1rem', textAlign: 'center', color: '#666' }}>
-        <p>&copy; {new Date().getFullYear()} {company?.companyName || 'Şirket'}</p>
+        <p>&copy; {new Date().getFullYear()} {company.companyName || 'Şirket'}</p>
       </footer>
     </div>
   );

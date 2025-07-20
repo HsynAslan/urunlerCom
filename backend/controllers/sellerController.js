@@ -49,6 +49,7 @@ exports.getStats = async (req, res) => {
 
 exports.selectSchema = async (req, res) => {
   try {
+    // *** Kullanıcının oturum açtığında elinde olan kullanıcı ID'si (User ID) ***
     const userId = req.user._id; // kullanıcı id
 
     const { schemaId } = req.body;
@@ -56,14 +57,15 @@ exports.selectSchema = async (req, res) => {
       return res.status(400).json({ message: 'schemaId gönderilmedi.' });
     }
 
+    // Seçilen tema ID'si ile tema kontrolü yapılıyor
     const theme = await Theme.findById(schemaId);
     if (!theme) {
       return res.status(404).json({ message: 'Seçilen tema bulunamadı.' });
     }
 
-    // seller kaydını userId ile bulup güncelle
+    // *** Seller koleksiyonunda user alanı (User ID) ile kayıt bulunup, seçilen tema ID'si ile güncelleme yapılıyor ***
     const updatedSeller = await Seller.findOneAndUpdate(
-      { user: userId },  // burada user alanını kendi modeline göre değiştir
+      { user: userId },  // burada user alanı seller modelindeki user ObjectId'si
       { selectedTheme: schemaId },
       { new: true }
     );
@@ -72,15 +74,17 @@ exports.selectSchema = async (req, res) => {
       return res.status(404).json({ message: 'Seller bulunamadı.' });
     }
 
+    // *** Güncellenen seller kaydının _id'si (Seller ID) kullanılarak frontend için yayınlanan sayfa URL'si oluşturuluyor ***
     const publishedUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/seller/${updatedSeller._id}`;
 
-
+    // JSON olarak mesaj ve yayınlanan URL dönülüyor
     res.json({ message: 'Tema seçildi.', publishedUrl });
   } catch (error) {
     console.error('Şema seçme hatası:', error);
     res.status(500).json({ message: 'Şema seçilirken hata oluştu.' });
   }
 };
+
 
 
 exports.createOrGetSeller = async (req, res) => {
