@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate  } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/SellerPublicPage.css';
 const SellerPublicPage = () => {
@@ -8,34 +8,70 @@ const SellerPublicPage = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log('Slug param:', slug);
-    if (!slug) return;
-    
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        console.log('api isteiği gitmeden önce:', slug);
-        const res = await axios.get(`http://localhost:5000/api/public/sellers/${slug}/full`);
-        setData(res.data);
-      } catch (err) {
-         console.error('API isteğinde hata:', err);
+useEffect(() => {
+  console.log('Slug param:', slug);
+  if (!slug) return;
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      console.log('api isteiği gitmeden önce:', slug);
+      const res = await axios.get(`http://localhost:5000/api/public/sellers/${slug}/full`);
+      setData(res.data);
+    } catch (err) {
+      console.error('API isteğinde hata:', err);
+      if (err.response?.status === 404) {
+        navigate('/page/not-found');
+      } else {
         setError('Veriler yüklenirken hata oluştu.');
-        console.error(err);
-      } finally {
-        setLoading(false);
       }
-    };
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, [slug]);
+  fetchData();
+}, [slug]);
+
 
 
   
   if (error ) return <div style={{ color: 'red' }}>{error  }</div>;
-if ( !data) return <div style={{ color: 'red' }}>{ 'data bulunamadı.'}</div>;
+if (!data) {
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '80vh',
+      textAlign: 'center'
+    }}>
+      <div className="spinner" />
+      <div style={{ color: 'white', marginTop: '1rem', backgroundColor:'gray' }}>{'Veri Yükleniyor'}</div>
+
+      <style>{`
+        .spinner {
+          width: 60px;
+          height: 60px;
+          border: 5px solid #ccc;
+          border-top: 5px solid #007bff;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  );
+}
+
  // Burada artık data null değil, güvenle destructure edebilirsin
   const { company, products, about, photos } = data;
   return (

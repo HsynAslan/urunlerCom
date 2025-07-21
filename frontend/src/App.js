@@ -105,7 +105,7 @@ function App() {
 
 
   
-  <Route path="/seller/:slug" element={<SellerPublicPage />} />
+  <Route path="/:slug" element={<SellerPublicPage />} />
 
 
 

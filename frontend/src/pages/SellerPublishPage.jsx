@@ -124,7 +124,7 @@ const handleSchemaSelect = async () => {
     // Burada 'slug' state'de zaten mevcut
 
     // Eğer backend sadece sellerId dönerse, frontend'de slug'ı kullanarak url yap
-    const url = `http://localhost:3000/seller/${slug}`;
+    const url = `http://localhost:3000/${slug}`;
     console.log('Yayınlanan URL:', url);
     setPublishedUrl(url);
     setShowSchemaModal(false);
