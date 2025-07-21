@@ -1,35 +1,188 @@
-/* SellerPublicPage.css */
-
-body {
-  background-color: #f9fafb;
-  color: #111827;
-  font-family: 'Segoe UI', sans-serif;
+/* Genel reset ve temel ayarlar */
+.seller-public-page {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  background-color: #fff;
   line-height: 1.6;
-  padding: 20px;
 }
 
-header {
-  background: #1f2937;
-  color: white;
-  padding: 1rem;
-  border-radius: 8px;
+/* Başlıklar */
+.seller-public-page header h1 {
+  font-size: 2.8rem;
+  color: #004080;
+  border-bottom: 3px solid #007acc;
+  padding-bottom: 0.3rem;
   margin-bottom: 2rem;
 }
 
-h1, h2 {
-  color: #2563eb;
+/* Section Başlıkları */
+.seller-public-page section h2 {
+  font-size: 2rem;
+  color: #004080;
+  border-left: 5px solid #007acc;
+  padding-left: 0.5rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
 }
 
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+/* Hakkımızda ve İletişim bölümü */
+#about p,
+#contact p {
+  font-size: 1.1rem;
+  color: #333;
+  min-height: 60px;
+}
+
+/* İletişim listesi */
+#contact ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.05rem;
+  color: #444;
+}
+
+#contact ul li {
+  margin-bottom: 0.5rem;
+}
+
+#contact ul li strong {
+  color: #007acc;
+}
+
+/* Linkler */
+a {
+  color: #007acc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #004080;
+  text-decoration: underline;
+}
+
+/* Fotoğraf galerisi */
+.photo-gallery {
+  display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-.product-photo {
+.photo-gallery figure {
+  max-width: 200px;
+  flex: 1 1 200px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fafafa;
+  transition: transform 0.3s ease;
+}
+
+.photo-gallery figure:hover {
+  transform: scale(1.05);
+}
+
+.photo-gallery img {
   width: 100%;
   height: auto;
+  display: block;
+}
+
+.photo-gallery figcaption {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+}
+
+/* Ürünler bölümü */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 250px;
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgb(0 0 0 / 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 5px 15px rgb(0 0 0 / 0.15);
+}
+
+.product-card img {
+  width: 100%;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  margin-bottom: 0.75rem;
+  object-fit: cover;
+  max-height: 150px;
+}
+
+.product-card h3 {
+  font-size: 1.2rem;
+  color: #004080;
+  margin-bottom: 0.4rem;
+}
+
+.product-card p {
+  font-weight: 600;
+  color: #007acc;
+  margin-bottom: 0.8rem;
+}
+
+/* Ürün açıklama bölümleri */
+.product-card h4 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.product-card ul {
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.product-card ul li {
+  margin-bottom: 0.2rem;
+}
+
+/* Footer */
+footer {
+  margin-top: 3rem;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Responsive (Mobil) */
+@media (max-width: 768px) {
+  .seller-public-page {
+    padding: 0 1rem;
+  }
+
+  .product-list,
+  .photo-gallery {
+    justify-content: center;
+  }
+
+  .product-card,
+  .photo-gallery figure {
+    width: 100%;
+    max-width: 320px;
+  }
 }

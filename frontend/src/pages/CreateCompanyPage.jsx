@@ -52,49 +52,81 @@ const CreateCompanyPage = () => {
     fetchSeller();
   }, [token]);
 
+  // Slug temizleme / normalize fonksiyonu
+const normalizeSlug = (text) => {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/ğ/g, 'g')
+    .replace(/ü/g, 'u')
+    .replace(/ş/g, 's')
+    .replace(/ı/g, 'i')
+    .replace(/ö/g, 'o')
+    .replace(/ç/g, 'c')
+    .replace(/\s+/g, '-')                // Boşlukları tireye çevir
+    .replace(/[^a-z0-9-_]/g, '')         // Türkçe dışı özel karakterleri sil
+    .replace(/-+/g, '-');                // Ardışık tireleri azalt
+};
+
   // Slug kontrolü backend'de
-  const checkSlug = useCallback(async (slugValue) => {
-    if (!slugValue) {
-      setSlugError(null);
-      return;
-    }
-    if (!/^[a-zA-Z0-9-_]+$/.test(slugValue)) {
-      setSlugError('Slug sadece harf, rakam, - ve _ içerebilir.');
-      return;
-    }
-    try {
-      const res = await axios.post('http://localhost:5000/api/sellers/check-slug', { slug: slugValue }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      // Eğer slug mevcut ve bu satıcıya ait değilse hata
-      if (res.data.exists && res.data.exists !== sellerInfo?._id) {
-        setSlugError('Bu slug zaten kullanılıyor.');
-      } else {
-        setSlugError(null);
-      }
-    } catch (err) {
-      console.error('Slug kontrol hatası:', err);
-      setSlugError('Slug kontrolü yapılamadı.');
-    }
-  }, [token, sellerInfo]);
-
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    if (name === 'slug') {
-      setForm(prev => ({ ...prev, slug: value }));
-      checkSlug(value);
-      return;
-    }
-
-    if (name in form.contactInfo) {
-      setForm(prev => ({
-        ...prev,
-        contactInfo: { ...prev.contactInfo, [name]: value }
-      }));
+const checkSlug = useCallback(async (slugValue) => {
+  if (!slugValue) {
+    setSlugError(null);
+    return;
+  }
+  if (!/^[a-zA-Z0-9-_]+$/.test(slugValue)) {
+    showSlugError('Slug sadece harf, rakam, - ve _ içerebilir.');
+    return;
+  }
+  try {
+    const res = await axios.post('http://localhost:5000/api/sellers/check-slug', { slug: slugValue }, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (res.data.exists && res.data.exists !== sellerInfo?._id) {
+      showSlugError('Bu slug zaten kullanılıyor.');
     } else {
-      setForm(prev => ({ ...prev, [name]: value }));
+      setSlugError(null);
     }
-  };
+  } catch (err) {
+    console.error('Slug kontrol hatası:', err);
+    showSlugError('Slug kontrolü yapılamadı.');
+  }
+}, [token, sellerInfo]);
+
+const handleInput = (e) => {
+  const { name, value } = e.target;
+
+  if (name === 'slug') {
+    const cleanedSlug = normalizeSlug(value);
+    setForm(prev => ({ ...prev, slug: cleanedSlug }));
+
+    if (value !== cleanedSlug) {
+      setSlugError('Slug, sadece harf, rakam, tire (-) ve alt tire (_) içermelidir. Otomatik düzeltildi.');
+    } else {
+      setSlugError(null);
+    }
+
+    // ✅ Normalize ettikten sonra kontrol et
+    checkSlug(cleanedSlug);
+    return;
+  }
+
+  if (name in form.contactInfo) {
+    setForm(prev => ({
+      ...prev,
+      contactInfo: { ...prev.contactInfo, [name]: value }
+    }));
+  } else {
+    setForm(prev => ({ ...prev, [name]: value }));
+  }
+};
+
+const showSlugError = (msg) => {
+  setSlugError(msg);
+  setTimeout(() => {
+    setSlugError(null);
+  }, 4000); // 4000 ms = 4 saniye
+};
 
   const handleSave = async () => {
     if (slugError) {

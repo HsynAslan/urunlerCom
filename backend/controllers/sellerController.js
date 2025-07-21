@@ -76,10 +76,7 @@ exports.selectSchema = async (req, res) => {
       return res.status(400).json({ message: 'schemaId gönderilmedi.' });
     }
 
-    if (!slug || !/^[a-zA-Z0-9-_]+$/.test(slug)) {
-      return res.status(400).json({ message: 'Geçersiz slug formatı. Sadece harf, rakam, tire (-) ve alt tire (_) kullanabilirsin.' });
-    }
-
+  
     // Slug başka biri tarafından kullanılıyor mu?
     const existingSeller = await Seller.findOne({ slug });
     if (existingSeller) {

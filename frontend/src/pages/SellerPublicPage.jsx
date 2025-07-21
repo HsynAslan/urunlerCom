@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import '../styles/SellerPublicPage.css';
 const SellerPublicPage = () => {
-  const { sellerId } = useParams();
+  const { slug } = useParams();
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!sellerId) return;
-
+    console.log('Slug param:', slug);
+    if (!slug) return;
+    
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
-
-        const res = await axios.get(`http://localhost:5000/api/public/sellers/${sellerId}/full`);
+        console.log('api isteiği gitmeden önce:', slug);
+        const res = await axios.get(`http://localhost:5000/api/public/sellers/${slug}/full`);
         setData(res.data);
       } catch (err) {
+         console.error('API isteğinde hata:', err);
         setError('Veriler yüklenirken hata oluştu.');
         console.error(err);
       } finally {
@@ -28,13 +30,14 @@ const SellerPublicPage = () => {
     };
 
     fetchData();
-  }, [sellerId]);
+  }, [slug]);
 
-  if (loading) return <div>Yükleniyor...</div>;
-  if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
+  
+  if (error ) return <div style={{ color: 'red' }}>{error  }</div>;
+if ( !data) return <div style={{ color: 'red' }}>{ 'data bulunamadı.'}</div>;
+ // Burada artık data null değil, güvenle destructure edebilirsin
   const { company, products, about, photos } = data;
-
   return (
     <div className="seller-public-page">
       {company.theme?.cssContent && (

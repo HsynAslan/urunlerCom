@@ -10,15 +10,16 @@ const SellerPhoto = require('../models/SellerPhoto');
 const Theme = require('../models/Theme');
 
 
-// Tüm public satıcı verisini tek seferde dönen endpoint
-router.get('/sellers/:sellerId/full', async (req, res) => {
+router.get('/sellers/:slug/full', async (req, res) => {
   try {
-    const sellerId = new mongoose.Types.ObjectId(req.params.sellerId);
-
-    const seller = await Seller.findById(sellerId).populate('theme');
+    console.log('Full seller data request for slug:', req.params.slug);
+    const slug = req.params.slug;
+    
+    const seller = await Seller.findOne({ slug }).populate('theme');
     if (!seller) return res.status(404).json({ message: 'Satıcı bulunamadı' });
 
     const userId = seller.user;
+    const sellerId = seller._id;
 
     const [products, about, photos] = await Promise.all([
       Product.find({ seller: sellerId, isPublished: true }),
@@ -33,6 +34,9 @@ router.get('/sellers/:sellerId/full', async (req, res) => {
         theme: seller.theme
           ? { name: seller.theme.name, cssContent: seller.theme.cssContent }
           : null,
+        slug: seller.slug,
+        sellerId: seller._id,     // 🔧 sellerId eklendi
+        userId: seller.user,      // (isteğe bağlı) userId da eklenebilir
       },
       products,
       about: about || { content: '' },
@@ -43,6 +47,7 @@ router.get('/sellers/:sellerId/full', async (req, res) => {
     res.status(500).json({ message: 'Sunucu hatası' });
   }
 });
+
 
 router.get('/sellers/:slug', async (req, res) => {
   try {

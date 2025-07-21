@@ -103,30 +103,41 @@ const SellerPublishPage = () => {
     }
   };
 
-  const handleSchemaSelect = async () => {
-    if (!selectedSchemaId) {
-      alert('Lütfen bir şema seçin.');
-      return;
-    }
+const handleSchemaSelect = async () => {
+  if (!selectedSchemaId) {
+    alert('Lütfen bir şema seçin.');
+    return;
+  }
 
-    try {
-      setSavingSchema(true);
-      const res = await axios.post(
-        'http://localhost:5000/api/sellers/select-schema',
-        { schemaId: selectedSchemaId },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+  try {
+    setSavingSchema(true);
 
-      setPublishedUrl(res.data.publishedUrl);
-      setShowSchemaModal(false);
-      alert('Şema seçildi ve sayfanız yayınlandı!');
-    } catch (err) {
-      console.error('Şema kaydedilemedi:', err);
-      alert('Şema kaydedilemedi.');
-    } finally {
-      setSavingSchema(false);
-    }
-  };
+    // Backend'e schema seçimini kaydet
+    const res = await axios.post(
+      'http://localhost:5000/api/sellers/select-schema',
+      { schemaId: selectedSchemaId },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    // Backend, seçilen şema ve slug ile yeni URL'yi döndürmeli:
+    // Örnek: { publishedUrl: `http://localhost:3000/seller/${slug}` }
+    // Burada 'slug' state'de zaten mevcut
+
+    // Eğer backend sadece sellerId dönerse, frontend'de slug'ı kullanarak url yap
+    const url = `http://localhost:3000/seller/${slug}`;
+    console.log('Yayınlanan URL:', url);
+    setPublishedUrl(url);
+    setShowSchemaModal(false);
+    alert('Şema seçildi ve sayfanız yayınlandı!');
+  } catch (err) {
+    console.error('Şema kaydedilemedi:', err);
+    
+    alert('Şema kaydedilemedi.');
+  } finally {
+    setSavingSchema(false);
+  }
+};
+
 
   if (loading) return <Spinner />;
 
