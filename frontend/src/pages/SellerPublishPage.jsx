@@ -12,7 +12,6 @@ const SellerPublishPage = () => {
   const [photos, setPhotos] = useState([]);
   const [errors, setErrors] = useState([]);
 
-  // Modal ve şema seçimi için state'ler
   const [showSchemaModal, setShowSchemaModal] = useState(false);
   const [schemas, setSchemas] = useState([]);
   const [selectedSchemaId, setSelectedSchemaId] = useState(null);
@@ -21,32 +20,52 @@ const SellerPublishPage = () => {
 
   const token = localStorage.getItem('token');
 
+  // İlk aşamada sellerInfo (slug dahil) çekilecek
+  const [slug, setSlug] = useState(null);
+
+  // 1. sellerInfo ve slug'ı al
   useEffect(() => {
-    const fetchAll = async () => {
+    const fetchSellerInfo = async () => {
       try {
-        const headers = { Authorization: `Bearer ${token}` };
-
-        const [companyRes, productsRes, aboutRes, photosRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/sellers/store', { headers }),
-          axios.get('http://localhost:5000/api/products/mine', { headers }),
-          axios.get('http://localhost:5000/api/sellers/about', { headers }),
-          axios.get('http://localhost:5000/api/sellers/photos', { headers }),
-        ]);
-
-        setCompany(companyRes.data);
-        setProducts(productsRes.data);
-        setAbout(aboutRes.data?.content || '');
-        setPhotos(photosRes.data);
+        const res = await axios.get('http://localhost:5000/api/sellers/store', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setSlug(res.data.slug);  // slug backend’den geliyor varsayalım
       } catch (err) {
-        console.error('Bir şeyler ters gitti:', err);
+        console.error('Satıcı bilgisi alınamadı:', err);
+        setErrors(['Satıcı bilgisi alınamadı.']);
+        setLoading(false);
+      }
+    };
+
+    fetchSellerInfo();
+  }, [token]);
+
+  // 2. slug geldikten sonra detaylı public veriyi çek
+  useEffect(() => {
+    if (!slug) return;
+
+    const fetchPublicSellerData = async () => {
+      setLoading(true);
+      try {
+        const baseUrl = `http://localhost:5000/api/public/sellers/${slug}`;
+        const res = await axios.get(baseUrl);
+
+        setCompany(res.data.company);
+        setProducts(res.data.products);
+        setAbout(res.data.about?.content || '');
+        setPhotos(res.data.photos);
+        setErrors([]);
+      } catch (err) {
+        console.error('Public satıcı verisi alınamadı:', err);
         setErrors(['Veriler alınırken hata oluştu.']);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchAll();
-  }, [token]);
+    fetchPublicSellerData();
+  }, [slug]);
 
   const checkDataCompleteness = () => {
     const errorList = [];
@@ -60,35 +79,30 @@ const SellerPublishPage = () => {
     return errorList.length === 0;
   };
 
-  // Devam Et tıklanınca validasyon + modal açma
   const handleContinue = () => {
     if (checkDataCompleteness()) {
-      // Şemalar API'dan çekilir ve modal açılır
       fetchSchemas();
     } else {
       alert('Lütfen eksik bilgileri tamamlayın.');
     }
   };
 
-  // Şemaları backend'den çek
-const fetchSchemas = async () => {
-  try {
-    setLoading(true);
-    const res = await axios.get('http://localhost:5000/api/themes', {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setSchemas(res.data);
-    setShowSchemaModal(true);
-  } catch (err) {
-    console.error('Şemalar alınamadı:', err);
-    alert('Şemalar alınamadı.');
-  } finally {
-    setLoading(false);
-  }
-};
+  const fetchSchemas = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get('http://localhost:5000/api/themes', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSchemas(res.data);
+      setShowSchemaModal(true);
+    } catch (err) {
+      console.error('Şemalar alınamadı:', err);
+      alert('Şemalar alınamadı.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-
-  // Şema seçimi ve kaydetme
   const handleSchemaSelect = async () => {
     if (!selectedSchemaId) {
       alert('Lütfen bir şema seçin.');
@@ -97,14 +111,12 @@ const fetchSchemas = async () => {
 
     try {
       setSavingSchema(true);
-      // Backend'e seçimi kaydet (örnek endpoint)
       const res = await axios.post(
         'http://localhost:5000/api/sellers/select-schema',
         { schemaId: selectedSchemaId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // Örnek: backend’den size seller URL’si döner
       setPublishedUrl(res.data.publishedUrl);
       setShowSchemaModal(false);
       alert('Şema seçildi ve sayfanız yayınlandı!');
@@ -132,11 +144,14 @@ const fetchSchemas = async () => {
           {company ? (
             <ul>
               <li><strong>Şirket Adı:</strong> {company.companyName}</li>
+              <li><strong>Sayfa URL'si (slug):</strong> {slug || '-'}</li>
               <li><strong>Telefon:</strong> {company.contactInfo?.phone}</li>
               <li><strong>Email:</strong> {company.contactInfo?.email}</li>
               <li><strong>Adres:</strong> {company.contactInfo?.address}</li>
             </ul>
-          ) : <p>Bilgi bulunamadı.</p>}
+          ) : (
+            <p>Bilgi bulunamadı.</p>
+          )}
         </div>
 
         <div className="section">
@@ -182,29 +197,28 @@ const fetchSchemas = async () => {
                 <p>Şema bulunamadı.</p>
               ) : (
                 <ul>
-                 {schemas.map(schema => (
-  <li key={schema._id} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
-    <label style={{ flex: 1, cursor: 'pointer' }}>
-      <input
-        type="radio"
-        name="schema"
-        value={schema._id}
-        onChange={() => setSelectedSchemaId(schema._id)}
-        checked={selectedSchemaId === schema._id}
-        style={{ marginRight: '0.5rem' }}
-      />
-      {schema.name}
-    </label>
-    {schema.previewImageUrl && (
-      <img
-        src={schema.previewImageUrl}
-        alt={`${schema.name} önizlemesi`}
-        style={{ width: '100px', height: '60px', objectFit: 'cover', borderRadius: '4px', marginLeft: '1rem' }}
-      />
-    )}
-  </li>
-))}
-
+                  {schemas.map(schema => (
+                    <li key={schema._id} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
+                      <label style={{ flex: 1, cursor: 'pointer' }}>
+                        <input
+                          type="radio"
+                          name="schema"
+                          value={schema._id}
+                          onChange={() => setSelectedSchemaId(schema._id)}
+                          checked={selectedSchemaId === schema._id}
+                          style={{ marginRight: '0.5rem' }}
+                        />
+                        {schema.name}
+                      </label>
+                      {schema.previewImageUrl && (
+                        <img
+                          src={schema.previewImageUrl}
+                          alt={`${schema.name} önizlemesi`}
+                          style={{ width: '100px', height: '60px', objectFit: 'cover', borderRadius: '4px', marginLeft: '1rem' }}
+                        />
+                      )}
+                    </li>
+                  ))}
                 </ul>
               )}
 

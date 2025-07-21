@@ -10,7 +10,8 @@ const {
   getSellerPhotos,
   addSellerPhoto,
   deleteSellerPhoto,
-  selectSchema
+  selectSchema,
+  checkSlug
 } = require('../controllers/sellerController');
 const { protect } = require('../middlewares/authMiddleware');
 const { allowRoles } = require('../middlewares/roleMiddleware');
@@ -22,6 +23,7 @@ const { allowRoles } = require('../middlewares/roleMiddleware');
   router.delete('/photos/:id', protect, allowRoles('seller'), deleteSellerPhoto);
   router.get('/photos', protect, allowRoles('seller'), getSellerPhotos);
   router.post('/photos', protect, allowRoles('seller'), addSellerPhoto);
+router.post('/check-slug', checkSlug);
 
 // router.get('/store', protect, allowRoles('seller'), getSellerInfo); 
 router.put('/update', protect, allowRoles('seller'), updateSellerInfo);

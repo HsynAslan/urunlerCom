@@ -47,26 +47,55 @@ exports.getStats = async (req, res) => {
 };
 
 
+
+exports.checkSlug = async (req, res) => {
+  try {
+    const { slug } = req.body;
+    if (!slug || !/^[a-zA-Z0-9-_]+$/.test(slug)) {
+      return res.status(400).json({ message: 'Geçersiz slug formatı.' });
+    }
+
+    const existing = await Seller.findOne({ slug });
+    if (existing) {
+      return res.json({ exists: true });
+    }
+    res.json({ exists: false });
+  } catch (err) {
+    console.error('Slug kontrol hatası:', err);
+    res.status(500).json({ message: 'Sunucu hatası' });
+  }
+};
+
+
 exports.selectSchema = async (req, res) => {
   try {
-    // *** Kullanıcının oturum açtığında elinde olan kullanıcı ID'si (User ID) ***
-    const userId = req.user._id; // kullanıcı id
+    const userId = req.user._id;
+    const { schemaId, slug } = req.body;
 
-    const { schemaId } = req.body;
     if (!schemaId) {
       return res.status(400).json({ message: 'schemaId gönderilmedi.' });
     }
 
-    // Seçilen tema ID'si ile tema kontrolü yapılıyor
+    if (!slug || !/^[a-zA-Z0-9-_]+$/.test(slug)) {
+      return res.status(400).json({ message: 'Geçersiz slug formatı. Sadece harf, rakam, tire (-) ve alt tire (_) kullanabilirsin.' });
+    }
+
+    // Slug başka biri tarafından kullanılıyor mu?
+    const existingSeller = await Seller.findOne({ slug });
+    if (existingSeller) {
+      return res.status(400).json({ message: 'Bu URL (slug) zaten kullanılıyor. Lütfen başka bir tane deneyin.' });
+    }
+
+    // Tema ID'si geçerli mi?
     const theme = await Theme.findById(schemaId);
     if (!theme) {
       return res.status(404).json({ message: 'Seçilen tema bulunamadı.' });
     }
 
-    // *** Seller koleksiyonunda user alanı (User ID) ile kayıt bulunup, seçilen tema ID'si ile güncelleme yapılıyor ***
+    // Güncelleme işlemi
     const updatedSeller = await Seller.findOneAndUpdate(
-      { user: userId },  // burada user alanı seller modelindeki user ObjectId'si
-      { selectedTheme: schemaId },
+      { user: userId },
+      { theme: schemaId, slug },
       { new: true }
     );
 
@@ -74,17 +103,15 @@ exports.selectSchema = async (req, res) => {
       return res.status(404).json({ message: 'Seller bulunamadı.' });
     }
 
-    // *** Güncellenen seller kaydının _id'si (Seller ID) kullanılarak frontend için yayınlanan sayfa URL'si oluşturuluyor ***
-    const publishedUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/seller/${updatedSeller._id}`;
+    const publishedUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/seller/${updatedSeller.slug}`;
 
-    // JSON olarak mesaj ve yayınlanan URL dönülüyor
-    res.json({ message: 'Tema seçildi.', publishedUrl });
+    res.json({ message: 'Tema ve URL başarıyla kaydedildi.', publishedUrl });
+
   } catch (error) {
     console.error('Şema seçme hatası:', error);
     res.status(500).json({ message: 'Şema seçilirken hata oluştu.' });
   }
 };
-
 
 
 exports.createOrGetSeller = async (req, res) => {
