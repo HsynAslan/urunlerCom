@@ -1,67 +1,80 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../styles/SellerAboutPage.css'; // Stil dosyasını ekleyin
+import { toast } from 'react-toastify';
+import '../styles/SellerAboutPage.css';
 import SellerSidebar from '../components/SellerSidebar';
+import 'react-toastify/dist/ReactToastify.css';
+
 const SellerAboutPage = () => {
   const [content, setContent] = useState('');
-const token = localStorage.getItem('token');
-   
-useEffect(() => {
-  const token = localStorage.getItem('token');
-  axios
-    .get('http://localhost:5000/api/sellers/about', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then(res => {
-      setContent(res.data.content || '');
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Veri alınamadı.");
-     });
-}, []);
-const handleSave = async () => {
-  const token = localStorage.getItem('token');
-  try {
-    await axios.put(
-      'http://localhost:5000/api/sellers/about',
-      { content },
-      {
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios
+      .get('http://localhost:5000/api/sellers/about', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
-    );
-    alert('Kaydedildi!');
-  } catch (err) {
-    console.error(err);
-    alert("Kaydetme işlemi başarısız.");
-  }
-};
+      })
+      .then((res) => {
+        setContent(res.data.content || '');
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error('❌ Veri alınamadı.');
+      });
+  }, []);
+
+  const handleSave = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.put(
+        'http://localhost:5000/api/sellers/about',
+        { content },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success('✅ Kaydedildi!');
+    } catch (err) {
+      console.error(err);
+      toast.error('❌ Kaydetme işlemi başarısız.');
+    }
+  };
 
   return (
-    <>
-    <div className="sidebar">
+    <div className="seller-layout">
+      <div className="seller-sidebar">
         <SellerSidebar />
       </div>
-    <div className="about-page-container">
-      <h2 className="about-title">Hakkımda Sayfası</h2>
-      <textarea
-        className="about-textarea"
-        value={content}
-        onChange={e => setContent(e.target.value)}
-        rows={10}
-        placeholder="Hakkınızda bir şeyler yazın..."
-      />
-      <button className="save-button" onClick={handleSave}>
-        Kaydet
-      </button>
+      <div className="seller-content">
+        <div className="page-header">
+          <span className="emoji">🧾</span>
+          <span>Hakkımda</span>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label" htmlFor="about">
+            Hakkınızda yazı
+          </label>
+          <textarea
+            id="about"
+            className="form-textarea"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Hakkınızda bir şeyler yazın..."
+            rows={10}
+          />
+        </div>
+
+        <button className="form-button" onClick={handleSave}>
+          Kaydet
+        </button>
+      </div>
     </div>
-     </>
   );
- 
 };
 
 export default SellerAboutPage;
