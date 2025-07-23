@@ -1,12 +1,12 @@
 {
-  "mainPage.title": "Take Your Products to the Digital World",
-  "mainPage.subtitle": "Create your own store, manage products easily and reach your customers.",
-  "mainPage.featuresTitle": "What We Offer?",
+  "mainPage.title": "Bring Your Products to the Digital World",
+  "mainPage.subtitle": "Create your own store, manage your products easily, and reach your customers.",
+  "mainPage.featuresTitle": "What We Offer",
   "mainPage.feature1": "Easy Store Setup",
-  "mainPage.feature2": "Product & Order Tracking",
-  "mainPage.feature3": "Multi-language Support",
+  "mainPage.feature2": "Product and Order Tracking",
+  "mainPage.feature3": "Multilingual Support",
   "mainPage.feature4": "Secure Payment Infrastructure",
-  "mainPage.feature5": "Mobile Responsive Interface",
+  "mainPage.feature5": "Mobile-Friendly Interface",
   "mainPage.ctaTitle": "Get Started Now!",
   "mainPage.ctaText": "Create a free account and start selling in minutes.",
   "mainPage.login": "Login",
@@ -14,19 +14,17 @@
   "mainPage.footerAbout": "Urunler.com - The ideal solution for your digital store.",
   "mainPage.footerContact": "Contact Us",
   "mainPage.footerRights": "All rights reserved.",
-  "mainPage.languageSwitch": "Switch Language",
-  
-  
+  "mainPage.languageSwitch": "Change Language",
+
   "LoginPage": {
     "title": "Login",
     "email": "Email",
     "password": "Password",
     "loginButton": "Login",
-    "forgotPassword": "Forgot password?",
+    "forgotPassword": "Forgot Password?",
     "noAccount": "Don't have an account?",
     "registerNow": "Register Now"
   },
-
 
   "RegisterPage": {
     "title": "Register",
@@ -41,79 +39,176 @@
     "passwordMismatch": "Passwords do not match",
     "registering": "Registering...",
     "termsTitle": "Terms of Service",
-    "termsText": "1. Acceptance and Definitions\n- By creating a seller account on \"urunlerim.com\" (the Platform), you agree to these terms.\n- \"Seller\": Real person or legal entity listing products/services.\n- \"Buyer\": User contacting sellers through the Platform.\n\n2. Account and Plan Conditions\n- Free Plan: 3 theme options, product add/edit features, and Turkish language support. QR code generation is free.\n- Premium Plan: Dynamic URLs, multi-language support, and order acceptance features require monthly payment.\n- Your account information (email, company details) must be accurate and up-to-date.\n\n3. Seller Obligations\n- You may not list illegal, counterfeit, or copyright-infringing products/services.\n- You must communicate honestly and transparently with buyers.\n- Premium sellers are obligated to fulfill orders promptly under specified conditions.\n\n4. Intellectual Property\n- You warrant that you have rights to all uploaded content (images, text).\n\n5. Termination and Violations\n- The Platform may suspend or delete accounts violating these terms without warning.\n- Paid plan cancellations are subject to refund policies.\n\n6. Liability Limitation\n- The Platform is not responsible for disputes between sellers and buyers.\n\n7. Privacy and Data Usage\n- Your personal data will be processed per the Privacy Policy.\n\n8. Modifications\n- These terms may be updated with prior notice.",
+    "termsText": "1. Acceptance and Definitions\n- By opening a seller account on \"urunlerim.com\" (Platform), you accept these terms.\n- \"Seller\": A natural or legal person listing products/services.\n- \"Buyer\": A user contacting sellers through the platform.\n\n2. Account and Plan Conditions\n- Free Plan: Offers 3 theme options, product addition/editing, and Turkish language support. QR code generation is free.\n- Premium Plan: Monthly fee required for dynamic URLs, multilingual support, and order receiving features.\n- Your account information (email, company details) must be accurate and up-to-date.\n\n3. Seller Obligations\n- You may not add illegal, fake, or copyright-infringing products/services.\n- Sellers must communicate honestly and transparently with buyers.\n- Premium sellers are responsible for timely and proper order fulfillment.\n\n4. Intellectual Property\n- You guarantee that you hold usage rights for the content (images, text) you upload.\n\n5. Cancellation and Violations\n- The platform may suspend or delete accounts violating terms without warning.\n- Refund policies apply for paid plan cancellations.\n\n6. Liability Limitations\n- The platform is not responsible for disputes between sellers and buyers.\n\n7. Privacy and Data Usage\n- Your personal data is processed in accordance with the Privacy Policy.\n\n8. Changes\n- Terms of service may be updated with prior notice.",
     "acceptTerms": "I have read and understood",
     "confirm": "Confirm",
     "cancel": "Cancel",
     "pleaseAcceptTerms": "Please read and accept the terms of service.",
-     "verificationSentTitle": "Verification Email Sent",
-"verificationSentMessage": "A verification email has been sent to your email address, please check it.",
-"ok":"Okey",
-"isCustomer": "Are You Customer?"
+    "verificationSentTitle": "Verification Email Sent",
+    "verificationSentMessage": "A verification email has been sent to your address. Please check your inbox.",
+    "ok": "OK",
+    "isCustomer": "Are you a customer?"
   },
 
-  "SellerDashboard":{
-     "welcome": "Welcome to Your Store Dashboard!",
-  "description": "From this panel, you can update your store information, manage your products, and customize your themes."
+  "SellerDashboard": {
+    "welcome": "Welcome to the Store Dashboard!",
+    "description": "From this panel, you can update your store information, manage your products, and customize themes."
   },
 
   "sellerSidebar": {
-  "store": "Store",
-  "createCompany": "Your Company",
-  "companyInfo": "Company Information",
-  "addProduct": "Add Product",
-  "editProducts": "Edit Products",
-  "statistics": "Company Statistics",
-  "plans": "Plans",
-  "freePlan": "Free Plan",
-  "premiumPlan": "Premium Plan",
-  "businessPlan": "Business Plan",
-  "loadingUser": "Loading..."
-},
+    "store": "Store",
+    "createCompany": "Your Company",
+    "companyInfo": "Company Information",
+    "addProduct": "Add Product",
+    "editProducts": "Edit Products",
+    "statistics": "Company Statistics",
+    "plans": "Plans",
+    "freePlan": "Free Plan",
+    "premiumPlan": "Premium Plan",
+    "businessPlan": "Business Plan",
+    "loadingUser": "Loading...",
+    "aboutPages": "About Pages",
+    "photoPages": "Photo Gallery",
+    "publishPages": "Publish Pages",
+    "logout": "Logout"
+  },
 
-"sellerCreateCompany": {
-  "title": "Create or Edit Company",
-  "companyName": "Company Name",
-  "phone": "Phone",
-  "email": "Email",
-  "address": "Address",
-  "website": "Website",
-  "location": "Location",
-  "instagram": "Instagram",
-  "edit": "Edit",
-  "editCompany": "Edit Company Information",
-  "save": "Save",
-  "cancel": "Cancel",
-  "loading": "Loading..."
-},
-"productAdd": {
-  "title": "Add New Product",
-  "name": "Product Name",
-  "slug": "Slug",
-  "description": "Description",
-  "price": "Price",
-  "priceCurrency": "Currency",
-  "stock": "Stock",
-  "stockUnit": "Stock Unit",
-  "add": "Add",
-  "success": "Product added successfully.",
-  "error": "An error occurred while adding the product.",
-  "photos": "Photos",
-  "addPhoto": "Add Photo",
-  "showcasePhoto": "Showcase Photo",
-  "descriptionSections": "Description Sections",
-  "addSection": "Add New Section",
-  "addItem": "Add Item",
-  "sectionTitle": "Section Title",
-  "sectionItem": "Item",
+  "sellerCreateCompany": {
+    "title": "Create or Edit Company",
+    "companyName": "Company Name",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "website": "Website",
+    "location": "Location",
+    "instagram": "Instagram",
+    "edit": "Edit",
+    "editCompany": "Edit Company Information",
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading..."
+  },
+
+  "productAdd": {
+    "title": "Add New Product",
+    "name": "Product Name",
+    "slug": "Slug",
+    "price": "Price",
+    "priceCurrency": "Currency",
+    "stock": "Stock",
+    "stockUnit": "Stock Unit",
+    "photos": "Photos",
+    "addPhoto": "Add Photo",
     "noPhoto": "No photos yet.",
-  "makeShowcase": "Set as showcase photo",
-  "photoAlt": "Product photo"
-}
+    "showcasePhoto": "Showcase Photo",
+    "makeShowcase": "Make Showcase Photo",
+    "descriptionSections": "Description Sections",
+    "sectionTitle": "Title",
+    "sectionItem": "Item",
+    "addItem": "Add Item",
+    "addSection": "Add New Section",
+    "add": "Add",
+    "success": "Product added successfully.",
+    "error": "An error occurred while adding the product.",
+    "enterPhotoUrl": "Enter photo URL:"
+  },
 
+  "productList": {
+    "title": "My Products",
+    "loadError": "Failed to load products.",
+    "confirmDelete": "Are you sure you want to delete this product?",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
 
+  "productEdit": {
+    "title": "Edit Product",
+    "name": "Product Name",
+    "price": "Price",
+    "priceCurrency": "Currency",
+    "stock": "Stock",
+    "stockUnit": "Stock Unit",
+    "descriptionSections": "Descriptions",
+    "sectionTitle": "Title",
+    "sectionItems": "Descriptions",
+    "removeItem": "Remove",
+    "addItem": "Add New Description Line",
+    "removeSection": "Remove Section",
+    "addSection": "Add New Description Section",
+    "images": "Images (separated by commas)",
+    "showcaseImageIndex": "Showcase Image Index",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
 
+  "sellerAbout": {
+    "title": "About",
+    "textLabel": "About Text",
+    "placeholder": "Write something about yourself...",
+    "save": "Save",
+    "success": "Saved!",
+    "fetchError": "Failed to fetch data.",
+    "saveError": "Failed to save."
+  },
 
+  "photoList": {
+    "title": "My Photos",
+    "imageUrl": "Image URL",
+    "caption": "Caption",
+    "captionPlaceholder": "Showcase image etc.",
+    "add": "Add",
+    "delete": "Delete",
+    "photoAlt": "Photo",
+    "fetchError": "Failed to load photos.",
+    "addError": "Failed to add photo.",
+    "deleteError": "Failed to delete photo.",
+    "added": "Photo added.",
+    "deleted": "Photo deleted."
+  },
 
-
+  "publishPage": {
+    "title": "Prepare to Publish Page",
+    "companyInfo": "Company Information",
+    "companyName": "Company Name",
+    "slug": "Page URL (slug)",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "noData": "No data found.",
+    "products": "Products",
+    "about": "About Me",
+    "noAbout": "No text added yet.",
+    "photos": "Photos",
+    "photoAlt": "Photo",
+    "errors": {
+      "title": "Missing items:",
+      "sellerInfo": "Seller information could not be retrieved.",
+      "publicData": "Error occurred while fetching data.",
+      "companyInfo": "Company information is missing.",
+      "products": "At least one product must be added.",
+      "about": "About text is insufficient.",
+      "photos": "At least one photo must be added.",
+      "schemas": "Schemas could not be retrieved.",
+      "saveSchema": "Schema could not be saved."
+    },
+    "warnings": {
+      "completeData": "Please complete missing information."
+    },
+    "info": {
+      "selectSchema": "Please select a schema."
+    },
+    "success": {
+      "published": "Schema selected and your page has been published!"
+    },
+    "continue": "Continue",
+    "schemaModal": {
+      "title": "Select a Schema",
+      "noSchemas": "No schemas found.",
+      "previewAlt": "preview",
+      "saving": "Saving...",
+      "confirm": "Confirm and Publish",
+      "cancel": "Cancel"
+    },
+    "publishedUrlLabel": "Your page has been published at:"
+  }
 }

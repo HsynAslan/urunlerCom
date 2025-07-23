@@ -162,9 +162,51 @@
   "deleteError": "Fotoğraf silinemedi.",
   "added": "Fotoğraf eklendi.",
   "deleted": "Fotoğraf silindi."
+  },
+  "publishPage":{
+     "title": "Sayfayı Yayınlamaya Hazırla",
+  "companyInfo": "Şirket Bilgileri",
+  "companyName": "Şirket Adı",
+  "slug": "Sayfa URL'si (slug)",
+  "phone": "Telefon",
+  "email": "Email",
+  "address": "Adres",
+  "noData": "Bilgi bulunamadı.",
+  "products": "Ürünler",
+  "about": "Hakkımda",
+  "noAbout": "Henüz yazı eklenmemiş.",
+  "photos": "Fotoğraflar",
+  "photoAlt": "Fotoğraf",
+  "errors": {
+    "title": "Eksikler:",
+    "sellerInfo": "Satıcı bilgisi alınamadı.",
+    "publicData": "Veriler alınırken hata oluştu.",
+    "companyInfo": "Şirket bilgileri eksik.",
+    "products": "En az bir ürün eklenmeli.",
+    "about": "Hakkımda yazısı yeterli değil.",
+    "photos": "En az bir fotoğraf eklenmeli.",
+    "schemas": "Şemalar alınamadı.",
+    "saveSchema": "Şema kaydedilemedi."
+  },
+  "warnings": {
+    "completeData": "Lütfen eksik bilgileri tamamlayın."
+  },
+  "info": {
+    "selectSchema": "Lütfen bir şema seçin."
+  },
+  "success": {
+    "published": "Şema seçildi ve sayfanız yayınlandı!"
+  },
+  "continue": "Devam Et",
+  "schemaModal": {
+    "title": "Şema Seçiniz",
+    "noSchemas": "Şema bulunamadı.",
+    "previewAlt": "önizlemesi",
+    "saving": "Kaydediliyor...",
+    "confirm": "Onayla ve Yayınla",
+    "cancel": "İptal"
+  },
+  "publishedUrlLabel": "Sayfanız yayınlandı:"
   }
-
-
-
 
 }

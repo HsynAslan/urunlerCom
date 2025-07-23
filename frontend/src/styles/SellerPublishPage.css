@@ -1,82 +1,318 @@
-.publish-page-container {
+/* Genel düzen ve layout */
+.seller-layout {
   display: flex;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
 }
 
-.publish-page-content {
-  flex: 1;
-  padding: 2em;
-  background: #f9f9f9;
+
+
+/* Ana içerik alanı */
+.seller-content {
+    
+    padding: 2rem 3rem;
+    max-width: 78%;
+    margin-left: 20% !important;
+    box-sizing: border-box;
+    background-color: white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+   
 }
 
-.section {
-  margin-bottom: 2em;
-  background: white;
-  padding: 1em;
-  border-radius: 8px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+/* Başlık ve emoji */
+.page-header {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
+.page-header .emoji {
+  font-size: 2rem;
+}
+
+/* Her bölüm için */
+.publish-section {
+  margin-bottom: 2rem;
+}
+
+
+
+/* Liste stilleri */
+.company-info-list,
+.products-list,
+.error-box ul,
+.schema-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.company-info-list li,
+.products-list li,
+.error-box ul li {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* Hakkımda bölümü paragraf */
+.publish-section p {
+  line-height: 1.5;
+  color: #444;
+}
+
+/* Fotoğraf ızgarası */
 .photo-preview-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
 }
 
-.photo-preview-grid img {
-  width: 100px;
-  height: 100px;
+.photo-preview-img {
+  width: 150px;
+  height: 90px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   border: 1px solid #ddd;
-}
-
-.error-box {
-  background-color: #ffe6e6;
-  padding: 1em;
-  border: 1px solid #ff4d4d;
-  border-radius: 6px;
-  margin-top: 1em;
-}
-
-.publish-btn {
-  padding: 1em 2em;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 6px;
+  transition: transform 0.2s ease;
   cursor: pointer;
 }
 
+.photo-preview-img:hover {
+  transform: scale(1.05);
+  border-color: #007accbe;
+}
+
+/* Hata kutusu */
+.error-box {
+  background-color: #ffe6e6;
+  border: 1px solid #ff4d4d;
+  color: #b30000;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+
+/* Buton genel stili */
+.form-button {
+  background-color: #007acc;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.form-button:hover:not(:disabled) {
+  background-color: #007accbe;
+}
+
+.form-button:disabled {
+  background-color: #a0c4e7;
+  cursor: not-allowed;
+}
+
+/* Yayınla butonu */
+.publish-btn {
+  margin-top: 1.5rem;
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 0.8rem;
+}
+
+
+
+
+
+/* Yayınlanan URL kutusu */
+.published-url-box {
+  background-color: #e6f4ea;
+  border: 1px solid #4caf50;
+  color: #2e7d32;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  margin-top: 1.5rem;
+  word-break: break-all;
+  font-weight: 600;
+}
+
+/* Modal genel overlay */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
+  inset: 0; /* top, right, bottom, left = 0 */
+  background-color: rgba(0, 0, 0, 0.45);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-}
-.modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 6px;
-  max-width: 400px;
-  width: 90%;
-}
-.modal-content ul {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0;
-}
-.modal-content li {
-  margin-bottom: 0.5rem;
-}
-.published-url-box {
-  margin-top: 1rem;
-  background-color: #e0ffe0;
+  z-index: 1100;
   padding: 1rem;
-  border-radius: 6px;
+}
+
+/* Modal kutusu */
+.modal-content {
+ background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2.5rem 2rem 2rem 2rem;
+    width: 50%;
+    height: 80%;
+    max-width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Modal başlık */
+.modal-content h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #007acc;
+  margin-bottom: 1.75rem;
+  user-select: none;
+}
+
+/* Şema listesi */
+.schema-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 2rem;
+ 
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fafafa;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Şema tek satır */
+.schema-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.schema-item:last-child {
+  border-bottom: none;
+}
+
+.schema-item:hover {
+  background-color: #e6f0fa;
+}
+
+/* Radio input gizli, label ile özel stil */
+.schema-item input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid #007acc;
+  border-radius: 50%;
+  margin-right: 16px;
+  position: relative;
+  cursor: pointer;
+  outline-offset: 3px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.schema-item input[type="radio"]:checked {
+  background-color: #007acc;
+  border-color: #005fa3;
+}
+
+.schema-item input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+/* Şema ismi */
+.schema-item label {
+  flex: 1;
+  font-weight: 600;
+  color: #222;
+  user-select: none;
+}
+
+/* Şema görsel önizleme */
+.schema-item img {
+    width: 50% !important;
+    height: auto !important;
+   
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    margin-left: 1.25rem;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.schema-item:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Butonlar container */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Genel buton stili */
+.form-button {
+  padding: 0.65rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 122, 204, 0.3);
+}
+
+/* Onay butonu */
+.form-button:not(.cancel-btn) {
+  background-color: #007acc;
+  color: white;
+}
+
+.form-button:not(.cancel-btn):hover:not(:disabled) {
+  background-color: #005fa3;
+  box-shadow: 0 4px 12px rgba(0, 95, 163, 0.5);
+}
+
+.form-button:disabled {
+  background-color: #a0c4e7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* İptal butonu */
+.cancel-btn {
+  background-color: #e0e0e0;
+  color: #555;
+  box-shadow: none;
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background-color: #bdbdbd;
+  color: #333;
 }
