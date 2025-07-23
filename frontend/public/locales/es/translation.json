@@ -1,0 +1,214 @@
+{
+  "mainPage.title": "Lleva tus productos al mundo digital",
+  "mainPage.subtitle": "Crea tu propia tienda, administra tus productos fácilmente y llega a tus clientes.",
+  "mainPage.featuresTitle": "¿Qué ofrecemos?",
+  "mainPage.feature1": "Configuración fácil de la tienda",
+  "mainPage.feature2": "Seguimiento de productos y pedidos",
+  "mainPage.feature3": "Soporte multilingüe",
+  "mainPage.feature4": "Infraestructura de pago segura",
+  "mainPage.feature5": "Interfaz móvil compatible",
+  "mainPage.ctaTitle": "¡Empieza ahora!",
+  "mainPage.ctaText": "Crea una cuenta gratuita y comienza a vender en minutos.",
+  "mainPage.login": "Iniciar sesión",
+  "mainPage.register": "Registrarse",
+  "mainPage.footerAbout": "Urunler.com - La solución ideal para tu tienda digital.",
+  "mainPage.footerContact": "Contáctanos",
+  "mainPage.footerRights": "Todos los derechos reservados.",
+  "mainPage.languageSwitch": "Cambiar idioma",
+
+  "LoginPage": {
+    "title": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "loginButton": "Entrar",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes una cuenta?",
+    "registerNow": "Regístrate ahora"
+  },
+
+  "RegisterPage": {
+    "title": "Registrarse",
+    "name": "Nombre completo",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "registerButton": "Registrarse",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "loginNow": "Inicia sesión ahora",
+    "isSeller": "¿Eres vendedor?",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "registering": "Registrando...",
+    "termsTitle": "Términos de Servicio",
+    "termsText": "1. Aceptación y definiciones\n- Al abrir una cuenta de vendedor en \"urunlerim.com\" (Plataforma) aceptas estos términos.\n- \"Vendedor\": Persona física o jurídica que lista productos/servicios.\n- \"Comprador\": Usuario que contacta con vendedores a través de la plataforma.\n\n2. Condiciones de cuenta y planes\n- Plan gratuito: Ofrece 3 opciones de tema, añadir/editar productos y soporte en turco. La generación de códigos QR es gratuita.\n- Plan Premium: Se requiere pago mensual para URLs dinámicas, soporte multilingüe y gestión de pedidos.\n- La información de tu cuenta (correo, datos de la empresa) debe ser correcta y estar actualizada.\n\n3. Obligaciones del vendedor\n- No se pueden añadir productos/servicios ilegales, falsificados o que infrinjan derechos de autor.\n- Los vendedores deben comunicarse de manera honesta y transparente con los compradores.\n- Los vendedores premium deben cumplir con los pedidos a tiempo y según lo acordado.\n\n4. Propiedad intelectual\n- Garantizas tener los derechos de uso sobre los contenidos (imágenes, textos) que subas.\n\n5. Cancelaciones e infracciones\n- La plataforma puede suspender o eliminar cuentas que violen los términos sin previo aviso.\n- Se aplican políticas de reembolso para cancelaciones de planes pagos.\n\n6. Limitación de responsabilidad\n- La plataforma no se responsabiliza por disputas entre vendedores y compradores.\n\n7. Privacidad y uso de datos\n- Tus datos personales se procesan conforme a la política de privacidad.\n\n8. Cambios\n- Los términos de servicio pueden actualizarse con previo aviso.",
+    "acceptTerms": "He leído y entendido",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "pleaseAcceptTerms": "Por favor, lee y acepta los términos de servicio.",
+    "verificationSentTitle": "Correo de verificación enviado",
+    "verificationSentMessage": "Se ha enviado un correo de verificación a tu dirección. Por favor, revisa tu bandeja.",
+    "ok": "OK",
+    "isCustomer": "¿Eres cliente?"
+  },
+
+  "SellerDashboard": {
+    "welcome": "¡Bienvenido al panel de tu tienda!",
+    "description": "Desde este panel puedes actualizar la información de tu tienda, gestionar tus productos y personalizar los temas."
+  },
+
+  "sellerSidebar": {
+    "store": "Tienda",
+    "createCompany": "Tu empresa",
+    "companyInfo": "Información de la empresa",
+    "addProduct": "Añadir producto",
+    "editProducts": "Editar productos",
+    "statistics": "Estadísticas de la empresa",
+    "plans": "Planes",
+    "freePlan": "Plan gratuito",
+    "premiumPlan": "Plan Premium",
+    "businessPlan": "Plan Business",
+    "loadingUser": "Cargando...",
+    "aboutPages": "Páginas Sobre mí",
+    "photoPages": "Galería de fotos",
+    "publishPages": "Publicar páginas",
+    "logout": "Cerrar sesión"
+  },
+
+  "sellerCreateCompany": {
+    "title": "Crear o editar empresa",
+    "companyName": "Nombre de la empresa",
+    "phone": "Teléfono",
+    "email": "Correo electrónico",
+    "address": "Dirección",
+    "website": "Sitio web",
+    "location": "Ubicación",
+    "instagram": "Instagram",
+    "edit": "Editar",
+    "editCompany": "Editar información de la empresa",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "loading": "Cargando..."
+  },
+
+  "productAdd": {
+    "title": "Añadir nuevo producto",
+    "name": "Nombre del producto",
+    "slug": "Slug",
+    "price": "Precio",
+    "priceCurrency": "Moneda",
+    "stock": "Stock",
+    "stockUnit": "Unidad de stock",
+    "photos": "Fotos",
+    "addPhoto": "Añadir foto",
+    "noPhoto": "No hay fotos aún.",
+    "showcasePhoto": "Foto destacada",
+    "makeShowcase": "Hacer foto destacada",
+    "descriptionSections": "Secciones de descripción",
+    "sectionTitle": "Título",
+    "sectionItem": "Elemento",
+    "addItem": "Añadir elemento",
+    "addSection": "Añadir nueva sección",
+    "add": "Añadir",
+    "success": "Producto añadido con éxito.",
+    "error": "Error al añadir el producto.",
+    "enterPhotoUrl": "Introduce la URL de la foto:"
+  },
+
+  "productList": {
+    "title": "Mis productos",
+    "loadError": "No se pudieron cargar los productos.",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar este producto?",
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
+
+  "productEdit": {
+    "title": "Editar producto",
+    "name": "Nombre del producto",
+    "price": "Precio",
+    "priceCurrency": "Moneda",
+    "stock": "Stock",
+    "stockUnit": "Unidad de stock",
+    "descriptionSections": "Descripciones",
+    "sectionTitle": "Título",
+    "sectionItems": "Descripciones",
+    "removeItem": "Eliminar",
+    "addItem": "Añadir nueva línea de descripción",
+    "removeSection": "Eliminar sección",
+    "addSection": "Añadir nueva sección de descripción",
+    "images": "Imágenes (separadas por comas)",
+    "showcaseImageIndex": "Índice de imagen destacada",
+    "save": "Guardar",
+    "cancel": "Cancelar"
+  },
+
+  "sellerAbout": {
+    "title": "Sobre mí",
+    "textLabel": "Texto sobre mí",
+    "placeholder": "Escribe algo sobre ti...",
+    "save": "Guardar",
+    "success": "¡Guardado!",
+    "fetchError": "No se pudieron obtener los datos.",
+    "saveError": "Error al guardar."
+  },
+
+  "photoList": {
+    "title": "Mis fotos",
+    "imageUrl": "URL de la imagen",
+    "caption": "Descripción",
+    "captionPlaceholder": "Foto destacada, etc.",
+    "add": "Añadir",
+    "delete": "Eliminar",
+    "photoAlt": "Foto",
+    "fetchError": "No se pudieron cargar las fotos.",
+    "addError": "No se pudo añadir la foto.",
+    "deleteError": "No se pudo eliminar la foto.",
+    "added": "Foto añadida.",
+    "deleted": "Foto eliminada."
+  },
+
+  "publishPage": {
+    "title": "Preparar la publicación de la página",
+    "companyInfo": "Información de la empresa",
+    "companyName": "Nombre de la empresa",
+    "slug": "URL de la página (slug)",
+    "phone": "Teléfono",
+    "email": "Correo electrónico",
+    "address": "Dirección",
+    "noData": "No se encontraron datos.",
+    "products": "Productos",
+    "about": "Sobre mí",
+    "noAbout": "No se ha añadido texto aún.",
+    "photos": "Fotos",
+    "photoAlt": "Foto",
+    "errors": {
+      "title": "Faltan:",
+      "sellerInfo": "No se pudo obtener información del vendedor.",
+      "publicData": "Error al obtener los datos.",
+      "companyInfo": "Faltan datos de la empresa.",
+      "products": "Se debe añadir al menos un producto.",
+      "about": "El texto sobre mí es insuficiente.",
+      "photos": "Se debe añadir al menos una foto.",
+      "schemas": "No se pudieron obtener los esquemas.",
+      "saveSchema": "No se pudo guardar el esquema."
+    },
+    "warnings": {
+      "completeData": "Por favor completa la información faltante."
+    },
+    "info": {
+      "selectSchema": "Por favor selecciona un esquema."
+    },
+    "success": {
+      "published": "¡Esquema seleccionado y tu página ha sido publicada!"
+    },
+    "continue": "Continuar",
+    "schemaModal": {
+      "title": "Selecciona un esquema",
+      "noSchemas": "No se encontraron esquemas.",
+      "previewAlt": "vista previa",
+      "saving": "Guardando...",
+      "confirm": "Confirmar y publicar",
+      "cancel": "Cancelar"
+    },
+    "publishedUrlLabel": "Tu página fue publicada en:"
+  }
+}

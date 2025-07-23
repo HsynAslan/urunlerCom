@@ -1,0 +1,214 @@
+{
+  "mainPage.title": "Emmenez vos produits dans le monde numérique",
+  "mainPage.subtitle": "Créez votre propre boutique, gérez facilement vos produits et atteignez vos clients.",
+  "mainPage.featuresTitle": "Ce que nous offrons",
+  "mainPage.feature1": "Installation facile de la boutique",
+  "mainPage.feature2": "Suivi des produits et des commandes",
+  "mainPage.feature3": "Support multilingue",
+  "mainPage.feature4": "Infrastructure de paiement sécurisée",
+  "mainPage.feature5": "Interface adaptée aux mobiles",
+  "mainPage.ctaTitle": "Commencez dès maintenant !",
+  "mainPage.ctaText": "Créez un compte gratuit et commencez à vendre en quelques minutes.",
+  "mainPage.login": "Se connecter",
+  "mainPage.register": "S'inscrire",
+  "mainPage.footerAbout": "Urunler.com - La solution idéale pour votre boutique numérique.",
+  "mainPage.footerContact": "Nous contacter",
+  "mainPage.footerRights": "Tous droits réservés.",
+  "mainPage.languageSwitch": "Changer de langue",
+
+  "LoginPage": {
+    "title": "Se connecter",
+    "email": "Email",
+    "password": "Mot de passe",
+    "loginButton": "Connexion",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "registerNow": "Inscrivez-vous maintenant"
+  },
+
+  "RegisterPage": {
+    "title": "S'inscrire",
+    "name": "Nom complet",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "registerButton": "S'inscrire",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "loginNow": "Connectez-vous maintenant",
+    "isSeller": "Êtes-vous vendeur ?",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "registering": "Inscription en cours...",
+    "termsTitle": "Conditions d'utilisation",
+    "termsText": "1. Acceptation et définitions\n- En ouvrant un compte vendeur sur \"urunlerim.com\" (Plateforme), vous acceptez ces conditions.\n- \"Vendeur\" : Personne physique ou morale listant des produits/services.\n- \"Acheteur\" : Utilisateur contactant les vendeurs via la plateforme.\n\n2. Conditions du compte et des plans\n- Plan gratuit : Offre 3 options de thème, ajout/modification de produits, et support en turc. La génération de QR code est gratuite.\n- Plan Premium : Frais mensuels pour URLs dynamiques, support multilingue, et gestion des commandes.\n- Vos informations de compte (email, infos de l'entreprise) doivent être exactes et à jour.\n\n3. Obligations du vendeur\n- Vous ne pouvez pas ajouter de produits/services illégaux, faux ou violant les droits d'auteur.\n- Les vendeurs doivent communiquer honnêtement et clairement avec les acheteurs.\n- Les vendeurs premium sont responsables de la livraison ponctuelle et conforme des commandes.\n\n4. Propriété intellectuelle\n- Vous garantissez détenir les droits d'utilisation des contenus (images, textes) que vous téléchargez.\n\n5. Annulations et infractions\n- La plateforme peut suspendre ou supprimer sans avertissement les comptes violant les conditions.\n- Les politiques de remboursement s'appliquent aux annulations des plans payants.\n\n6. Limitation de responsabilité\n- La plateforme n'est pas responsable des litiges entre vendeurs et acheteurs.\n\n7. Confidentialité et utilisation des données\n- Vos données personnelles sont traitées conformément à la politique de confidentialité.\n\n8. Modifications\n- Les conditions d'utilisation peuvent être mises à jour avec notification préalable.",
+    "acceptTerms": "J'ai lu et compris",
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "pleaseAcceptTerms": "Veuillez lire et accepter les conditions d'utilisation.",
+    "verificationSentTitle": "Email de vérification envoyé",
+    "verificationSentMessage": "Un email de vérification a été envoyé à votre adresse. Veuillez vérifier votre boîte mail.",
+    "ok": "OK",
+    "isCustomer": "Êtes-vous client ?"
+  },
+
+  "SellerDashboard": {
+    "welcome": "Bienvenue sur le tableau de bord de la boutique !",
+    "description": "Depuis ce panneau, vous pouvez mettre à jour les informations de votre boutique, gérer vos produits et personnaliser les thèmes."
+  },
+
+  "sellerSidebar": {
+    "store": "Boutique",
+    "createCompany": "Votre entreprise",
+    "companyInfo": "Informations sur l'entreprise",
+    "addProduct": "Ajouter un produit",
+    "editProducts": "Modifier les produits",
+    "statistics": "Statistiques de l'entreprise",
+    "plans": "Plans",
+    "freePlan": "Plan gratuit",
+    "premiumPlan": "Plan Premium",
+    "businessPlan": "Plan Business",
+    "loadingUser": "Chargement...",
+    "aboutPages": "Pages À propos",
+    "photoPages": "Galerie photo",
+    "publishPages": "Publier les pages",
+    "logout": "Déconnexion"
+  },
+
+  "sellerCreateCompany": {
+    "title": "Créer ou modifier une entreprise",
+    "companyName": "Nom de l'entreprise",
+    "phone": "Téléphone",
+    "email": "Email",
+    "address": "Adresse",
+    "website": "Site web",
+    "location": "Localisation",
+    "instagram": "Instagram",
+    "edit": "Modifier",
+    "editCompany": "Modifier les informations de l'entreprise",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "loading": "Chargement..."
+  },
+
+  "productAdd": {
+    "title": "Ajouter un nouveau produit",
+    "name": "Nom du produit",
+    "slug": "Slug",
+    "price": "Prix",
+    "priceCurrency": "Devise",
+    "stock": "Stock",
+    "stockUnit": "Unité de stock",
+    "photos": "Photos",
+    "addPhoto": "Ajouter une photo",
+    "noPhoto": "Pas encore de photo.",
+    "showcasePhoto": "Photo vedette",
+    "makeShowcase": "Définir comme photo vedette",
+    "descriptionSections": "Sections de description",
+    "sectionTitle": "Titre",
+    "sectionItem": "Élément",
+    "addItem": "Ajouter un élément",
+    "addSection": "Ajouter une nouvelle section",
+    "add": "Ajouter",
+    "success": "Produit ajouté avec succès.",
+    "error": "Erreur lors de l'ajout du produit.",
+    "enterPhotoUrl": "Entrez l'URL de la photo :"
+  },
+
+  "productList": {
+    "title": "Mes produits",
+    "loadError": "Impossible de charger les produits.",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce produit ?",
+    "edit": "Modifier",
+    "delete": "Supprimer"
+  },
+
+  "productEdit": {
+    "title": "Modifier le produit",
+    "name": "Nom du produit",
+    "price": "Prix",
+    "priceCurrency": "Devise",
+    "stock": "Stock",
+    "stockUnit": "Unité de stock",
+    "descriptionSections": "Descriptions",
+    "sectionTitle": "Titre",
+    "sectionItems": "Descriptions",
+    "removeItem": "Supprimer",
+    "addItem": "Ajouter une nouvelle ligne de description",
+    "removeSection": "Supprimer la section",
+    "addSection": "Ajouter une nouvelle section de description",
+    "images": "Images (séparées par des virgules)",
+    "showcaseImageIndex": "Index de l'image vedette",
+    "save": "Enregistrer",
+    "cancel": "Annuler"
+  },
+
+  "sellerAbout": {
+    "title": "À propos",
+    "textLabel": "Texte À propos",
+    "placeholder": "Écrivez quelque chose sur vous...",
+    "save": "Enregistrer",
+    "success": "Enregistré !",
+    "fetchError": "Échec de la récupération des données.",
+    "saveError": "Échec de l'enregistrement."
+  },
+
+  "photoList": {
+    "title": "Mes photos",
+    "imageUrl": "URL de l'image",
+    "caption": "Légende",
+    "captionPlaceholder": "Photo vedette, etc.",
+    "add": "Ajouter",
+    "delete": "Supprimer",
+    "photoAlt": "Photo",
+    "fetchError": "Échec du chargement des photos.",
+    "addError": "Échec de l'ajout de la photo.",
+    "deleteError": "Échec de la suppression de la photo.",
+    "added": "Photo ajoutée.",
+    "deleted": "Photo supprimée."
+  },
+
+  "publishPage": {
+    "title": "Préparer la publication de la page",
+    "companyInfo": "Informations sur l'entreprise",
+    "companyName": "Nom de l'entreprise",
+    "slug": "URL de la page (slug)",
+    "phone": "Téléphone",
+    "email": "Email",
+    "address": "Adresse",
+    "noData": "Aucune donnée trouvée.",
+    "products": "Produits",
+    "about": "À propos de moi",
+    "noAbout": "Aucun texte ajouté pour le moment.",
+    "photos": "Photos",
+    "photoAlt": "Photo",
+    "errors": {
+      "title": "Manquants :",
+      "sellerInfo": "Informations du vendeur introuvables.",
+      "publicData": "Erreur lors de la récupération des données.",
+      "companyInfo": "Informations de l'entreprise manquantes.",
+      "products": "Au moins un produit doit être ajouté.",
+      "about": "Le texte À propos est insuffisant.",
+      "photos": "Au moins une photo doit être ajoutée.",
+      "schemas": "Schémas introuvables.",
+      "saveSchema": "Impossible d'enregistrer le schéma."
+    },
+    "warnings": {
+      "completeData": "Veuillez compléter les informations manquantes."
+    },
+    "info": {
+      "selectSchema": "Veuillez sélectionner un schéma."
+    },
+    "success": {
+      "published": "Schéma sélectionné et votre page a été publiée !"
+    },
+    "continue": "Continuer",
+    "schemaModal": {
+      "title": "Sélectionnez un schéma",
+      "noSchemas": "Aucun schéma trouvé.",
+      "previewAlt": "aperçu",
+      "saving": "Enregistrement...",
+      "confirm": "Confirmer et publier",
+      "cancel": "Annuler"
+    },
+    "publishedUrlLabel": "Votre page a été publiée à :"
+  }
+}

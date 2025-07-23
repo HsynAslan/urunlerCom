@@ -1,20 +1,20 @@
 {
   "mainPage.title": "Bringen Sie Ihre Produkte in die digitale Welt",
   "mainPage.subtitle": "Erstellen Sie Ihren eigenen Shop, verwalten Sie Ihre Produkte einfach und erreichen Sie Ihre Kunden.",
-  "mainPage.featuresTitle": "Was bieten wir?",
-  "mainPage.feature1": "Einfache Shop-Einrichtung",
+  "mainPage.featuresTitle": "Was Wir Bieten",
+  "mainPage.feature1": "Einfache Shop-Erstellung",
   "mainPage.feature2": "Produkt- und Bestellverfolgung",
   "mainPage.feature3": "Mehrsprachige Unterstützung",
   "mainPage.feature4": "Sichere Zahlungsinfrastruktur",
-  "mainPage.feature5": "Mobile optimierte Oberfläche",
-  "mainPage.ctaTitle": "Starten Sie jetzt!",
-  "mainPage.ctaText": "Kostenloses Konto erstellen, in Minuten mit dem Verkauf beginnen.",
+  "mainPage.feature5": "Mobilfreundliches Interface",
+  "mainPage.ctaTitle": "Jetzt Starten!",
+  "mainPage.ctaText": "Erstellen Sie ein kostenloses Konto und starten Sie in wenigen Minuten mit dem Verkauf.",
   "mainPage.login": "Anmelden",
   "mainPage.register": "Registrieren",
   "mainPage.footerAbout": "Urunler.com - Die ideale Lösung für Ihren digitalen Shop.",
-  "mainPage.footerContact": "Kontaktieren Sie uns",
+  "mainPage.footerContact": "Kontaktieren Sie Uns",
   "mainPage.footerRights": "Alle Rechte vorbehalten.",
-  "mainPage.languageSwitch": "Sprache ändern",
+  "mainPage.languageSwitch": "Sprache Ändern",
 
   "LoginPage": {
     "title": "Anmelden",
@@ -22,8 +22,8 @@
     "password": "Passwort",
     "loginButton": "Anmelden",
     "forgotPassword": "Passwort vergessen?",
-    "noAccount": "Noch kein Konto?",
-    "registerNow": "Jetzt registrieren"
+    "noAccount": "Noch keinen Account?",
+    "registerNow": "Jetzt Registrieren"
   },
 
   "RegisterPage": {
@@ -34,25 +34,25 @@
     "confirmPassword": "Passwort bestätigen",
     "registerButton": "Registrieren",
     "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
-    "loginNow": "Jetzt anmelden",
+    "loginNow": "Jetzt Anmelden",
     "isSeller": "Sind Sie Verkäufer?",
     "passwordMismatch": "Passwörter stimmen nicht überein",
-    "registering": "Registrierung läuft...",
+    "registering": "Registriere...",
     "termsTitle": "Nutzungsbedingungen",
-    "termsText": "1. Annahme und Definitionen\n- Durch die Eröffnung eines Verkäuferkontos auf \"urunlerim.com\" (Plattform) akzeptieren Sie diese Bedingungen.\n- \"Verkäufer\": Natürliche oder juristische Person, die Produkte/Dienstleistungen anbietet.\n- \"Käufer\": Nutzer, der über die Plattform mit Verkäufern in Kontakt tritt.\n\n2. Konto- und Planbedingungen\n- Free Plan: Bietet 3 Designoptionen, Produkthinzufügung/-bearbeitung und deutsche Sprachunterstützung. QR-Code-Generierung ist kostenlos.\n- Premium Plan: Dynamische URL, mehrsprachige Unterstützung und Bestellannahme erfordern eine monatliche Gebühr.\n- Ihre Kontodaten (E-Mail, Firmeninformationen) müssen korrekt und aktuell sein.\n\n3. Verkäuferpflichten\n- Sie dürfen keine illegalen, gefälschten oder urheberrechtlich geschützten Produkte/Dienstleistungen anbieten.\n- Sie müssen ehrlich und transparent mit Käufern kommunizieren.\n- Premium-Verkäufer sind verpflichtet, Bestellungen zeitnah und gemäß den angegebenen Bedingungen zu erfüllen.\n\n4. Geistiges Eigentum\n- Sie bestätigen, dass Sie die Nutzungsrechte an hochgeladenen Inhalten (Bilder, Texte) besitzen.\n\n5. Kündigung und Verstöße\n- Die Plattform kann Konten bei Verstößen ohne Vorwarnung sperren oder löschen.\n- Für kostenpflichtige Pläne gelten Rückerstattungsrichtlinien bei Kündigungen.\n\n6. Haftungsbeschränkung\n- Die Plattform haftet nicht für Streitigkeiten zwischen Verkäufern und Käufern.\n\n7. Datenschutz und Datenverwendung\n- Ihre persönlichen Daten werden gemäß der Datenschutzrichtlinie verarbeitet.\n\n8. Änderungen\n- Die Nutzungsbedingungen können mit vorheriger Ankündigung aktualisiert werden.",
+    "termsText": "1. Akzeptanz und Definitionen\n- Durch das Eröffnen eines Verkäuferkontos auf \"urunlerim.com\" (Plattform) akzeptieren Sie diese Bedingungen.\n- \"Verkäufer\": Eine natürliche oder juristische Person, die Produkte/Dienstleistungen anbietet.\n- \"Käufer\": Ein Nutzer, der über die Plattform Kontakt zu Verkäufern aufnimmt.\n\n2. Konto- und Planbedingungen\n- Kostenloser Plan: Bietet 3 Design-Optionen, Produkt hinzufügen/bearbeiten und türkische Sprachunterstützung. QR-Code-Erstellung ist kostenlos.\n- Premium-Plan: Monatliche Gebühr für dynamische URLs, mehrsprachige Unterstützung und Bestellannahme.\n- Ihre Kontoinformationen (E-Mail, Firmendaten) müssen korrekt und aktuell sein.\n\n3. Pflichten des Verkäufers\n- Es dürfen keine illegalen, gefälschten oder urheberrechtsverletzenden Produkte/Dienstleistungen hinzugefügt werden.\n- Verkäufer müssen ehrlich und transparent mit Käufern kommunizieren.\n- Premium-Verkäufer sind für die rechtzeitige und ordnungsgemäße Erfüllung von Bestellungen verantwortlich.\n\n4. Geistiges Eigentum\n- Sie garantieren, dass Sie die Nutzungsrechte an den hochgeladenen Inhalten (Bilder, Texte) besitzen.\n\n5. Stornierungen und Verstöße\n- Die Plattform kann Konten, die gegen die Bedingungen verstoßen, ohne Vorwarnung sperren oder löschen.\n- Rückerstattungsrichtlinien gelten bei Kündigung kostenpflichtiger Pläne.\n\n6. Haftungsbeschränkung\n- Die Plattform ist nicht verantwortlich für Streitigkeiten zwischen Verkäufern und Käufern.\n\n7. Datenschutz und Datenverwendung\n- Ihre personenbezogenen Daten werden gemäß der Datenschutzrichtlinie verarbeitet.\n\n8. Änderungen\n- Die Nutzungsbedingungen können mit vorheriger Ankündigung aktualisiert werden.",
     "acceptTerms": "Ich habe gelesen und verstanden",
     "confirm": "Bestätigen",
     "cancel": "Abbrechen",
     "pleaseAcceptTerms": "Bitte lesen und akzeptieren Sie die Nutzungsbedingungen.",
-    "verificationSentTitle": "Bestätigungs-E-Mail gesendet",
-    "verificationSentMessage": "Eine Bestätigungs-E-Mail wurde an Ihre Adresse gesendet, bitte überprüfen Sie Ihren Posteingang.",
+    "verificationSentTitle": "Verifizierungs-E-Mail gesendet",
+    "verificationSentMessage": "Eine Verifizierungs-E-Mail wurde an Ihre Adresse gesendet. Bitte überprüfen Sie Ihren Posteingang.",
     "ok": "OK",
     "isCustomer": "Sind Sie Kunde?"
   },
 
   "SellerDashboard": {
     "welcome": "Willkommen im Shop-Dashboard!",
-    "description": "Hier können Sie Shop-Informationen aktualisieren, Produkte verwalten und Designs anpassen."
+    "description": "Über dieses Panel können Sie Ihre Shop-Informationen aktualisieren, Ihre Produkte verwalten und Designs anpassen."
   },
 
   "sellerSidebar": {
@@ -63,14 +63,18 @@
     "editProducts": "Produkte bearbeiten",
     "statistics": "Unternehmensstatistiken",
     "plans": "Pläne",
-    "freePlan": "Free Plan",
-    "premiumPlan": "Premium Plan",
-    "businessPlan": "Business Plan",
-    "loadingUser": "Laden..."
+    "freePlan": "Kostenloser Plan",
+    "premiumPlan": "Premium-Plan",
+    "businessPlan": "Business-Plan",
+    "loadingUser": "Lädt...",
+    "aboutPages": "Über-Seiten",
+    "photoPages": "Fotogalerie",
+    "publishPages": "Seiten veröffentlichen",
+    "logout": "Abmelden"
   },
 
   "sellerCreateCompany": {
-    "title": "Unternehmen erstellen oder bearbeiten",
+    "title": "Firma erstellen oder bearbeiten",
     "companyName": "Firmenname",
     "phone": "Telefon",
     "email": "E-Mail",
@@ -82,38 +86,129 @@
     "editCompany": "Firmeninformationen bearbeiten",
     "save": "Speichern",
     "cancel": "Abbrechen",
-    "loading": "Laden..."
+    "loading": "Lädt..."
   },
 
   "productAdd": {
     "title": "Neues Produkt hinzufügen",
     "name": "Produktname",
     "slug": "Slug",
-    "description": "Beschreibung",
     "price": "Preis",
     "priceCurrency": "Währung",
-    "stock": "Bestand",
-    "stockUnit": "Mengeneinheit",
+    "stock": "Lagerbestand",
+    "stockUnit": "Lagereinheit",
+    "photos": "Fotos",
+    "addPhoto": "Foto hinzufügen",
+    "noPhoto": "Noch keine Fotos.",
+    "showcasePhoto": "Schaufensterfoto",
+    "makeShowcase": "Zum Schaufensterfoto machen",
+    "descriptionSections": "Beschreibung Abschnitte",
+    "sectionTitle": "Titel",
+    "sectionItem": "Punkt",
+    "addItem": "Punkt hinzufügen",
+    "addSection": "Neuen Abschnitt hinzufügen",
     "add": "Hinzufügen",
     "success": "Produkt erfolgreich hinzugefügt.",
     "error": "Fehler beim Hinzufügen des Produkts.",
-    "photos": "Fotos",
-    "addPhoto": "Foto hinzufügen",
-    "showcasePhoto": "Schaufensterfoto",
-    "descriptionSections": "Beschreibungsabschnitte",
-    "addSection": "Neuen Abschnitt hinzufügen",
-    "addItem": "Punkt hinzufügen",
-    "sectionTitle": "Titel",
-    "sectionItem": "Punkt",
-    "noPhoto": "Noch keine Fotos vorhanden.",
-    "makeShowcase": "Als Schaufensterfoto festlegen",
-    "photoAlt": "Produktfoto"
+    "enterPhotoUrl": "Foto-URL eingeben:"
   },
 
   "productList": {
     "title": "Meine Produkte",
+    "loadError": "Produkte konnten nicht geladen werden.",
+    "confirmDelete": "Sind Sie sicher, dass Sie dieses Produkt löschen möchten?",
     "edit": "Bearbeiten",
+    "delete": "Löschen"
+  },
+
+  "productEdit": {
+    "title": "Produkt bearbeiten",
+    "name": "Produktname",
+    "price": "Preis",
+    "priceCurrency": "Währung",
+    "stock": "Lagerbestand",
+    "stockUnit": "Lagereinheit",
+    "descriptionSections": "Beschreibungen",
+    "sectionTitle": "Titel",
+    "sectionItems": "Beschreibungen",
+    "removeItem": "Entfernen",
+    "addItem": "Neue Beschreibung hinzufügen",
+    "removeSection": "Abschnitt entfernen",
+    "addSection": "Neuen Abschnitt hinzufügen",
+    "images": "Bilder (durch Kommas trennen)",
+    "showcaseImageIndex": "Index des Schaufensterbildes",
+    "save": "Speichern",
+    "cancel": "Abbrechen"
+  },
+
+  "sellerAbout": {
+    "title": "Über mich",
+    "textLabel": "Über mich Text",
+    "placeholder": "Schreiben Sie etwas über sich...",
+    "save": "Speichern",
+    "success": "Gespeichert!",
+    "fetchError": "Daten konnten nicht abgerufen werden.",
+    "saveError": "Speichern fehlgeschlagen."
+  },
+
+  "photoList": {
+    "title": "Meine Fotos",
+    "imageUrl": "Bild-URL",
+    "caption": "Beschreibung",
+    "captionPlaceholder": "Schaufensterbild usw.",
+    "add": "Hinzufügen",
     "delete": "Löschen",
-    "confirmDelete": "Sind Sie sicher, dass Sie dieses Produkt löschen möchten?"
+    "photoAlt": "Foto",
+    "fetchError": "Fotos konnten nicht geladen werden.",
+    "addError": "Foto konnte nicht hinzugefügt werden.",
+    "deleteError": "Foto konnte nicht gelöscht werden.",
+    "added": "Foto hinzugefügt.",
+    "deleted": "Foto gelöscht."
+  },
+
+  "publishPage": {
+    "title": "Seite zum Veröffentlichen vorbereiten",
+    "companyInfo": "Firmeninformationen",
+    "companyName": "Firmenname",
+    "slug": "Seiten-URL (Slug)",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "noData": "Keine Daten gefunden.",
+    "products": "Produkte",
+    "about": "Über mich",
+    "noAbout": "Noch kein Text hinzugefügt.",
+    "photos": "Fotos",
+    "photoAlt": "Foto",
+    "errors": {
+      "title": "Fehlende Elemente:",
+      "sellerInfo": "Verkäuferinformationen konnten nicht abgerufen werden.",
+      "publicData": "Fehler beim Abrufen der Daten.",
+      "companyInfo": "Firmeninformationen fehlen.",
+      "products": "Mindestens ein Produkt muss hinzugefügt werden.",
+      "about": "Über mich Text ist unzureichend.",
+      "photos": "Mindestens ein Foto muss hinzugefügt werden.",
+      "schemas": "Schemas konnten nicht abgerufen werden.",
+      "saveSchema": "Schema konnte nicht gespeichert werden."
+    },
+    "warnings": {
+      "completeData": "Bitte ergänzen Sie die fehlenden Informationen."
+    },
+    "info": {
+      "selectSchema": "Bitte wählen Sie ein Schema aus."
+    },
+    "success": {
+      "published": "Schema ausgewählt und Ihre Seite wurde veröffentlicht!"
+    },
+    "continue": "Weiter",
+    "schemaModal": {
+      "title": "Wählen Sie ein Schema",
+      "noSchemas": "Keine Schemas gefunden.",
+      "previewAlt": "Vorschau",
+      "saving": "Speichert...",
+      "confirm": "Bestätigen und Veröffentlichen",
+      "cancel": "Abbrechen"
+    },
+    "publishedUrlLabel": "Ihre Seite wurde veröffentlicht unter:"
   }
 }
