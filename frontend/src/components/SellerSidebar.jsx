@@ -75,13 +75,13 @@ const handleLogout = () => {
                 </button>
 
                 <button onClick={() => navigate('/seller/about')} className='marginBott1em'>
-                  <BarChart3 size={20} /> <span className='bigger-icon'>Hakkımda Sayfası</span>
+                  <BarChart3 size={20} /> <span className='bigger-icon'>{t('sellerSidebar.aboutPages')}</span>
                 </button>
                 <button onClick={() => navigate('/seller/photos')} className='marginBott1em'>
-                  <BarChart3 size={20} /> <span className='bigger-icon'>Fotoğraf Galerisi</span>
+                  <BarChart3 size={20} /> <span className='bigger-icon'>{t('sellerSidebar.photoPages')}</span>
                 </button>
                   <button onClick={() => navigate('/seller/publish-page')} className='marginBott1em'>
-  <BarChart3 size={20} /> <span className='bigger-icon'>Sayfayı Yayınla</span>
+  <BarChart3 size={20} /> <span className='bigger-icon'>{t('sellerSidebar.publishPages')}</span>
 </button>
 
               </div>
@@ -112,7 +112,7 @@ const handleLogout = () => {
             )}
           </div>
            <button onClick={handleLogout} className="logout-button marginTopAuto">
-  Çıkış Yap
+  {t('sellerSidebar.logout')}
 </button>
         </div>
       </div>

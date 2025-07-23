@@ -67,7 +67,11 @@
   "freePlan": "Free Plan",
   "premiumPlan": "Premium Plan",
   "businessPlan": "Business Plan",
-  "loadingUser": "Yükleniyor..."
+  "loadingUser": "Yükleniyor...",
+  "aboutPages": "Hakkımda Sayfası",
+  "photoPages": "Fotoğraf Galerisi",
+  "publishPages": "Sayfaları Yayınla",
+  "logout": "Çıkış Yap"
 },
 
  "sellerCreateCompany": {
