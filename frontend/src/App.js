@@ -23,6 +23,8 @@ import SellerPhotosPage from './pages/SellerPhotosPage';
 import SellerPublishPage from './pages/SellerPublishPage';
 import AdminThemePage from './admin/panel/AdminThemePage';
 import SellerPublicPage from './pages/SellerPublicPage';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function LoadingWrapper({ children }) {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -103,7 +105,7 @@ function App() {
   }
 />
 
-
+  
   
   <Route path="/:slug" element={<SellerPublicPage />} />
 
@@ -155,7 +157,9 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </LoadingWrapper>
+      <ToastContainer position="top-right" autoClose={4000} hideProgressBar={false} newestOnTop closeOnClick pauseOnHover />
     </Router>
+   
   );
 }
 
