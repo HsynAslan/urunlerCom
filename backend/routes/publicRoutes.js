@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-
+const axios = require('axios');
 const Seller = require('../models/Seller');
 const Product = require('../models/Product');
 const SellerAbout = require('../models/SellerAbout');
@@ -12,9 +12,7 @@ const Theme = require('../models/Theme');
 
 router.get('/sellers/:slug/full', async (req, res) => {
   try {
-    console.log('Full seller data request for slug:', req.params.slug);
     const slug = req.params.slug;
-    
     const seller = await Seller.findOne({ slug }).populate('theme');
     if (!seller) return res.status(404).json({ message: 'Satıcı bulunamadı' });
 
@@ -27,16 +25,39 @@ router.get('/sellers/:slug/full', async (req, res) => {
       SellerPhoto.find({ seller: userId }),
     ]);
 
+    let cssContent = null;
+
+    if (seller.theme && seller.theme.cssFileUrl) {
+  // URL'yi düzelt
+  let cssUrl = seller.theme.cssFileUrl;
+  if (cssUrl.includes('/api/themes/')) {
+    cssUrl = cssUrl.replace('/api/themes/', '/public/themes/');
+  }
+
+  console.log('Tema CSS dosyası URL (düzeltilmiş):', cssUrl);
+  try {
+    const cssResponse = await axios.get(cssUrl);
+    cssContent = cssResponse.data;
+  } catch (err) {
+    console.error('Tema CSS dosyası okunamadı:', err.message);
+  }
+}
+
+
     res.json({
       company: {
         companyName: seller.companyName,
         contactInfo: seller.contactInfo || {},
         theme: seller.theme
-          ? { name: seller.theme.name, cssContent: seller.theme.cssContent }
+          ? {
+              name: seller.theme.name,
+              cssContent,  // CSS içeriği buraya kondu
+              cssFileUrl: seller.theme.cssFileUrl,
+            }
           : null,
         slug: seller.slug,
-        sellerId: seller._id,     // 🔧 sellerId eklendi
-        userId: seller.user,      // (isteğe bağlı) userId da eklenebilir
+        sellerId: seller._id,
+        userId: seller.user,
       },
       products,
       about: about || { content: '' },

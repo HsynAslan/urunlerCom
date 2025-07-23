@@ -13,7 +13,7 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import '../styles/SellerPublicPage.css';
+import '../styles/SellerPublicPage.css';  
 
 const SellerPublicPage = () => {
   const { slug } = useParams();
@@ -23,6 +23,22 @@ const SellerPublicPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Sayfa title ve favicon ayarı
+  useEffect(() => {
+    if (data?.company) {
+      document.title = data.company.companyName || 'Satıcı Sayfası';
+      if (data.photos?.[0]?.imageUrl) {
+        let link = document.querySelector("link[rel~='icon']");
+        if (!link) {
+          link = document.createElement('link');
+          link.rel = 'icon';
+          document.getElementsByTagName('head')[0].appendChild(link);
+        }
+        link.href = data.photos[0].imageUrl;
+      }
+    }
+  }, [data]);
+
   useEffect(() => {
     if (!slug) return;
     const fetchData = async () => {
@@ -30,6 +46,7 @@ const SellerPublicPage = () => {
         setLoading(true);
         const res = await axios.get(`http://localhost:5000/api/public/sellers/${slug}/full`);
         setData(res.data);
+        setError(null);
       } catch (err) {
         if (err.response?.status === 404) {
           navigate('/page/not-found');
@@ -57,68 +74,62 @@ const SellerPublicPage = () => {
   const { company, products, about, photos } = data;
   const theme = company.theme?.cssContent;
 
+  // Telefon ve mail linkleri için fonksiyon
+  const formatPhone = (phone) => phone.replace(/\s+/g, '').replace(/[^+\d]/g, '');
+
   return (
     <div className="public-page">
-      {theme && <style dangerouslySetInnerHTML={{ __html: theme }} />}
-      
-      <header className="header">
-        <h1>{company.companyName}</h1>
-      </header>
 
-      <section className="hero-section">
-        {photos.length > 1 ? (
-          <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}>
-            {photos.map(photo => (
-              <div key={photo._id}>
-                <img src={photo.imageUrl} alt={photo.caption} />
-              </div>
-            ))}
-          </Carousel>
-        ) : (
-          <img src={photos[0]?.imageUrl} alt="Main" className="hero-single-img" />
-        )}
+      {/* Tema CSS'si (örneğin eTicaretTema.css içeriği) */}
+      {theme && <style dangerouslySetInnerHTML={{ __html: theme }} />}
+
+      {/* Navbar iskeleti */}
+      <nav className="navbar">
+        <ul>
+          <li><a href="#anasayfa">🏠 Anasayfa</a></li>
+          <li><a href="#hakkimda">ℹ️ Hakkımızda</a></li>
+          <li><a href="#urunler">🛒 Ürünler</a></li>
+          <li><a href="#iletisim">📞 İletişim</a></li>
+        </ul>
+      </nav>
+
+      {/* Anasayfa */}
+      <section id="anasayfa" className="home-section">
+        <header className="header">
+          <h1>{company.companyName}</h1>
+        </header>
+        <div className="photos-container">
+          {photos.length > 1 ? (
+            <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false} interval={4000} stopOnHover={true}>
+              {photos.map(photo => (
+                <div key={photo._id} className="carousel-image-wrapper">
+                  <img src={photo.imageUrl} alt={photo.caption || company.companyName} />
+                </div>
+              ))}
+            </Carousel>
+          ) : photos.length === 1 ? (
+            <img src={photos[0].imageUrl} alt={company.companyName} className="hero-single-img" />
+          ) : (
+            <div className="no-photos-placeholder">Fotoğraf bulunmamaktadır</div>
+          )}
+        </div>
       </section>
 
-      <section className="about-section">
+      {/* Hakkımızda */}
+      <section id="hakkimda" className="about-section">
         <div className="section-header">
           <Info />
-          <h2>Hakkımızda</h2>
+          <h2>ℹ️ Hakkımızda</h2>
         </div>
-        <p>{about.content}</p>
+        <h3>{company.companyName}</h3>
+        <p>{about?.content || 'Hakkımızda bilgisi bulunmamaktadır.'}</p>
       </section>
 
-      <section className="contact-section">
-        <div className="section-header">
-          <MapPin />
-          <h2>İletişim</h2>
-        </div>
-        <ul>
-          {company.contactInfo?.phone && <li><Phone /> {company.contactInfo.phone}</li>}
-          {company.contactInfo?.email && <li><Mail /> {company.contactInfo.email}</li>}
-          {company.contactInfo?.address && <li><MapPin /> {company.contactInfo.address}</li>}
-          {company.contactInfo?.website && (
-            <li>
-              <Globe />
-              <a href={company.contactInfo.website} target="_blank" rel="noreferrer">
-                {company.contactInfo.website}
-              </a>
-            </li>
-          )}
-          {company.contactInfo?.instagram && (
-            <li>
-              <Instagram />
-              <a href={`https://instagram.com/${company.contactInfo.instagram}`} target="_blank" rel="noreferrer">
-                @{company.contactInfo.instagram}
-              </a>
-            </li>
-          )}
-        </ul>
-      </section>
-
-      <section className="product-section">
+      {/* Ürünler */}
+      <section id="urunler" className="product-section">
         <div className="section-header">
           <Store />
-          <h2>Ürünler</h2>
+          <h2>🛒 Ürünler</h2>
         </div>
         {products.length ? (
           <div className="product-grid">
@@ -128,6 +139,8 @@ const SellerPublicPage = () => {
                   <img
                     src={product.images[product.showcaseImageIndex || 0]}
                     alt={product.name}
+                    className="product-image"
+                    loading="lazy"
                   />
                 ) : (
                   <div className="product-placeholder">
@@ -149,6 +162,71 @@ const SellerPublicPage = () => {
           </div>
         ) : (
           <p>Henüz ürün eklenmemiş.</p>
+        )}
+      </section>
+
+      {/* İletişim */}
+      <section id="iletisim" className="contact-section">
+        <div className="section-header">
+          <MapPin />
+          <h2>📞 İletişim</h2>
+        </div>
+        <h3>{company.companyName}</h3>
+        <ul className="contact-list">
+          {company.contactInfo?.phone && (
+            <li>
+              <Phone />{' '}
+              <a href={`tel:${formatPhone(company.contactInfo.phone)}`}>
+                {company.contactInfo.phone}
+              </a>
+            </li>
+          )}
+          {company.contactInfo?.email && (
+            <li>
+              <Mail />{' '}
+              <a href={`mailto:${company.contactInfo.email}`}>
+                {company.contactInfo.email}
+              </a>
+            </li>
+          )}
+          {company.contactInfo?.address && (
+            <li>
+              <MapPin /> {company.contactInfo.address}
+            </li>
+          )}
+          {company.contactInfo?.website && (
+            <li>
+              <Globe />{' '}
+              <a href={company.contactInfo.website} target="_blank" rel="noreferrer">
+                {company.contactInfo.website}
+              </a>
+            </li>
+          )}
+          {company.contactInfo?.instagram && (
+            <li>
+              <Instagram />{' '}
+              <a
+                href={`https://instagram.com/${company.contactInfo.instagram}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                @{company.contactInfo.instagram}
+              </a>
+            </li>
+          )}
+        </ul>
+
+        {/* Google Maps iframe (adres varsa) */}
+        {company.contactInfo?.address && (
+          <div className="map-container" aria-label="Şirket Adresi Haritası">
+            <iframe
+              title="Google Maps"
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(company.contactInfo.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         )}
       </section>
 
