@@ -62,7 +62,7 @@
 /* Hakkımda bölümü paragraf */
 .publish-section p {
   line-height: 1.5;
-  color: #444;
+  
 }
 
 /* Fotoğraf ızgarası */
@@ -308,7 +308,7 @@
 /* İptal butonu */
 .cancel-btn {
   background-color: #e0e0e0;
-  color: #555;
+  
   box-shadow: none;
 }
 

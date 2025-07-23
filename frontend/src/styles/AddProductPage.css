@@ -59,7 +59,7 @@
 .product-card p {
   margin: 0;
   font-size: 14px;
-  color: #555;
+  
 }
 
 /* Butonlar */
@@ -119,7 +119,7 @@
   margin-bottom: 0.6vh;
   font-weight: 500;
   font-size: 0.95rem;
-  color: #555;
+  
 }
 
 .form-group {
