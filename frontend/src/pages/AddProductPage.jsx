@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
 import SellerSidebar from '../components/SellerSidebar';
 import LanguageSelector from '../components/LanguageSelector';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import '../styles/AddProductPage.css';
 
 const currencyOptions = [
@@ -28,11 +29,9 @@ const AddProductPage = () => {
     priceCurrency: 'TRY',
     stock: '',
     stockUnit: 'adet',
-    images: [], // string[] (URL)
+    images: [],
     showcaseImageIndex: 0,
-    descriptionSections: [
-      { title: '', items: [''] } // başlangıçta 1 başlık + 1 madde
-    ],
+    descriptionSections: [{ title: '', items: [''] }],
   });
 
   const [success, setSuccess] = useState('');
@@ -66,23 +65,17 @@ const AddProductPage = () => {
   };
 
   // Yeni madde ekle
-const addDescriptionItem = (sectionIndex) => {
-  setForm(prev => {
-    const newSections = [...prev.descriptionSections]; // bölümleri kopyala
-    const updatedItems = [...newSections[sectionIndex].items, '']; // madde dizisini kopyala ve bir madde ekle
+  const addDescriptionItem = (sectionIndex) => {
+    setForm(prev => {
+      const newSections = [...prev.descriptionSections];
+      newSections[sectionIndex].items.push('');
+      return { ...prev, descriptionSections: newSections };
+    });
+  };
 
-    newSections[sectionIndex] = {
-      ...newSections[sectionIndex], // diğer özellikleri koru
-      items: updatedItems, // sadece yeni items dizisini koy
-    };
-
-    return { ...prev, descriptionSections: newSections };
-  });
-};
-
-  // Fotoğraf URL'si ekle (basit örnek, gerçek kullanımda upload yapılmalı)
+  // Fotoğraf URL'si ekle
   const addImage = () => {
-    const url = prompt('Fotoğraf URL\'si giriniz:');
+    const url = prompt(t('productAdd.enterPhotoUrl', 'Fotoğraf URL\'si giriniz:'));
     if (url) {
       setForm(prev => ({ ...prev, images: [...prev.images, url] }));
     }
@@ -93,7 +86,7 @@ const addDescriptionItem = (sectionIndex) => {
     setForm(prev => ({ ...prev, showcaseImageIndex: index }));
   };
 
-  // Slug otomatik üret (örnek basit, Türkçe karakterlere dikkat edilmeli)
+  // Slug otomatik üret (Türkçe karakterlere dikkat edilmeli)
   const generateSlug = (name) => {
     return name
       .toLowerCase()
@@ -118,17 +111,18 @@ const addDescriptionItem = (sectionIndex) => {
 
     try {
       const token = localStorage.getItem('token');
-      // API'ye gönderilecek veri
       const postData = {
         ...form,
         price: Number(form.price),
         stock: Number(form.stock),
       };
 
-      const { data } = await axios.post('http://localhost:5000/api/products', postData, {
+      await axios.post('http://localhost:5000/api/products', postData, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setSuccess(t('productAdd.success', 'Ürün başarıyla eklendi.'));
+
+      toast.success('✅ ' + t('productAdd.success'));
+      setSuccess(t('productAdd.success'));
       setForm({
         name: '',
         slug: '',
@@ -141,38 +135,40 @@ const addDescriptionItem = (sectionIndex) => {
         descriptionSections: [{ title: '', items: [''] }],
       });
     } catch (err) {
-      setError(err.response?.data?.message || t('productAdd.error', 'Ürün eklenirken hata oluştu.'));
+      const msg = err.response?.data?.message || t('productAdd.error');
+      toast.error('❌ ' + msg);
+      setError(msg);
     }
   };
 
   return (
-    <div className="page-container">
-      <div className="sidebar">
-        <SellerSidebar />
-      </div>
+    <div className="seller-page-layout">
+      <div className="seller-sidebar"><SellerSidebar /></div>
 
-      <div className="content">
-        <div className="language-selector-container">
+      <div className="seller-main-content">
+        <div className="language-selector-wrapper">
           <LanguageSelector />
         </div>
 
-        <h1 className="page-title">{t('productAdd.title', 'Yeni Ürün Ekle')}</h1>
+        <h1 className="page-title">🆕 {t('productAdd.title')}</h1>
 
-        <form onSubmit={handleSubmit} className="form-box">
+        <form onSubmit={handleSubmit} className="form-box" style={{ maxWidth: '90%', margin: '0 auto' }}>
           <input
             name="name"
             value={form.name}
             onChange={onNameChange}
-            placeholder={t('productAdd.name', 'Ürün Adı')}
+            placeholder={t('productAdd.name')}
             className="form-input"
+            style={{ marginBottom: '10px' }}
             required
           />
           <input
             name="slug"
             value={form.slug}
             onChange={handleChange}
-            placeholder={t('productAdd.slug', 'Slug')}
+            placeholder={t('productAdd.slug')}
             className="form-input"
+            style={{ marginBottom: '10px' }}
             required
           />
 
@@ -182,7 +178,8 @@ const addDescriptionItem = (sectionIndex) => {
               name="price"
               value={form.price}
               onChange={handleChange}
-              placeholder={t('productAdd.price', 'Fiyat')}
+              placeholder={t('productAdd.price')}
+              style={{ marginBottom: '10px', width: '48%', marginRight: '4%' }}
               className="form-input half-width"
               required
             />
@@ -190,6 +187,7 @@ const addDescriptionItem = (sectionIndex) => {
               name="priceCurrency"
               value={form.priceCurrency}
               onChange={handleChange}
+              style={{ marginBottom: '10px', width: '48%' }}
               className="form-input half-width"
             >
               {currencyOptions.map(c => (
@@ -204,13 +202,16 @@ const addDescriptionItem = (sectionIndex) => {
               name="stock"
               value={form.stock}
               onChange={handleChange}
-              placeholder={t('productAdd.stock', 'Stok')}
+              style={{ marginBottom: '10px', width: '48%', marginRight: '4%' }}
+              placeholder={t('productAdd.stock')}
               className="form-input half-width"
+              required
             />
             <select
               name="stockUnit"
               value={form.stockUnit}
               onChange={handleChange}
+              style={{ marginBottom: '10px', width: '48%' }}
               className="form-input half-width"
             >
               {stockUnitOptions.map(s => (
@@ -219,73 +220,68 @@ const addDescriptionItem = (sectionIndex) => {
             </select>
           </div>
 
-        {/* Fotoğraflar */}
-<div className="images-section">
-  <h3>{t('productAdd.photos', 'Fotoğraflar')}</h3>
-  <button type="button" onClick={addImage} className="small-button">
-    {t('productAdd.addPhoto', 'Fotoğraf Ekle')}
-  </button>
-  <div className="images-preview">
-    {form.images.length === 0 && <p>{t('productAdd.noPhoto', 'Henüz fotoğraf yok.')}</p>}
-    {form.images.map((img, idx) => (
-      <div
-        key={idx}
-        className={`image-item ${form.showcaseImageIndex === idx ? 'showcase' : ''}`}
-        onClick={() => setShowcaseImage(idx)}
-        title={
-          form.showcaseImageIndex === idx
-            ? t('productAdd.showcasePhoto', 'Vitrin Fotoğrafı')
-            : t('productAdd.makeShowcase', 'Vitrin fotoğrafı yap')
-        }
-      >
-        <img src={img} alt={`${t('productAdd.photoAlt', 'Ürün fotoğrafı')} ${idx + 1}`} />
-      </div>
-    ))}
-  </div>
-</div>
+          <div className="images-section">
+            <h3>📸 {t('productAdd.photos')}</h3>
+            <button type="button" onClick={addImage} className="btn-add-photo">
+              ➕ {t('productAdd.addPhoto')}
+            </button>
+            <div className="images-preview">
+              {form.images.length === 0 && <p>{t('productAdd.noPhoto')}</p>}
+              {form.images.map((img, idx) => (
+                <div
+                  key={idx}
+                  className={`image-item ${form.showcaseImageIndex === idx ? 'showcase' : ''}`}
+                  onClick={() => setShowcaseImage(idx)}
+                  title={form.showcaseImageIndex === idx
+                    ? t('productAdd.showcasePhoto')
+                    : t('productAdd.makeShowcase')}
+                >
+                  <img src={img} alt={`${t('productAdd.photoAlt')} ${idx + 1}`} />
+                </div>
+              ))}
+            </div>
+          </div>
 
-{/* Açıklama bölümleri */}
-<div className="description-sections">
-  <h3>{t('productAdd.descriptionSections', 'Açıklama Bölümleri')}</h3>
-  {form.descriptionSections.map((section, sIdx) => (
-    <div key={sIdx} className="description-section">
-      <input
-        type="text"
-        placeholder={t('productAdd.sectionTitle', 'Başlık')}
-        value={section.title}
-        onChange={e => handleDescriptionChange(sIdx, 'title', e.target.value)}
-        className="form-input"
-        required
-      />
-      {section.items.map((item, iIdx) => (
-        <input
-          key={iIdx}
-          type="text"
-          placeholder={t('productAdd.sectionItem', 'Madde')}
-          value={item}
-          onChange={e => handleDescriptionChange(sIdx, 'item', e.target.value, iIdx)}
-          className="form-input"
-          required
-        />
-      ))}
-      <button type="button" onClick={() => addDescriptionItem(sIdx)} className="small-button">
-        {t('productAdd.addItem', 'Madde Ekle')}
-      </button>
-    </div>
-  ))}
-  <button type="button" onClick={addDescriptionSection} className="small-button add-section-button">
-    {t('productAdd.addSection', 'Yeni Bölüm Ekle')}
-  </button>
-</div>
+          <div className="description-sections">
+            <h3>📑 {t('productAdd.descriptionSections')}</h3>
+            {form.descriptionSections.map((section, sIdx) => (
+              <div key={sIdx} className="description-section">
+                <input
+                  type="text"
+                  placeholder={t('productAdd.sectionTitle')}
+                  value={section.title}
+                  onChange={e => handleDescriptionChange(sIdx, 'title', e.target.value)}
+                  className="form-input"
+                  required
+                />
+                {section.items.map((item, iIdx) => (
+                  <input
+                    key={iIdx}
+                    type="text"
+                    placeholder={t('productAdd.sectionItem')}
+                    value={item}
+                    onChange={e => handleDescriptionChange(sIdx, 'item', e.target.value, iIdx)}
+                    className="form-input"
+                    required
+                  />
+                ))}
+                <button type="button" onClick={() => addDescriptionItem(sIdx)} className="btn-add-item">
+                  ➕ {t('productAdd.addItem')}
+                </button>
+              </div>
+            ))}
+            <button type="button" onClick={addDescriptionSection} className="btn-add-section">
+              ➕ {t('productAdd.addSection')}
+            </button>
+          </div>
 
-
-          <button type="submit" className="submit-button">
-            {t('productAdd.add', 'Ekle')}
+          <button type="submit" className="btn-submit">
+            🆕 {t('productAdd.add')}
           </button>
         </form>
 
-        {success && <p className="success-message">{success}</p>}
-        {error && <p className="error-message">{error}</p>}
+        {success && <p className="success-message">✅ {success}</p>}
+        {error && <p className="error-message">❌ {error}</p>}
       </div>
     </div>
   );
