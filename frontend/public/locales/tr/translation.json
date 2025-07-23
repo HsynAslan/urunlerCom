@@ -139,9 +139,30 @@
     "showcaseImageIndex": "Vitrin Görseli İndeksi",
     "save": "Kaydet",
     "cancel": "İptal"
+  },
+  "sellerAbout":{
+    "title": "Hakkımda",
+  "textLabel": "Hakkınızda yazı",
+  "placeholder": "Hakkınızda bir şeyler yazın...",
+  "save": "Kaydet",
+  "success": "Kaydedildi!",
+  "fetchError": "Veri alınamadı.",
+  "saveError": "Kaydetme işlemi başarısız."
+  },
+  "photoList":{
+     "title": "Fotoğraflarım",
+  "imageUrl": "Görsel URL",
+  "caption": "Açıklama",
+  "captionPlaceholder": "Ürün vitrin resmi vs.",
+  "add": "Ekle",
+  "delete": "Sil",
+  "photoAlt": "Fotoğraf",
+  "fetchError": "Fotoğraflar alınamadı.",
+  "addError": "Fotoğraf eklenemedi.",
+  "deleteError": "Fotoğraf silinemedi.",
+  "added": "Fotoğraf eklendi.",
+  "deleted": "Fotoğraf silindi."
   }
-
-
 
 
 
