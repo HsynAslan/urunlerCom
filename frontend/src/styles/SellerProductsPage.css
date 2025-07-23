@@ -1,99 +1,403 @@
-.products-grid {
+/* Genel sayfa düzeni: sidebar %20, içerik %78 genişlik */
+.seller-page-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9fb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Soldaki sidebar kısmı */
+.seller-sidebar {
+  flex: 0 0 20%;
+  background-color: #252f3f;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  border-right: 2px solid #3a4251;
+}
+
+/* Sağdaki ana içerik alanı */
+.seller-main-content {
+  flex: 0 0 78%;
+  padding: 25px 30px;
+  box-sizing: border-box;
+  background-color: white;
+  margin-left: 20%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+}
+
+/* Başlık - büyük ve net */
+.seller-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 25px;
+  user-select: none;
+}
+
+/* Hata mesajları kırmızı ve dikkat çekici */
+.seller-error-message {
+  background-color: #ffe3e3;
+  color: #d93025;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border: 1px solid #d93025;
+  user-select: none;
+}
+
+/* Ürünler ızgara düzeninde yan yana, responsive */
+.seller-products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+  gap: 20px;
 }
 
-.product-card {
-  background: white;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  text-align: center;
+/* Her ürün kartı kutusu */
+.seller-product-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgb(0 0 0 / 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  transition: transform 0.15s ease-in-out;
 }
 
-.product-card img {
-  max-width: 100%;
+.seller-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgb(0 0 0 / 0.15);
+}
+
+/* Ürün görseli: tam genişlik, yuvarlak köşeler */
+.product-image {
+  width: 100%;
   height: 160px;
   object-fit: cover;
-  border-radius: 0.5rem;
-}
-
-.actions {
-  margin-top: 0.5rem;
-}
-
-.edit-btn, .delete-btn {
-  margin: 0.25rem;
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 0.375rem;
-  cursor: pointer;
-}
-
-.edit-btn {
-  background-color: #2563eb;
-  color: white;
-}
-
-.delete-btn {
-  background-color: #dc2626;
-  color: white;
-}
-
-.desc-section-wrapper {
-  background: #f5f5f5;
-  padding: 1rem;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
 }
-.desc-section {
-  margin-bottom: 1rem;
-  background: #fff;
-  padding: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ddd;
+
+/* Ürün ismi, fiyat, stok bilgileri */
+.product-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 10px;
 }
-.add-desc, .delete-desc {
-  margin-top: 0.5rem;
-  padding: 5px 10px;
-  border-radius: 4px;
-  border: none;
+
+.product-price,
+.product-stock {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 600;
+}
+
+/* Eylem butonları - düzenle & sil */
+.product-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-edit,
+.btn-delete {
+  flex: 1;
   cursor: pointer;
-}
-.add-desc {
-  background-color: #3498db;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 12px;
   color: white;
-}
-.delete-desc {
-  background-color: #e74c3c;
-  color: white;
+  user-select: none;
+  transition: background-color 0.25s ease;
 }
 
-.modal-contentEdit{
-  background-color: #ffffff;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  width: 90%;
-  max-width: 500px;
-  box-sizing: border-box;
-  height: 70%;
+.btn-edit {
+  background-color: #3b82f6; /* mavi */
+}
+
+.btn-edit:hover {
+  background-color: #2563eb;
+}
+
+.btn-delete {
+  background-color: #ef4444; /* kırmızı */
+}
+
+.btn-delete:hover {
+  background-color: #b91c1c;
+}
+
+/* Modal kaplama (overlay) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(32, 33, 36, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  user-select: none;
+}
+
+/* Modal içerik kutusu */
+.modal-edit {
+  background: white;
+  width: 600px;
+  max-width: 90vw;
+  border-radius: 10px;
+  padding: 30px 35px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
   overflow-y: auto;
-
+  max-height: 90vh;
 }
+
+/* Modal başlık */
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #222;
+  user-select: none;
+}
+
+/* Form elemanları düzeni */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Label ve input alanları */
+.form-label {
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label input[type="text"],
+.form-label input[type="number"] {
+  margin-top: 6px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1.8px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-label input[type="text"]:focus,
+.form-label input[type="number"]:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+/* Açıklama bölümü */
+.product-description-sections {
+  margin-top: 10px;
+  border-top: 2px solid #e4e7eb;
+  padding-top: 15px;
+}
+
+.product-description-sections h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  user-select: none;
+}
+
 .desc-section {
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+.desc-section label {
+  font-weight: 600;
+  color: #444;
+  font-size: 1rem;
 }
 
 .section-items {
-  margin-left: 1rem;
+  margin-top: 8px;
+  padding-left: 12px;
 }
-
+.section-items button{
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  width: auto !important;
+}
 .section-item {
   display: flex;
-  gap: 8px;
-  margin-top: 4px;
+  gap: 10px;
+  margin-top: 8px;
 }
-.section-item button{
-  background-color: #e74c3c;
+
+.section-item input[type="text"] {
+  flex-grow: 1;
+  padding: 7px 10px;
+  border-radius: 5px;
+  border: 1.5px solid #ccc;
+}
+
+.btn-remove-item {
+  background-color: #ef4444;
+  border: none;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove-item:hover {
+  background-color: #b91c1c;
+}
+
+/* Yeni açıklama satırı ekle butonu */
+.btn-add-item {
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  padding: 7px 12px;
+  margin-top: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-item:hover {
+  background-color: #2563eb;
+}
+
+/* Bölümü kaldır butonu */
+.btn-remove-section {
+  margin-top: 10px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove-section:hover {
+  background-color: #b91c1c;
+}
+
+/* Bölüm altındaki çizgi */
+.desc-section hr {
+  border: none;
+  border-bottom: 1px solid #e2e8f0;
+  margin-top: 15px;
+}
+
+/* Yeni açıklama bölümü ekle butonu */
+.btn-add-section {
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  margin-top: 12px;
+}
+
+.btn-add-section:hover {
+  background-color: #2563eb;
+}
+
+/* Modal altındaki butonlar düzeni */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.btn-save {
+  background-color: #16a34a;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-save:hover {
+  background-color: #15803d;
+}
+
+.btn-cancel {
+  background-color: #ef4444;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #b91c1c;
+}
+
+/* Responsive: küçük ekranlarda sidebar ve içerik alt alta */
+@media (max-width: 900px) {
+  .seller-page-layout {
+    flex-direction: column;
+  }
+  .seller-sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #3a4251;
+  }
+  .seller-main-content {
+    flex: 0 0 auto;
+    width: 100%;
+    margin-left: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 20px;
+  }
+  .seller-products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.widthFill{
+  width: -webkit-fill-available;
 }

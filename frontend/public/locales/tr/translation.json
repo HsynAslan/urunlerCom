@@ -116,12 +116,31 @@
 },
 
 "productList": {
-  "title": "Ürünlerim",
-  "edit": "Düzenle",
-  "delete": "Sil",
-  "confirmDelete": "Bu ürünü silmek istediğinize emin misiniz?"
-}
-
+    "title": "Ürünlerim",
+    "loadError": "Ürünler alınamadı.",
+    "confirmDelete": "Bu ürünü silmek istediğinize emin misiniz?",
+    "edit": "Düzenle",
+    "delete": "Sil"
+  },
+  "productEdit": {
+    "title": "Ürünü Düzenle",
+    "name": "Ürün Adı",
+    "price": "Fiyat",
+    "priceCurrency": "Para Birimi",
+    "stock": "Stok",
+    "stockUnit": "Stok Birimi",
+    "descriptionSections": "Açıklamalar",
+    "sectionTitle": "Başlık",
+    "sectionItems": "Açıklamalar",
+    "removeItem": "Sil",
+    "addItem": "Yeni Açıklama Satırı",
+    "removeSection": "Bölümü Kaldır",
+    "addSection": "Yeni Açıklama Bölümü Ekle",
+    "images": "Görseller (virgülle ayır)",
+    "showcaseImageIndex": "Vitrin Görseli İndeksi",
+    "save": "Kaydet",
+    "cancel": "İptal"
+  }
 
 
 
