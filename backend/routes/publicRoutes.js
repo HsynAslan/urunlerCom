@@ -6,9 +6,33 @@ const Seller = require('../models/Seller');
 const Product = require('../models/Product');
 const SellerAbout = require('../models/SellerAbout');
 const SellerPhoto = require('../models/SellerPhoto');
-
+const SiteSettings = require('../models/SiteSettings');
 const Theme = require('../models/Theme');
 
+router.get('/site-info', async (req, res) => {
+  try {
+    const settings = await SiteSettings.findOne();
+    if (!settings) {
+      return res.status(404).json({ message: 'Site ayarları bulunamadı.' });
+    }
+
+    // Public olarak açılacak alanlar
+    const publicSettings = {
+      maintenanceMode: settings.maintenanceMode || false,
+      siteName: settings.siteName || 'Urunlerim.com',
+      frontendUrl: settings.frontendUrl || 'http://localhost:3002',
+      apiUrl: settings.apiUrl || 'http://localhost:5000/api',
+      socialLinks: settings.socialLinks || {},
+      contactPhone: settings.contactPhone || '',
+      contactAddress: settings.contactAddress || '',
+    };
+
+    res.json(publicSettings);
+  } catch (err) {
+    console.error('Site info fetch error:', err);
+    res.status(500).json({ message: 'Site bilgileri getirilirken hata oluştu.' });
+  }
+});
 
 router.get('/sellers/:slug/full', async (req, res) => {
   try {
@@ -105,5 +129,8 @@ router.get('/sellers/:slug', async (req, res) => {
     res.status(500).json({ message: 'Sunucu hatası' });
   }
 });
+
+
+
 
 module.exports = router;

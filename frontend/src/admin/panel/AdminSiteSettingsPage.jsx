@@ -98,7 +98,7 @@ const SiteSettingsPage = () => {
             <option value="en">English</option>
           </select>
 
-          <label style={{ marginTop: '1rem' }}>
+          <label style={{ marginTop: '1rem', display: 'flex', alignItems: 'stretch', flexDirection: 'row-reverse' }}>
             <input type="checkbox" checked={settings.maintenanceMode} onChange={(e) => setSettings(prev => ({ ...prev, maintenanceMode: e.target.checked }))} /> Bakım Modu
           </label>
 
