@@ -44,7 +44,7 @@ const SellerPublicPage = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:5000/api/public/sellers/${slug}/full`);
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/full`);
         setData(res.data);
         setError(null);
       } catch (err) {

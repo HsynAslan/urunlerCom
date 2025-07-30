@@ -30,7 +30,7 @@ const SellerPublishPage = () => {
   useEffect(() => {
     const fetchSellerInfo = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/sellers/store', {
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/store`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setSlug(res.data.slug);
@@ -51,7 +51,7 @@ const SellerPublishPage = () => {
     const fetchPublicSellerData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:5000/api/public/sellers/${slug}`);
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}`);
         setCompany(res.data.company);
         setProducts(res.data.products);
         setAbout(res.data.about?.content || '');
@@ -95,7 +95,7 @@ const SellerPublishPage = () => {
   const fetchSchemas = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/themes', {
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/themes`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSchemas(res.data);
@@ -116,13 +116,12 @@ const SellerPublishPage = () => {
 
     try {
       setSavingSchema(true);
-      await axios.post(
-        'http://localhost:5000/api/sellers/select-schema',
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/select-schema`,
         { schemaId: selectedSchemaId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      const url = `http://localhost:3000/${slug}`;
+      const url = `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:3000'}/${slug}`;
       setPublishedUrl(url);
       setShowSchemaModal(false);
       toast.success(t('publishPage.success.published'));

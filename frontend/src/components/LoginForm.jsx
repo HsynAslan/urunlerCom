@@ -19,7 +19,7 @@ const LoginForm = () => {
     e.preventDefault();
     setError('');
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', formData);
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/auth/login`, formData);
       const { token, user } = res.data;
 
       // TODO: Token'ı localStorage vs. saklamak istersen:

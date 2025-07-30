@@ -86,7 +86,7 @@ const RegisterForm = () => {
     const dataToSend = { ...formData };
 
     try {
-      const url = 'http://localhost:5000/api/auth/register';
+      const url = `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/auth/register`;
       const response = await axios.post(url, dataToSend);
 
       setLoading(false);

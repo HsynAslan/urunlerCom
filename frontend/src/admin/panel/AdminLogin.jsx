@@ -9,7 +9,7 @@ const AdminLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/login', { username, password });
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/admin/login`, { username, password });
       localStorage.setItem('token', res.data.token);
       window.location.href = '/admin/dashboard'; // panel yönlendirmesi
     } catch (err) {

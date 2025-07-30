@@ -17,7 +17,7 @@ const VerifyEmailPage = () => {
   React.useEffect(() => {
     if (token && email) {
       axios
-        .post('http://localhost:5000/api/auth/verify-email', { token, email })
+        .post(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/auth/verify-email`, { token, email })
         .then((res) => {
           setMessage(res.data.message || 'Email verified successfully!');
           setIsError(false);

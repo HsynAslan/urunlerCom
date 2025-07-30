@@ -6,6 +6,7 @@ const Admin = require('./models/Admin');
 const bcrypt = require('bcryptjs');
 const Theme = require('./models/Theme');  
 const { connectDB } = require('./config/db');
+require('dotenv').config();
 
 
 const PORT = process.env.PORT || 5000;
@@ -43,13 +44,13 @@ const createDefaultThemes = async () => {
       await Theme.insertMany([
         {
           name: 'Beyaz Tema',
-          cssFileUrl: 'http://localhost:5000/static/themes/theme-light.css',
+          cssFileUrl: `${process.env.BACKEND_URL || 'http://localhost:5000'}/static/themes/theme-light.css`,
           previewImageUrl: 'https://example.com/previews/light-theme.jpg',
           createdBy: null // opsiyonel, admin id'si konabilir
         },
         {
           name: 'Koyu Tema',
-          cssFileUrl: 'http://localhost:5000/static/themes/theme-dark.css',
+          cssFileUrl: `${process.env.BACKEND_URL || 'http://localhost:5000'}/static/themes/theme-dark.css`,
           previewImageUrl: 'https://example.com/previews/dark-theme.jpg',
           createdBy: null
         }

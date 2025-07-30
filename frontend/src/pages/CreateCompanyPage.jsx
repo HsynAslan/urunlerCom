@@ -29,7 +29,7 @@ const CreateCompanyPage = () => {
   useEffect(() => {
     const fetchSeller = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/sellers/store', {
+        const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/store`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -79,7 +79,7 @@ const CreateCompanyPage = () => {
       return;
     }
     try {
-      const res = await axios.post('http://localhost:5000/api/sellers/check-slug', { slug: slugValue }, {
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/check-slug`, { slug: slugValue }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data.exists && res.data.exists !== sellerInfo?._id) {
@@ -137,7 +137,7 @@ const CreateCompanyPage = () => {
     }
 
     try {
-      const { data } = await axios.put('http://localhost:5000/api/sellers/update', form, {
+      const { data } = await axios.put(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/update`, form, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSellerInfo(data);

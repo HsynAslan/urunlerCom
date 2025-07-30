@@ -28,7 +28,7 @@ const CreateSubAdminPage = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await axios.post('http://localhost:5000/api/admin/subadmin', 
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/admin/subadmin`, 
         { username, password, roles: selectedRoles }, 
         { headers: { Authorization: `Bearer ${token}` } }
       );

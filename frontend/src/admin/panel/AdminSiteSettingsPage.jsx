@@ -24,7 +24,7 @@ const SiteSettingsPage = () => {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/admin/settings', { headers });
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/admin/settings`, { headers });
         setSettings(res.data);
       } catch (err) {
         console.error(err);
@@ -62,7 +62,7 @@ const SiteSettingsPage = () => {
 
   const handleSave = async () => {
     try {
-      await axios.put('http://localhost:5000/api/admin/settings', settings, { headers });
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/admin/settings`, settings, { headers });
       alert('Kaydedildi!');
     } catch (err) {
       alert('Hata oluştu!');

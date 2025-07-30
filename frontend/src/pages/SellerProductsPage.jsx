@@ -19,7 +19,7 @@ const SellerProductsPage = () => {
     const fetchProducts = async () => {
       try {
         const token = localStorage.getItem('token');
-        const { data } = await axios.get('http://localhost:5000/api/products/mine', {
+        const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/products/mine`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProducts(data);
@@ -38,7 +38,7 @@ const SellerProductsPage = () => {
     if (!window.confirm(t('productList.confirmDelete'))) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/products/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(products.filter(p => p._id !== id));
@@ -56,7 +56,7 @@ const SellerProductsPage = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/products/${editingProduct._id}`, editingProduct, {
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/products/${editingProduct._id}`, editingProduct, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(products.map(p => (p._id === editingProduct._id ? editingProduct : p)));

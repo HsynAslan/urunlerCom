@@ -14,7 +14,7 @@ const SellerAboutPage = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     axios
-      .get('http://localhost:5000/api/sellers/about', {
+      .get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/about`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -31,8 +31,7 @@ const SellerAboutPage = () => {
   const handleSave = async () => {
     const token = localStorage.getItem('token');
     try {
-      await axios.put(
-        'http://localhost:5000/api/sellers/about',
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/about`,
         { content },
         {
           headers: {

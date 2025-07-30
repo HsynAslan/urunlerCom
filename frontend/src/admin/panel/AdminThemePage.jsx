@@ -15,7 +15,7 @@ const AdminThemePage = () => {
   const fetchThemes = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/themes', {
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/themes`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setThemes(res.data);
@@ -38,7 +38,7 @@ const handleSubmit = async (e) => {
     console.log('Form verisi gönderiliyor:', form);
     console.log('Gönderilen token:', token);
 
-    const response = await axios.post('http://localhost:5000/api/themes', form, {
+    const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/themes`, form, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -73,7 +73,7 @@ const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
     console.log('Gönderilen token:', token);
 
-    const res = await axios.delete(`http://localhost:5000/api/themes/${id}`, {
+    const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/themes/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 

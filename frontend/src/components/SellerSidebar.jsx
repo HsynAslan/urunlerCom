@@ -22,7 +22,7 @@ const SellerSidebar = () => {
     const fetchSeller = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/sellers/store', {
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/store`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setSeller(res.data);

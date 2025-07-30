@@ -15,7 +15,7 @@ const SellerPhotosPage = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/sellers/photos', {
+      .get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/photos`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setPhotos(res.data))
@@ -27,8 +27,7 @@ const SellerPhotosPage = () => {
 
   const handleAdd = async () => {
     try {
-      const res = await axios.post(
-        'http://localhost:5000/api/sellers/photos',
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/photos`,
         { imageUrl, caption },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -46,7 +45,7 @@ const SellerPhotosPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/sellers/photos/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/photos/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPhotos((prev) => prev.filter((photo) => photo._id !== id));

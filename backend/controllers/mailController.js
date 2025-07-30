@@ -44,7 +44,7 @@ exports.sendVerificationMail = async (req, res) => {
   try {
     const { to, token } = req.body;
 
-    const verificationUrl = `${process.env.CLIENT_URL}/verify-email?token=${token}&email=${to}`;
+    const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${token}&email=${to}`;
 
     const subject = 'Please verify your email';
     const html = `

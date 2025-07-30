@@ -20,8 +20,8 @@ router.get('/site-info', async (req, res) => {
     const publicSettings = {
       maintenanceMode: settings.maintenanceMode || false,
       siteName: settings.siteName || 'Urunlerim.com',
-      frontendUrl: settings.frontendUrl || 'http://localhost:3002',
-      apiUrl: settings.apiUrl || 'http://localhost:5000/api',
+      frontendUrl: settings.frontendUrl || 'http://localhost:3000',
+      apiUrl: settings.apiUrl || 'http://localhost:5000',
       socialLinks: settings.socialLinks || {},
       contactPhone: settings.contactPhone || '',
       contactAddress: settings.contactAddress || '',

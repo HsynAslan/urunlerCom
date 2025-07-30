@@ -45,7 +45,7 @@ function App() {
   const [maintenanceMode, setMaintenanceMode] = useState(null);
 
 useEffect(() => {
-  axios.get('http://localhost:5000/api/public/site-info')
+  axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/site-info`)
     .then(res => {
       const { maintenanceMode, siteName, frontendUrl, apiUrl, socialLinks, contactPhone } = res.data;
       console.log('Bakım modu:', maintenanceMode);

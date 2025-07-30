@@ -2,6 +2,7 @@ const Seller = require('../models/Seller');
 const SellerAbout = require('../models/SellerAbout');
 const SellerPhoto = require('../models/SellerPhoto');
 const Theme = require('../models/Theme');
+require('dotenv').config();
 
 exports.getSellerInfo = async (req, res) => {
   try {

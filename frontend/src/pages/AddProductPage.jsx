@@ -117,7 +117,7 @@ const AddProductPage = () => {
         stock: Number(form.stock),
       };
 
-      await axios.post('http://localhost:5000/api/products', postData, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/products`, postData, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

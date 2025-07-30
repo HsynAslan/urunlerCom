@@ -17,7 +17,7 @@ const AdminUsers = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/admin/users?query=${query}`, { headers });
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/admin/users?query=${query}`, { headers });
       setUsers(res.data);
     } catch (err) {
       console.error('Kullanıcılar alınamadı:', err);
@@ -33,7 +33,7 @@ const AdminUsers = () => {
   // Seçilen kullanıcı değiştiğinde, eğer satıcıysa ürünleri getir
   useEffect(() => {
     if (selectedUser?.isSeller) {
-      axios.get(`http://localhost:5000/api/admin/users/${selectedUser._id}/products`, { headers })
+      axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/admin/users/${selectedUser._id}/products`, { headers })
         .then(res => setProducts(res.data))
         .catch(err => console.error('Ürünler alınamadı:', err));
     } else {
@@ -67,7 +67,7 @@ const AdminUsers = () => {
     const product = products[index];
     try {
       setSavingProductIds(ids => [...ids, product._id]);
-      await axios.patch(`http://localhost:5000/api/admin/products/${product._id}`, product, { headers });
+      await axios.patch(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/admin/products/${product._id}`, product, { headers });
       alert('Ürün kaydedildi.');
     } catch (err) {
       console.error('Ürün kaydedilemedi:', err);
