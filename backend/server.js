@@ -6,11 +6,13 @@ const Admin = require('./models/Admin');
 const bcrypt = require('bcryptjs');
 const Theme = require('./models/Theme');  
 const { connectDB } = require('./config/db');
-require('dotenv').config();
-
+const https = require('https'); // keepAlive fonksiyonu için gerekli
 
 const PORT = process.env.PORT || 5000;
 
+/**
+ * Varsayılan admin oluşturur.
+ */
 const createDefaultAdmin = async () => {
   try {
     const exists = await Admin.findOne({ username: 'admin' });
@@ -37,6 +39,9 @@ const createDefaultAdmin = async () => {
   }
 };
 
+/**
+ * Varsayılan temaları oluşturur.
+ */
 const createDefaultThemes = async () => {
   try {
     const count = await Theme.countDocuments();
@@ -46,7 +51,7 @@ const createDefaultThemes = async () => {
           name: 'Beyaz Tema',
           cssFileUrl: `${process.env.BACKEND_URL || 'http://localhost:5000'}/static/themes/theme-light.css`,
           previewImageUrl: 'https://example.com/previews/light-theme.jpg',
-          createdBy: null // opsiyonel, admin id'si konabilir
+          createdBy: null
         },
         {
           name: 'Koyu Tema',
@@ -64,17 +69,46 @@ const createDefaultThemes = async () => {
   }
 };
 
+/**
+ * Sunucunun uykuya geçmesini önlemek için belirli aralıklarla kendini pingler.
+ */
+const KEEP_ALIVE_INTERVAL = 14 * 60 * 1000; // 14 dakika
+
+const keepAlive = () => {
+  const backendUrl = process.env.BACKEND_URL;
+  const frontendUrl = process.env.FRONTEND_URL;
+
+  if (!backendUrl && !frontendUrl) return;
+
+  setInterval(() => {
+    if (backendUrl) {
+      https.get(backendUrl, (res) => {
+        console.log(`🔁 Ping to BACKEND_URL: ${backendUrl} -> Status: ${res.statusCode}`);
+      }).on('error', (err) => {
+        console.error('⚠️ Backend keep-alive ping error:', err.message);
+      });
+    }
+
+    if (frontendUrl) {
+      https.get(frontendUrl, (res) => {
+        console.log(`🔁 Ping to FRONTEND_URL: ${frontendUrl} -> Status: ${res.statusCode}`);
+      }).on('error', (err) => {
+        console.error('⚠️ Frontend keep-alive ping error:', err.message);
+      });
+    }
+  }, KEEP_ALIVE_INTERVAL);
+};
 
 // Ana başlatıcı
 (async () => {
   try {
-    // Eğer burada mongoose.connect yoksa, globalde bir yerde zaten bağlanıyor olmalı
     await createDefaultAdmin();
-  await createDefaultThemes();
-  
+    await createDefaultThemes();
+
     const server = http.createServer(app);
     server.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
+      keepAlive(); // ⬅️ Uyumayı önlemek için fonksiyonu burada başlatıyoruz
     });
   } catch (err) {
     console.error('❌ Server startup error:', err.message);
