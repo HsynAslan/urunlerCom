@@ -1,7 +1,5 @@
+// src/components/SellerSidebar.jsx
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { useTranslation } from 'react-i18next';
 import {
   Box,
   Drawer,
@@ -17,21 +15,15 @@ import {
   useTheme,
 } from '@mui/material';
 import {
-  Close,
-  Store,
-  Business,
-  AddBox,
-  InsertChart,
-  Image,
-  Public,
-  MonetizationOn,
-  CheckCircle,
-  Logout,
-  ExpandLess,
-  ExpandMore,
+  Close, Store, Business, AddBox, InsertChart, Image,
+  Public, MonetizationOn, CheckCircle, Logout,
+  ExpandLess, ExpandMore,
 } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
-const drawerWidth = '21%'; // Sidebar genişliği
+const drawerWidth = '100%'; // Mobilde genişlik tam ekran olacak
 
 const SellerSidebar = ({
   mobileOpen = false,
@@ -39,10 +31,10 @@ const SellerSidebar = ({
   variant = 'permanent',
   anchor = 'left',
 }) => {
-  const { t } = useTranslation();
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
-  const isMobile = useMediaQuery('(max-width:900px)');
+  const { t } = useTranslation();
 
   const [openDropdown, setOpenDropdown] = useState(null);
   const [seller, setSeller] = useState(null);
@@ -67,13 +59,13 @@ const SellerSidebar = ({
     if (setMobileOpen) setMobileOpen(!mobileOpen);
   };
 
-  const toggleDropdown = (key) => {
-    setOpenDropdown((prev) => (prev === key ? null : key));
-  };
-
   const handleNavigation = (path) => {
     navigate(path);
     if (isMobile && setMobileOpen) setMobileOpen(false);
+  };
+
+  const toggleDropdown = (key) => {
+    setOpenDropdown((prev) => (prev === key ? null : key));
   };
 
   const handleLogout = () => {
@@ -83,7 +75,12 @@ const SellerSidebar = ({
   };
 
   const drawerContent = (
-    <>
+    <Box
+      sx={{
+        height: isMobile ? '70vh' : '100%',
+        overflowY: 'auto',
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
@@ -97,7 +94,7 @@ const SellerSidebar = ({
       >
         <Typography variant="subtitle1">{seller?.user?.name || 'Loading...'}</Typography>
         {variant === 'temporary' && (
-          <IconButton onClick={handleDrawerToggle} color="inherit" aria-label="Close sidebar">
+          <IconButton onClick={handleDrawerToggle} color="inherit">
             <Close />
           </IconButton>
         )}
@@ -105,87 +102,63 @@ const SellerSidebar = ({
 
       <Divider />
 
-      <List sx={{ overflowY: 'auto', height: 'calc(100vh - 120px)' }}>
+      <List>
         <ListItemButton onClick={() => toggleDropdown('store')}>
-          <ListItemIcon>
-            <Store />
-          </ListItemIcon>
+          <ListItemIcon><Store /></ListItemIcon>
           <ListItemText primary={t('sellerSidebar.store')} />
           {openDropdown === 'store' ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openDropdown === 'store'} timeout="auto" unmountOnExit>
           <List disablePadding>
             <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/company/create')}>
-              <ListItemIcon>
-                <Business />
-              </ListItemIcon>
+              <ListItemIcon><Business /></ListItemIcon>
               <ListItemText primary={t('sellerSidebar.createCompany')} />
             </ListItemButton>
             <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/products/add')}>
-              <ListItemIcon>
-                <AddBox />
-              </ListItemIcon>
+              <ListItemIcon><AddBox /></ListItemIcon>
               <ListItemText primary={t('sellerSidebar.addProduct')} />
             </ListItemButton>
             <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/products')}>
-              <ListItemIcon>
-                <AddBox />
-              </ListItemIcon>
+              <ListItemIcon><AddBox /></ListItemIcon>
               <ListItemText primary={t('sellerSidebar.editProducts')} />
             </ListItemButton>
             <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/about')}>
-              <ListItemIcon>
-                <InsertChart />
-              </ListItemIcon>
+              <ListItemIcon><InsertChart /></ListItemIcon>
               <ListItemText primary={t('sellerSidebar.aboutPages')} />
             </ListItemButton>
             <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/photos')}>
-              <ListItemIcon>
-                <Image />
-              </ListItemIcon>
+              <ListItemIcon><Image /></ListItemIcon>
               <ListItemText primary={t('sellerSidebar.photoPages')} />
             </ListItemButton>
             <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/publish-page')}>
-              <ListItemIcon>
-                <Public />
-              </ListItemIcon>
+              <ListItemIcon><Public /></ListItemIcon>
               <ListItemText primary={t('sellerSidebar.publishPages')} />
             </ListItemButton>
           </List>
         </Collapse>
 
         <ListItemButton onClick={() => handleNavigation('/seller/statistics')}>
-          <ListItemIcon>
-            <InsertChart />
-          </ListItemIcon>
+          <ListItemIcon><InsertChart /></ListItemIcon>
           <ListItemText primary={t('sellerSidebar.statistics')} />
         </ListItemButton>
 
         <ListItemButton onClick={() => toggleDropdown('plans')}>
-          <ListItemIcon>
-            <MonetizationOn />
-          </ListItemIcon>
+          <ListItemIcon><MonetizationOn /></ListItemIcon>
           <ListItemText primary={t('sellerSidebar.plans')} />
           {openDropdown === 'plans' ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openDropdown === 'plans'} timeout="auto" unmountOnExit>
           <List disablePadding>
             <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/plans/free')}>
-              <ListItemIcon>
-                <CheckCircle />
-              </ListItemIcon>
+              <ListItemIcon><CheckCircle /></ListItemIcon>
               <ListItemText primary={t('sellerSidebar.freePlan')} />
             </ListItemButton>
             <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/plans/premium')}>
-              <ListItemIcon>
-                <CheckCircle />
-              </ListItemIcon>
+              <ListItemIcon><CheckCircle /></ListItemIcon>
               <ListItemText primary={t('sellerSidebar.premiumPlan')} />
             </ListItemButton>
             <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/plans/business')}>
-              <ListItemIcon>
-                <CheckCircle />
-              </ListItemIcon>
+              <ListItemIcon><CheckCircle /></ListItemIcon>
               <ListItemText primary={t('sellerSidebar.businessPlan')} />
             </ListItemButton>
           </List>
@@ -194,13 +167,11 @@ const SellerSidebar = ({
         <Divider sx={{ my: 2 }} />
 
         <ListItemButton onClick={handleLogout}>
-          <ListItemIcon>
-            <Logout />
-          </ListItemIcon>
+          <ListItemIcon><Logout /></ListItemIcon>
           <ListItemText primary={t('sellerSidebar.logout')} />
         </ListItemButton>
       </List>
-    </>
+    </Box>
   );
 
   return (
@@ -208,16 +179,15 @@ const SellerSidebar = ({
       variant={variant}
       open={variant === 'temporary' ? mobileOpen : true}
       onClose={handleDrawerToggle}
-      anchor={anchor}
-      ModalProps={{
-        keepMounted: true, // Performans için
-      }}
+      anchor={isMobile ? 'bottom' : anchor} // Mobilde aşağıdan gelsin
+      ModalProps={{ keepMounted: true }}
       sx={{
-        width: drawerWidth,
-        flexShrink: 0,
         '& .MuiDrawer-paper': {
           width: drawerWidth,
+          height: isMobile ? '70vh' : '100%',
           boxSizing: 'border-box',
+          borderTopLeftRadius: isMobile ? 12 : 0,
+          borderTopRightRadius: isMobile ? 12 : 0,
         },
       }}
     >

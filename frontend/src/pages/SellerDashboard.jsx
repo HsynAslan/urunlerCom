@@ -164,12 +164,12 @@ const SellerDashboard = () => {
 
         {/* Mobil drawer olarak sidebar */}
         {isMobile && (
-          <SellerSidebar
-            mobileOpen={mobileSidebarOpen}
-            setMobileOpen={setMobileSidebarOpen}
-            variant="temporary"
-            anchor="left"
-          />
+         <SellerSidebar
+  mobileOpen={mobileSidebarOpen}
+  setMobileOpen={setMobileSidebarOpen}
+  variant="temporary"
+/>
+
         )}
       </Box>
     </ThemeProvider>
