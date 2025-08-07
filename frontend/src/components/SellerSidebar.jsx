@@ -15,26 +15,31 @@ import {
   useTheme,
 } from '@mui/material';
 import {
-  Close, Store, Business, AddBox, InsertChart, Image,
-  Public, MonetizationOn, CheckCircle, Logout,
-  ExpandLess, ExpandMore,
+  Close,
+  Store,
+  Business,
+  AddBox,
+  InsertChart,
+  Image,
+  Public,
+  MonetizationOn,
+  CheckCircle,
+  Logout,
+  ExpandLess,
+  ExpandMore,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
-const drawerWidth = '100%'; // Mobilde genişlik tam ekran olacak
-
-const SellerSidebar = ({
-  mobileOpen = false,
-  setMobileOpen = null,
-  variant = 'permanent',
-  anchor = 'left',
-}) => {
+const SellerSidebar = ({ mobileOpen = false, setMobileOpen = null }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  // Webde sabit genişlik 240px, mobilde tam genişlik
+  const drawerWidth = isMobile ? '100%' : '21%';
 
   const [openDropdown, setOpenDropdown] = useState(null);
   const [seller, setSeller] = useState(null);
@@ -93,8 +98,8 @@ const SellerSidebar = ({
         }}
       >
         <Typography variant="subtitle1">{seller?.user?.name || 'Loading...'}</Typography>
-        {variant === 'temporary' && (
-          <IconButton onClick={handleDrawerToggle} color="inherit">
+        {isMobile && (
+          <IconButton onClick={handleDrawerToggle} color="inherit" aria-label="Close sidebar">
             <Close />
           </IconButton>
         )}
@@ -176,10 +181,10 @@ const SellerSidebar = ({
 
   return (
     <Drawer
-      variant={variant}
-      open={variant === 'temporary' ? mobileOpen : true}
+      variant={isMobile ? 'temporary' : 'permanent'}
+      open={isMobile ? mobileOpen : true}
       onClose={handleDrawerToggle}
-      anchor={isMobile ? 'bottom' : anchor} // Mobilde aşağıdan gelsin
+      anchor={isMobile ? 'bottom' : 'left'}
       ModalProps={{ keepMounted: true }}
       sx={{
         '& .MuiDrawer-paper': {
@@ -188,6 +193,8 @@ const SellerSidebar = ({
           boxSizing: 'border-box',
           borderTopLeftRadius: isMobile ? 12 : 0,
           borderTopRightRadius: isMobile ? 12 : 0,
+          borderRight: !isMobile ? `1px solid ${theme.palette.divider}` : 'none',
+          backgroundColor: theme.palette.background.paper,
         },
       }}
     >

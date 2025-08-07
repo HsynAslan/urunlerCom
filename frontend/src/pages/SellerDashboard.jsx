@@ -81,7 +81,7 @@ const SellerDashboard = () => {
           <Fab
   color="primary"
   aria-label="menu"
-  onClick={() => setMobileSidebarOpen(true)}
+  onClick={() => setMobileSidebarOpen(prev => !prev)} 
   sx={{
     position: 'fixed',
     bottom: 24,
