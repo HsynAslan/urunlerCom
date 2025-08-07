@@ -3,7 +3,7 @@
   position: fixed;
   top: 20px;
   right: 0px;
-  z-index: 1000;
+  z-index: 100000;
 }
 
 .language-selector {

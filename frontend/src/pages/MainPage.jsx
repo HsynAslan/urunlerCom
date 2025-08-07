@@ -105,7 +105,10 @@ const darkTheme = createTheme({
   },
 });
 
+// Global stil ve animasyonlar
 const GlobalStyles = styled('style')`
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
   @keyframes flicker {
     0%,
     100% {
@@ -138,6 +141,25 @@ const GlobalStyles = styled('style')`
     100% {
       box-shadow: 0 0 8px 3px ${neonRed};
     }
+  }
+
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+  @keyframes blinkCaret {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: ${neonGreen}; }
+  }
+
+  .typing-animation {
+    font-family: 'Dancing Script', cursive;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid ${neonGreen};
+    width: 0;
+    animation: typing 3s steps(30, end) forwards, blinkCaret 0.75s step-end infinite;
   }
 `;
 
@@ -243,6 +265,7 @@ export default function MainPage() {
               <Typography
                 variant="h4"
                 sx={{ fontWeight: 'bold', color: neonGreen }}
+                className="typing-animation"
               >
                 urunler.com
               </Typography>
@@ -301,6 +324,7 @@ export default function MainPage() {
               variant="h2"
               gutterBottom
               sx={{ fontWeight: '900', color: neonGreen, mb: 2 }}
+              className="typing-animation"
             >
               {t('mainPage.title')}
             </Typography>
@@ -321,6 +345,7 @@ export default function MainPage() {
               variant="h4"
               gutterBottom
               sx={{ mb: 3, color: neonGreen, textAlign: 'center' }}
+              className="typing-animation"
             >
               {t('mainPage.featuresTitle')}
             </Typography>
@@ -354,7 +379,7 @@ export default function MainPage() {
 
           {/* CTA */}
           <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography variant="h5" gutterBottom sx={{ mb: 2, color: neonGreen }}>
+            <Typography variant="h5" gutterBottom sx={{ mb: 2, color: neonGreen }} className="typing-animation">
               {t('mainPage.ctaTitle')}
             </Typography>
             <Typography
