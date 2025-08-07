@@ -467,24 +467,11 @@ export default function MainPage() {
             >
               {t('mainPage.ctaText')}
             </Typography>
-            <Button
-              variant="contained"
-              color="success"
-              size="large"
-              sx={{
-                px: 5,
-                fontWeight: 'bold',
-                animation: 'rotateGlow 4s linear infinite',
-                backgroundColor: buttonBg,
-                boxShadow: `0 0 15px 5px ${neonGreen}`,
-                '&:hover': {
-                  backgroundColor: '#1f4571',
-                  boxShadow: `0 0 30px 10px ${neonGreen}`,
-                },
-              }}
-            >
-              {t('mainPage.register')}
-            </Button>
+            <Link to="/register" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" color="success" sx={{ minWidth: 100 }}>
+                  {t('mainPage.register')}
+                </Button>
+              </Link>
           </Box>
 
           {/* Footer */}
