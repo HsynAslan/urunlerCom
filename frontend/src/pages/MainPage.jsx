@@ -22,6 +22,8 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import LanguageSelector from '../components/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 // Neon renkler
 const neonGreen = '#39ff14';
@@ -31,6 +33,7 @@ const neonRed = '#ff073a';
 const backgroundMain = '#0e1a2b'; // Anasayfa arka planı
 const buttonBg = '#162f4a'; // Buton için biraz daha açık koyu mavi (arkaplandan ton farkı)
 
+// Koyu tema
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -98,6 +101,72 @@ const darkTheme = createTheme({
           backgroundColor: buttonBg,
           '&:hover': {
             backgroundColor: '#4a1520',
+          },
+        },
+      },
+    },
+  },
+});
+
+// Açık tema
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    background: {
+      default: '#f0f0f0',
+      paper: '#fff',
+    },
+    primary: {
+      main: '#1976d2',
+    },
+    success: {
+      main: '#4caf50',
+      contrastText: '#fff',
+    },
+    error: {
+      main: '#f44336',
+      contrastText: '#fff',
+    },
+    text: {
+      primary: '#000',
+      secondary: '#555',
+    },
+  },
+  typography: {
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    h1: {
+      fontWeight: '900',
+      color: '#1976d2',
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          textTransform: 'none',
+          fontWeight: 700,
+          backgroundColor: '#e0e0e0',
+          color: '#000',
+          boxShadow: 'none',
+          transition: 'box-shadow 1s ease-in-out, background-color 0.3s ease',
+          '&:hover': {
+            backgroundColor: '#a5d6f9',
+            boxShadow: 'none',
+          },
+        },
+        containedSuccess: {
+          boxShadow: 'none',
+          backgroundColor: '#4caf50',
+          '&:hover': {
+            backgroundColor: '#388e3c',
+          },
+        },
+        containedError: {
+          boxShadow: 'none',
+          backgroundColor: '#f44336',
+          '&:hover': {
+            backgroundColor: '#d32f2f',
           },
         },
       },
@@ -207,11 +276,13 @@ const NeonFeatureBox = styled(Box)(({ theme }) => ({
 export default function MainPage() {
   const { t } = useTranslation();
 
-  const theme = useTheme();
+  const [darkMode, setDarkMode] = React.useState(true);
+  const theme = darkMode ? darkTheme : lightTheme;
+
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Box
         sx={{
@@ -371,7 +442,9 @@ export default function MainPage() {
                   md={4}
                   sx={{ display: 'flex', justifyContent: 'center' }}
                 >
-                  <NeonFeatureBox>{icon} {text}</NeonFeatureBox>
+                  <NeonFeatureBox>
+                    {icon} {text}
+                  </NeonFeatureBox>
                 </Grid>
               ))}
             </Grid>
@@ -379,7 +452,12 @@ export default function MainPage() {
 
           {/* CTA */}
           <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography variant="h5" gutterBottom sx={{ mb: 2, color: neonGreen }} className="typing-animation">
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{ mb: 2, color: neonGreen }}
+              className="typing-animation"
+            >
               {t('mainPage.ctaTitle')}
             </Typography>
             <Typography
@@ -445,6 +523,36 @@ export default function MainPage() {
             <KeyboardArrowUpIcon />
           </Fab>
         </ScrollTop>
+
+        {/* Tema değiştirici buton (sol altta) */}
+        <Box
+          sx={{
+            position: 'fixed',
+            bottom: 32,
+            left: 32,
+            zIndex: 1200,
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={() => setDarkMode(!darkMode)}
+            sx={{
+              fontWeight: 'bold',
+              backgroundColor: darkMode ? buttonBg : '#e0e0e0',
+              color: darkMode ? '#e0e0e0' : '#000',
+              boxShadow: darkMode ? `0 0 10px 3px ${neonGreen}` : 'none',
+              minWidth: 40,
+              minHeight: 40,
+              borderRadius: '50%',
+              p: 1,
+              '&:hover': {
+                backgroundColor: darkMode ? '#1f4571' : '#a5d6f9',
+              },
+            }}
+          >
+            {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+          </Button>
+        </Box>
       </Box>
     </ThemeProvider>
   );
