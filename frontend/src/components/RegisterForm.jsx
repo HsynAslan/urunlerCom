@@ -360,7 +360,7 @@ export default function RegisterPage() {
               onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
               required
               autoComplete="name"
-              style={{ backgroundColor: darkMode ? '#112240' : '#fff', color: darkMode ? '#e0e0e0' : '#000' }}
+              style={{ backgroundColor: darkMode ? '#112240' : '#fff', color: darkMode ? '#e0e0e0' : '#000' , width: '90%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc', marginBottom: '16px' }}
             />
             <input
               type="email"
@@ -370,7 +370,7 @@ export default function RegisterPage() {
               onChange={e => setFormData(prev => ({ ...prev, email: e.target.value }))}
               required
               autoComplete="email"
-              style={{ backgroundColor: darkMode ? '#112240' : '#fff', color: darkMode ? '#e0e0e0' : '#000' }}
+              style={{ backgroundColor: darkMode ? '#112240' : '#fff', color: darkMode ? '#e0e0e0' : '#000', width: '90%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc' , marginBottom: '16px' }}
             />
             <input
               type="password"
@@ -380,7 +380,7 @@ export default function RegisterPage() {
               onChange={e => setFormData(prev => ({ ...prev, password: e.target.value }))}
               required
               autoComplete="new-password"
-              style={{ backgroundColor: darkMode ? '#112240' : '#fff', color: darkMode ? '#e0e0e0' : '#000' }}
+              style={{ backgroundColor: darkMode ? '#112240' : '#fff', color: darkMode ? '#e0e0e0' : '#000', width: '90%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc', marginBottom: '16px'  }}
             />
 
             <label style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
@@ -419,8 +419,34 @@ export default function RegisterPage() {
 
         {/* Hizmet Şartları Modalı */}
         {showTermsModal && (
-          <Box className="modal-overlay">
-            <Box className="modal-content" sx={{ backgroundColor: darkMode ? '#112240' : '#fff', color: darkMode ? '#e0e0e0' : '#000' }}>
+          <Box
+  sx={{
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    bgcolor: 'rgba(0,0,0,0.6)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    p: 2,
+    zIndex: 1300,
+  }}
+>
+
+           <Box
+  sx={{
+    backgroundColor: darkMode ? '#112240' : '#fff',
+    color: darkMode ? '#e0e0e0' : '#000',
+    maxWidth: 500,
+    width: '100%',
+    borderRadius: 2,
+    p: 3,
+    boxShadow: 4,
+  }}
+>
+
               <Typography variant="h5" sx={{ color: darkMode ? neonGreen : '#1976d2' }}>
                 {t('RegisterPage.termsTitle')}
               </Typography>

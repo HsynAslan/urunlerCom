@@ -19,6 +19,7 @@ import LanguageSelector from '../components/LanguageSelector';
 import RegisterForm from '../components/RegisterForm';
 
 const neonGreen = '#39ff14';
+const backgroundPaper = '#112240';
 const neonRed = '#ff073a';
 const backgroundMain = '#0e1a2b';
 const buttonBg = '#162f4a';
@@ -36,7 +37,7 @@ const darkTheme = createTheme({
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
     h2: {
       fontWeight: 900,
-      color: neonGreen,
+      color: backgroundPaper,
       textShadow: `
         0 0 8px ${neonGreen},
         0 0 20px ${neonGreen},
@@ -60,7 +61,7 @@ const lightTheme = createTheme({
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
     h2: {
       fontWeight: 900,
-      color: '#1976d2',
+      color: backgroundPaper,
     },
   },
 });

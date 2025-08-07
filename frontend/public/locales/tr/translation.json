@@ -48,7 +48,7 @@
      "verificationSentTitle": "Doğrulama Maili Gönderildi",
   "verificationSentMessage": "Mail adresinize bir doğrulama maili iletildi, lütfen kontrol ediniz.",
   "ok": "Tamam",
-  "isCustomer": "Müşteri misiniz?"
+  "isCustomer": "Müşteri misiniz? (Beta)"
   },
 
   "SellerDashboard":{
@@ -62,8 +62,8 @@
   "companyInfo": "Şirket Bilgileri",
   "addProduct": "Ürün Ekle",
   "editProducts": "Ürünleri Düzenle",
-  "statistics": "Şirket İstatistikleri",
-  "plans": "Planlar",
+  "statistics": "Şirket İstatistikleri (Beta)",
+  "plans": "Planlar (Beta)",
   "freePlan": "Free Plan",
   "premiumPlan": "Premium Plan",
   "businessPlan": "Business Plan",

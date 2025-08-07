@@ -47,7 +47,7 @@
     "verificationSentTitle": "Verification Email Sent",
     "verificationSentMessage": "A verification email has been sent to your address. Please check your inbox.",
     "ok": "OK",
-    "isCustomer": "Are you a customer?"
+    "isCustomer": "Are you a customer? (Beta)"
   },
 
   "SellerDashboard": {
@@ -61,8 +61,8 @@
     "companyInfo": "Company Information",
     "addProduct": "Add Product",
     "editProducts": "Edit Products",
-    "statistics": "Company Statistics",
-    "plans": "Plans",
+    "statistics": "Company Statistics (Beta)",
+    "plans": "Plans (Beta)",
     "freePlan": "Free Plan",
     "premiumPlan": "Premium Plan",
     "businessPlan": "Business Plan",

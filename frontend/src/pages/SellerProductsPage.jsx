@@ -195,7 +195,7 @@ const SellerProductsPage = () => {
           sx={{
             flexGrow: 1,
             p: 3,
-            width: { xs: '100%', md: '80%' },
+            width: {  md: '80%' },
           }}
         >
           <Box sx={{ position: 'absolute', top: 16, right: 16, zIndex: 1500 }}>

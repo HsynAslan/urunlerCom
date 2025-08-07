@@ -9,8 +9,9 @@ import {
   Zoom,
   Fab,
   useMediaQuery,
+  IconButton,
 } from '@mui/material';
-import { styled, createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   FaStore,
   FaGlobe,
@@ -22,38 +23,43 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import LanguageSelector from '../components/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-// Neon renkler
-const neonGreen = '#39ff14';
-const neonRed = '#ff073a';
-
-// Koyu mavi tonları (arka plan ve buton için)
-const backgroundMain = '#0e1a2b'; // Anasayfa arka planı
-const buttonBg = '#162f4a'; // Buton için biraz daha açık koyu mavi (arkaplandan ton farkı)
+// Tema renkleri (rehberden)
+const colors = {
+  darkBg: '#121212',
+  lightBg: '#f5f5f5',
+  darkCardBg: '#1e1e1e',
+  lightCardBg: '#ffffff',
+  darkText: '#e0e0e0',
+  lightText: '#212121',
+  primary: '#1976d2',
+  success: '#66bb6a',
+  error: '#ef5350',
+};
 
 // Koyu tema
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: backgroundMain,
-      paper: '#112240',
+      default: colors.darkBg,
+      paper: colors.darkCardBg,
     },
     primary: {
-      main: '#2196f3',
+      main: colors.primary,
     },
     success: {
-      main: neonGreen,
+      main: colors.success,
       contrastText: '#000',
     },
     error: {
-      main: neonRed,
+      main: colors.error,
       contrastText: '#000',
     },
     text: {
-      primary: '#e0e0e0',
+      primary: colors.darkText,
       secondary: '#bbbbbb',
     },
   },
@@ -62,13 +68,7 @@ const darkTheme = createTheme({
     h1: {
       fontWeight: '900',
       letterSpacing: '0.1em',
-      textShadow: `
-        0 0 8px ${neonGreen}, 
-        0 0 20px ${neonGreen}, 
-        0 0 30px ${neonGreen}, 
-        0 0 40px ${neonGreen}
-      `,
-      animation: 'flicker 3s infinite alternate',
+      color: colors.success,
     },
   },
   components: {
@@ -78,29 +78,28 @@ const darkTheme = createTheme({
           borderRadius: 8,
           textTransform: 'none',
           fontWeight: 700,
-          backgroundColor: buttonBg,
-          color: '#e0e0e0',
-          boxShadow: `0 0 10px 3px rgba(57, 255, 20, 0.6)`,
-          transition: 'box-shadow 1s ease-in-out, background-color 0.3s ease',
+          boxShadow: 'none',
+          transition: 'background-color 0.3s ease',
+        },
+        containedPrimary: {
+          backgroundColor: colors.primary,
+          color: '#fff',
           '&:hover': {
-            backgroundColor: '#1f4571',
-            boxShadow: `0 0 20px 6px ${neonGreen}`,
+            backgroundColor: '#115293',
           },
         },
         containedSuccess: {
-          boxShadow: `0 0 8px 3px ${neonGreen}`,
-          animation: 'rotateGlow 4s linear infinite',
-          backgroundColor: buttonBg,
+          backgroundColor: colors.success,
+          color: '#000',
           '&:hover': {
-            backgroundColor: '#1f4571',
+            backgroundColor: '#4caf50',
           },
         },
         containedError: {
-          boxShadow: `0 0 8px 3px ${neonRed}`,
-          animation: 'rotateGlowRed 4s linear infinite',
-          backgroundColor: buttonBg,
+          backgroundColor: colors.error,
+          color: '#000',
           '&:hover': {
-            backgroundColor: '#4a1520',
+            backgroundColor: '#d32f2f',
           },
         },
       },
@@ -113,22 +112,22 @@ const lightTheme = createTheme({
   palette: {
     mode: 'light',
     background: {
-      default: '#f0f0f0',
-      paper: '#fff',
+      default: colors.lightBg,
+      paper: colors.lightCardBg,
     },
     primary: {
-      main: '#1976d2',
+      main: colors.primary,
     },
     success: {
-      main: '#4caf50',
+      main: colors.success,
       contrastText: '#fff',
     },
     error: {
-      main: '#f44336',
+      main: colors.error,
       contrastText: '#fff',
     },
     text: {
-      primary: '#000',
+      primary: colors.lightText,
       secondary: '#555',
     },
   },
@@ -136,7 +135,7 @@ const lightTheme = createTheme({
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
     h1: {
       fontWeight: '900',
-      color: '#1976d2',
+      color: colors.primary,
     },
   },
   components: {
@@ -146,25 +145,26 @@ const lightTheme = createTheme({
           borderRadius: 8,
           textTransform: 'none',
           fontWeight: 700,
-          backgroundColor: '#e0e0e0',
-          color: '#000',
           boxShadow: 'none',
-          transition: 'box-shadow 1s ease-in-out, background-color 0.3s ease',
+          transition: 'background-color 0.3s ease',
+        },
+        containedPrimary: {
+          backgroundColor: colors.primary,
+          color: '#fff',
           '&:hover': {
-            backgroundColor: '#a5d6f9',
-            boxShadow: 'none',
+            backgroundColor: '#115293',
           },
         },
         containedSuccess: {
-          boxShadow: 'none',
-          backgroundColor: '#4caf50',
+          backgroundColor: colors.success,
+          color: '#fff',
           '&:hover': {
-            backgroundColor: '#388e3c',
+            backgroundColor: '#4caf50',
           },
         },
         containedError: {
-          boxShadow: 'none',
-          backgroundColor: '#f44336',
+          backgroundColor: colors.error,
+          color: '#fff',
           '&:hover': {
             backgroundColor: '#d32f2f',
           },
@@ -174,72 +174,13 @@ const lightTheme = createTheme({
   },
 });
 
-// Global stil ve animasyonlar
-const GlobalStyles = styled('style')`
-  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-
-  @keyframes flicker {
-    0%,
-    100% {
-      text-shadow: 0 0 8px ${neonGreen}, 0 0 20px ${neonGreen}, 0 0 30px ${neonGreen};
-    }
-    50% {
-      text-shadow: 0 0 10px ${neonGreen}, 0 0 25px ${neonGreen}, 0 0 40px ${neonGreen};
-    }
-  }
-
-  @keyframes rotateGlow {
-    0% {
-      box-shadow: 0 0 8px 3px ${neonGreen};
-    }
-    50% {
-      box-shadow: 0 0 20px 6px ${neonGreen};
-    }
-    100% {
-      box-shadow: 0 0 8px 3px ${neonGreen};
-    }
-  }
-
-  @keyframes rotateGlowRed {
-    0% {
-      box-shadow: 0 0 8px 3px ${neonRed};
-    }
-    50% {
-      box-shadow: 0 0 20px 6px ${neonRed};
-    }
-    100% {
-      box-shadow: 0 0 8px 3px ${neonRed};
-    }
-  }
-
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-  }
-
-  @keyframes blinkCaret {
-    0%, 100% { border-color: transparent; }
-    50% { border-color: ${neonGreen}; }
-  }
-
-  .typing-animation {
-    font-family: 'Dancing Script', cursive;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 3px solid ${neonGreen};
-    width: 0;
-    animation: typing 3s steps(30, end) forwards, blinkCaret 0.75s step-end infinite;
-  }
-`;
-
-function ScrollTop(props) {
+const ScrollTop = (props) => {
   const { children } = props;
   const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 100 });
 
   const handleClick = (event) => {
     const anchor =
       (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
-
     if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
@@ -248,50 +189,50 @@ function ScrollTop(props) {
       <Box
         onClick={handleClick}
         role="presentation"
-        sx={{ position: 'fixed', bottom: 32, right: 32, zIndex: 1000 }}
+        sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 1000 }}
       >
         {children}
       </Box>
     </Zoom>
   );
-}
+};
 
-const NeonFeatureBox = styled(Box)(({ theme }) => ({
+const FeatureCard = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  color: theme.palette.text.primary,
+  padding: '20px',
+  borderRadius: 12,
+  boxShadow: theme.shadows[4],
   display: 'flex',
   alignItems: 'center',
   gap: 12,
-  padding: '20px',
-  borderRadius: 16,
-  backgroundColor: theme.palette.background.paper,
-  color: theme.palette.text.primary,
-  boxShadow: `0 0 15px 5px rgba(33, 150, 243, 0.9)`,
   fontWeight: 600,
-  fontSize: '1.15rem',
+  fontSize: '1.1rem',
+  cursor: 'default',
   transition: 'transform 0.3s ease',
   '&:hover': {
     transform: 'scale(1.05)',
+    boxShadow: theme.shadows[8],
   },
 }));
 
 export default function MainPage() {
   const { t } = useTranslation();
-
   const [darkMode, setDarkMode] = React.useState(true);
   const theme = darkMode ? darkTheme : lightTheme;
-
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
       <Box
         sx={{
           bgcolor: 'background.default',
-          minHeight: '100vh',
           color: 'text.primary',
+          minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
+          
         }}
       >
         <Box id="back-to-top-anchor" />
@@ -303,22 +244,19 @@ export default function MainPage() {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              mb: 4,
-              position: 'relative',
               flexWrap: 'wrap',
               gap: 2,
+              mb: 4,
+              position: 'relative',
             }}
           >
-            {/* Dil Seçici - Mobilde sol üstte sabit */}
-            {isMobile && (
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 16,
-                  left: 16,
-                  zIndex: 1100,
-                }}
-              >
+            {/* Dil Seçici */}
+            {isMobile ? (
+              <Box sx={{ position: 'absolute', top: 16, left: 16, zIndex: 1100 }}>
+                <LanguageSelector />
+              </Box>
+            ) : (
+              <Box sx={{ position: 'absolute', top: 16, left: 16 }}>
                 <LanguageSelector />
               </Box>
             )}
@@ -333,11 +271,7 @@ export default function MainPage() {
                 width: isMobile ? '100%' : 'auto',
               }}
             >
-              <Typography
-                variant="h4"
-                sx={{ fontWeight: 'bold', color: neonGreen }}
-                className="typing-animation"
-              >
+              <Typography variant="h4" sx={{ fontWeight: '900', color: colors.success }}>
                 urunler.com
               </Typography>
             </Box>
@@ -359,43 +293,19 @@ export default function MainPage() {
                 </Button>
               </Link>
               <Link to="/login" style={{ textDecoration: 'none' }}>
-                <Button variant="contained" color="success" sx={{ minWidth: 100 }}>
+                <Button variant="contained" color="primary" sx={{ minWidth: 100 }}>
                   {t('mainPage.login')}
                 </Button>
               </Link>
             </Box>
-
-            {/* Dil Seçici - Masaüstünde sağda (isteğe bağlı, dilersen kaldırabilirsin) */}
-            {!isMobile && (
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 16,
-                  left: 16,
-                }}
-              >
-                <LanguageSelector />
-              </Box>
-            )}
           </Box>
 
           {/* Hero */}
-          <Box
-            sx={{
-              textAlign: 'center',
-              mb: 6,
-              animation: 'slideDown 1s ease forwards',
-              '@keyframes slideDown': {
-                from: { opacity: 0, transform: 'translateY(-30px)' },
-                to: { opacity: 1, transform: 'translateY(0)' },
-              },
-            }}
-          >
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
             <Typography
               variant="h2"
               gutterBottom
-              sx={{ fontWeight: '900', color: neonGreen, mb: 2 }}
-              className="typing-animation"
+              sx={{ fontWeight: '900', color: colors.success, mb: 2 }}
             >
               {t('mainPage.title')}
             </Typography>
@@ -415,8 +325,7 @@ export default function MainPage() {
             <Typography
               variant="h4"
               gutterBottom
-              sx={{ mb: 3, color: neonGreen, textAlign: 'center' }}
-              className="typing-animation"
+              sx={{ mb: 3, color: colors.success, textAlign: 'center' }}
             >
               {t('mainPage.featuresTitle')}
             </Typography>
@@ -442,9 +351,9 @@ export default function MainPage() {
                   md={4}
                   sx={{ display: 'flex', justifyContent: 'center' }}
                 >
-                  <NeonFeatureBox>
+                  <FeatureCard>
                     {icon} {text}
-                  </NeonFeatureBox>
+                  </FeatureCard>
                 </Grid>
               ))}
             </Grid>
@@ -452,12 +361,7 @@ export default function MainPage() {
 
           {/* CTA */}
           <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{ mb: 2, color: neonGreen }}
-              className="typing-animation"
-            >
+            <Typography variant="h5" gutterBottom sx={{ mb: 2, color: colors.success }}>
               {t('mainPage.ctaTitle')}
             </Typography>
             <Typography
@@ -468,10 +372,10 @@ export default function MainPage() {
               {t('mainPage.ctaText')}
             </Typography>
             <Link to="/register" style={{ textDecoration: 'none' }}>
-                <Button variant="contained" color="success" sx={{ minWidth: 100 }}>
-                  {t('mainPage.register')}
-                </Button>
-              </Link>
+              <Button variant="contained" color="success" sx={{ minWidth: 100 }}>
+                {t('mainPage.register')}
+              </Button>
+            </Link>
           </Box>
 
           {/* Footer */}
@@ -479,7 +383,7 @@ export default function MainPage() {
             sx={{
               textAlign: 'center',
               py: 3,
-              borderTop: '1px solid #2196f3',
+              borderTop: `1px solid ${colors.primary}`,
               color: '#777',
             }}
           >
@@ -494,24 +398,16 @@ export default function MainPage() {
         {/* Scroll Top */}
         <ScrollTop>
           <Fab
-            color="success"
+            color="primary"
             size="small"
             aria-label="scroll back to top"
-            sx={{
-              animation: 'rotateGlow 4s linear infinite',
-              backgroundColor: buttonBg,
-              boxShadow: `0 0 10px 3px ${neonGreen}`,
-              '&:hover': {
-                backgroundColor: '#1f4571',
-                boxShadow: `0 0 25px 7px ${neonGreen}`,
-              },
-            }}
+            sx={{}}
           >
             <KeyboardArrowUpIcon />
           </Fab>
         </ScrollTop>
 
-        {/* Tema değiştirici buton (sol altta) */}
+        {/* Tema değiştirici buton */}
         <Box
           sx={{
             position: 'fixed',
@@ -520,25 +416,14 @@ export default function MainPage() {
             zIndex: 1200,
           }}
         >
-          <Button
-            variant="contained"
+          <IconButton
             onClick={() => setDarkMode(!darkMode)}
-            sx={{
-              fontWeight: 'bold',
-              backgroundColor: darkMode ? buttonBg : '#e0e0e0',
-              color: darkMode ? '#e0e0e0' : '#000',
-              boxShadow: darkMode ? `0 0 10px 3px ${neonGreen}` : 'none',
-              minWidth: 40,
-              minHeight: 40,
-              borderRadius: '50%',
-              p: 1,
-              '&:hover': {
-                backgroundColor: darkMode ? '#1f4571' : '#a5d6f9',
-              },
-            }}
+            color="primary"
+            size="large"
+            sx={{ backgroundColor: 'background.paper', '&:hover': { backgroundColor: 'grey.300' } }}
           >
-            {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-          </Button>
+            {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
         </Box>
       </Box>
     </ThemeProvider>
