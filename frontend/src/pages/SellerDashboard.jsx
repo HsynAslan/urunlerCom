@@ -6,12 +6,14 @@ import {
   Button,
   createTheme,
   ThemeProvider,
+  Fab,
 } from '@mui/material';
 import SellerSidebar from '../components/SellerSidebar';
 import LanguageSelector from '../components/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import Menu from '@mui/icons-material/Menu';
 
 const defaultTheme = createTheme();
 
@@ -76,22 +78,21 @@ const SellerDashboard = () => {
 
         {/* Mobilde aç/kapa butonu */}
         {isMobile && (
-          <Button
-            variant="contained"
-            onClick={() => setMobileSidebarOpen(true)}
-            sx={{
-              position: 'fixed',
-              top: 16,
-              left: 16,
-              zIndex: 2000,
-              borderRadius: '8px',
-              bgcolor: darkMode ? '#2196f3' : '#4db6ac',
-              color: '#fff',
-              textTransform: 'none',
-            }}
-          >
-            Menü
-          </Button>
+          <Fab
+  color="primary"
+  aria-label="menu"
+  onClick={() => setMobileSidebarOpen(true)}
+  sx={{
+    position: 'fixed',
+    bottom: 24,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    zIndex: theme.zIndex.drawer + 1,
+  }}
+>
+  <Menu />  {/* Burada ikon kullandık */}
+</Fab>
+
         )}
 
         {/* İçerik */}

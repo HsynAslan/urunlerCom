@@ -31,7 +31,7 @@ import {
   ExpandMore,
 } from '@mui/icons-material';
 
-const drawerWidth = 240;
+const drawerWidth = '21%'; // Sidebar genişliği
 
 const SellerSidebar = ({
   mobileOpen = false,

@@ -164,8 +164,12 @@
    margin-right: 10px;
    margin-left: 10px;
   }
-  .language-selector-container{
-    width: 100%;
+  .language-selector-container {
+    position: fixed;
+    top: 20px;
+   right: -4vh;
+    width: auto; /* genişlik sabit */
+    z-index: 100000;
   }
 }
 
