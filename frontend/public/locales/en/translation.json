@@ -73,6 +73,18 @@
     "logout": "Logout"
   },
 
+  "sellerStatistics": {
+    "title": "Statistics",
+    "loading": "Loading...",
+    "fetchError": "Error loading statistics",
+    "metric": "Metric",
+    "value": "Value",
+    "totalProducts": "Total Products",
+    "totalSales": "Total Sales",
+    "totalRevenue": "Total Revenue",
+    "recentSalesCount": "Sales in Last 30 Days"
+  },
+
   "sellerCreateCompany": {
     "title": "Create or Edit Company",
     "companyName": "Company Name",

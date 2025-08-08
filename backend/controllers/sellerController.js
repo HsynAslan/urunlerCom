@@ -5,6 +5,8 @@ const Theme = require('../models/Theme');
 require('dotenv').config();
 const Order = require('../models/Order'); // Örnek: Satışlar, siparişler modelin varsa
 const Product = require('../models/Product'); // Ürün modeli
+const SellerStats = require('../models/SellerStats');
+
 exports.getSellerInfo = async (req, res) => {
   try {
     console.log('User ID:', req.user.id);
@@ -23,54 +25,69 @@ exports.getSellerInfo = async (req, res) => {
 };
 exports.getStats = async (req, res) => {
   try {
+    // Seller'ı bul (user id üzerinden)
     const seller = await Seller.findOne({ user: req.user.id });
     if (!seller) return res.status(404).json({ message: 'Seller not found' });
 
     const sellerId = seller._id;
 
-    // Toplam ürün sayısı
-    const totalProducts = await Product.countDocuments({ seller: sellerId });
+    // SellerStats'tan tüm kayıtları çek (istersen belli bir tarih aralığı ile filtrele)
+    const statsRecords = await SellerStats.find({ seller: sellerId });
 
-    // Tamamlanmış sipariş sayısı
+    // Gelen kayıtları toplayarak tek bir toplam istatistik objesi yap
+    const aggregatedStats = statsRecords.reduce(
+      (acc, record) => {
+        acc.totalVisits += record.totalVisits || 0;
+        acc.phoneClicks += record.phoneClicks || 0;
+        acc.locationClicks += record.locationClicks || 0;
+        acc.qrDownloads += record.qrDownloads || 0;
+        acc.ordersPlaced += record.ordersPlaced || 0;
+        acc.totalDuration += (record.averageDuration || 0) * 1; // saniye cinsinden ortalama sürelerin toplamı (ortalama için ileride kullanılabilir)
+        acc.recordCount += 1;
+        return acc;
+      },
+      {
+        totalVisits: 0,
+        phoneClicks: 0,
+        locationClicks: 0,
+        qrDownloads: 0,
+        ordersPlaced: 0,
+        totalDuration: 0,
+        recordCount: 0,
+      }
+    );
+
+    // Ortalama sayfada kalma süresi (tüm kayıtların ortalaması)
+    const averageDuration = aggregatedStats.recordCount > 0
+      ? aggregatedStats.totalDuration / aggregatedStats.recordCount
+      : 0;
+
+    // Toplam ürün sayısı ve toplam satışları yine ilgili modellerden alabiliriz
+    const totalProducts = await Product.countDocuments({ seller: sellerId });
     const totalSales = await Order.countDocuments({ seller: sellerId, status: 'completed' });
 
-    // Toplam gelir (ör: completed siparişlerin toplam tutarı)
+    // Toplam gelir
     const completedOrders = await Order.aggregate([
       { $match: { seller: sellerId, status: 'completed' } },
       { $group: { _id: null, totalRevenue: { $sum: '$totalPrice' } } }
     ]);
     const totalRevenue = completedOrders.length > 0 ? completedOrders[0].totalRevenue : 0;
 
-    // Son 30 gün içerisindeki satışlar
-    const date30DaysAgo = new Date();
-    date30DaysAgo.setDate(date30DaysAgo.getDate() - 30);
-
-    const recentSalesCount = await Order.countDocuments({
-      seller: sellerId,
-      status: 'completed',
-      completedAt: { $gte: date30DaysAgo }
-    });
-
-    // Ziyaret sayısı gibi başka istatistiklerin varsa burada sorgula
-    // Örnek: const visitCount = await Visit.countDocuments({ seller: sellerId });
-    console.log('Seller Stats:', {
-      totalProducts,
-      totalSales,
-      totalRevenue,
-      recentSalesCount,
-    });
     res.json({
       totalProducts,
       totalSales,
       totalRevenue,
-      recentSalesCount,
-      // visitCount, iadeSayisi, ortalamaFiyat gibi başka metrikler eklenebilir
+      totalVisits: aggregatedStats.totalVisits,
+      phoneClicks: aggregatedStats.phoneClicks,
+      locationClicks: aggregatedStats.locationClicks,
+      qrDownloads: aggregatedStats.qrDownloads,
+      ordersPlaced: aggregatedStats.ordersPlaced,
+      averageDuration, // saniye cinsinden
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 exports.updateSellerInfo = async (req, res) => {
   try {

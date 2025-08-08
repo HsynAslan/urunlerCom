@@ -7,13 +7,12 @@ import {
   createTheme,
   ThemeProvider,
   Fab,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Paper,
+  Grid,
+  Card,
+  CardContent,
+  CircularProgress,
+  TableContainer,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -40,12 +39,30 @@ const lightTheme = createTheme({
   },
 });
 
+// Backend’den gelen key'leri okunabilir label'a çevir
 const metricLabels = {
   totalProducts: 'Toplam Ürün Sayısı',
   totalSales: 'Toplam Satış Adedi',
-  totalRevenue: 'Toplam Gelir (TL)',
-  recentSalesCount: 'Son 30 Gün Satış Sayısı',
-  // Buraya backend’den gelen başka metrikler de eklenebilir
+  totalRevenue: 'Toplam Gelir',
+  totalVisits: 'Toplam Ziyaret',
+  phoneClicks: 'Telefon Aramaları',
+  locationClicks: 'Harita Tıklamaları',
+  qrDownloads: 'QR İndirilenler',
+  ordersPlaced: 'Verilen Siparişler',
+  averageDuration: 'Ortalama Sayfa Süresi',
+};
+
+const formatValue = (key, value) => {
+  if (key === 'totalRevenue') {
+    return value.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' });
+  }
+  if (key === 'averageDuration') {
+    // saniyeyi dakika ve saniyeye çevir (örn: 3dk 20sn)
+    const minutes = Math.floor(value / 60);
+    const seconds = Math.floor(value % 60);
+    return `${minutes}dk ${seconds}sn`;
+  }
+  return value;
 };
 
 const SellerStatisticsPage = () => {
@@ -62,9 +79,7 @@ const SellerStatisticsPage = () => {
       .get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/stats`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => {
-        setStats(res.data);
-      })
+      .then((res) => setStats(res.data))
       .catch((err) => {
         console.error(err);
         toast.error('❌ ' + (t('sellerStatistics.fetchError') || 'İstatistikler yüklenirken hata oluştu'));
@@ -151,32 +166,84 @@ const SellerStatisticsPage = () => {
             📊 {t('sellerStatistics.title') || 'İstatistikler'}
           </Typography>
 
-          {/* İstatistik Tablosu */}
+          {/* Yükleniyorsa */}
           {!stats ? (
-            <Typography>{t('sellerStatistics.loading') || 'Yükleniyor...'}</Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+              <CircularProgress />
+            </Box>
           ) : (
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>{t('sellerStatistics.metric') || 'Ölçüt'}</TableCell>
-                    <TableCell align="right">{t('sellerStatistics.value') || 'Değer'}</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
+            <>
+              {/* Mobilde kartlı özet */}
+              {isMobile ? (
+                <Grid container spacing={2}>
                   {Object.entries(stats).map(([key, value]) => (
-                    <TableRow key={key}>
-                      <TableCell>{metricLabels[key] || key}</TableCell>
-                      <TableCell align="right">
-                        {typeof value === 'number' && key === 'totalRevenue'
-                          ? value.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })
-                          : value}
-                      </TableCell>
-                    </TableRow>
+                    <Grid item xs={6} key={key}>
+                      <Card
+                        variant="outlined"
+                        sx={{
+                          bgcolor: 'background.paper',
+                          height: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          py: 3,
+                          px: 1,
+                          textAlign: 'center',
+                        }}
+                      >
+                        <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                          {metricLabels[key] || key}
+                        </Typography>
+                        <Typography variant="h6" fontWeight={700}>
+                          {formatValue(key, value)}
+                        </Typography>
+                      </Card>
+                    </Grid>
                   ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                </Grid>
+              ) : (
+                // Masaüstü için tablo
+                <Paper>
+                  <TableContainer>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                      <thead>
+                        <tr style={{ borderBottom: `2px solid ${theme.palette.divider}` }}>
+                          <th
+                            style={{
+                              textAlign: 'left',
+                              padding: '12px 16px',
+                              color: theme.palette.text.secondary,
+                            }}
+                          >
+                            {t('sellerStatistics.metric') || 'Ölçüt'}
+                          </th>
+                          <th
+                            style={{
+                              textAlign: 'right',
+                              padding: '12px 16px',
+                              color: theme.palette.text.secondary,
+                            }}
+                          >
+                            {t('sellerStatistics.value') || 'Değer'}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Object.entries(stats).map(([key, value]) => (
+                          <tr key={key} style={{ borderBottom: `1px solid ${theme.palette.divider}` }}>
+                            <td style={{ padding: '12px 16px' }}>{metricLabels[key] || key}</td>
+                            <td style={{ padding: '12px 16px', textAlign: 'right' }}>
+                              {formatValue(key, value)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </TableContainer>
+                </Paper>
+              )}
+            </>
           )}
 
           {/* Tema değiştirme butonu sol altta */}

@@ -90,6 +90,18 @@
     "loading": "Yükleniyor..."
   },
 
+  "sellerStatistics": {
+    "title": "İstatistikler",
+    "loading": "Yükleniyor...",
+    "fetchError": "İstatistikler yüklenirken hata oluştu",
+    "metric": "Ölçüt",
+    "value": "Değer",
+    "totalProducts": "Toplam Ürün Sayısı",
+    "totalSales": "Toplam Satış Adedi",
+    "totalRevenue": "Toplam Gelir",
+    "recentSalesCount": "Son 30 Gün Satış Sayısı"
+  },
+
  "productAdd": {
     "title": "Yeni Ürün Ekle",
     "name": "Ürün Adı",
