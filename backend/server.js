@@ -1,12 +1,13 @@
 const app = require('./app');
 const http = require('http');
+const https = require('https');
+const url = require('url');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Admin = require('./models/Admin');
 const bcrypt = require('bcryptjs');
 const Theme = require('./models/Theme');  
 const { connectDB } = require('./config/db');
-const https = require('https'); // keepAlive fonksiyonu için gerekli
 
 const PORT = process.env.PORT || 5000;
 
@@ -82,7 +83,9 @@ const keepAlive = () => {
 
   setInterval(() => {
     if (backendUrl) {
-      https.get(backendUrl, (res) => {
+      const parsedBackendUrl = url.parse(backendUrl);
+      const protocolModule = parsedBackendUrl.protocol === 'https:' ? https : http;
+      protocolModule.get(backendUrl, (res) => {
         console.log(`🔁 Ping to BACKEND_URL: ${backendUrl} -> Status: ${res.statusCode}`);
       }).on('error', (err) => {
         console.error('⚠️ Backend keep-alive ping error:', err.message);
@@ -90,7 +93,9 @@ const keepAlive = () => {
     }
 
     if (frontendUrl) {
-      https.get(frontendUrl, (res) => {
+      const parsedFrontendUrl = url.parse(frontendUrl);
+      const protocolModule = parsedFrontendUrl.protocol === 'https:' ? https : http;
+      protocolModule.get(frontendUrl, (res) => {
         console.log(`🔁 Ping to FRONTEND_URL: ${frontendUrl} -> Status: ${res.statusCode}`);
       }).on('error', (err) => {
         console.error('⚠️ Frontend keep-alive ping error:', err.message);
@@ -108,7 +113,7 @@ const keepAlive = () => {
     const server = http.createServer(app);
     server.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
-      keepAlive(); // ⬅️ Uyumayı önlemek için fonksiyonu burada başlatıyoruz
+      keepAlive(); // Uyumayı önlemek için fonksiyonu burada başlatıyoruz
     });
   } catch (err) {
     console.error('❌ Server startup error:', err.message);

@@ -3,7 +3,8 @@ const SellerAbout = require('../models/SellerAbout');
 const SellerPhoto = require('../models/SellerPhoto');
 const Theme = require('../models/Theme');
 require('dotenv').config();
-
+const Order = require('../models/Order'); // Örnek: Satışlar, siparişler modelin varsa
+const Product = require('../models/Product'); // Ürün modeli
 exports.getSellerInfo = async (req, res) => {
   try {
     console.log('User ID:', req.user.id);
@@ -16,6 +17,55 @@ exports.getSellerInfo = async (req, res) => {
 
     if (!seller) return res.status(404).json({ message: 'Seller not found' });
     res.json(seller);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+exports.getStats = async (req, res) => {
+  try {
+    const seller = await Seller.findOne({ user: req.user.id });
+    if (!seller) return res.status(404).json({ message: 'Seller not found' });
+
+    const sellerId = seller._id;
+
+    // Toplam ürün sayısı
+    const totalProducts = await Product.countDocuments({ seller: sellerId });
+
+    // Tamamlanmış sipariş sayısı
+    const totalSales = await Order.countDocuments({ seller: sellerId, status: 'completed' });
+
+    // Toplam gelir (ör: completed siparişlerin toplam tutarı)
+    const completedOrders = await Order.aggregate([
+      { $match: { seller: sellerId, status: 'completed' } },
+      { $group: { _id: null, totalRevenue: { $sum: '$totalPrice' } } }
+    ]);
+    const totalRevenue = completedOrders.length > 0 ? completedOrders[0].totalRevenue : 0;
+
+    // Son 30 gün içerisindeki satışlar
+    const date30DaysAgo = new Date();
+    date30DaysAgo.setDate(date30DaysAgo.getDate() - 30);
+
+    const recentSalesCount = await Order.countDocuments({
+      seller: sellerId,
+      status: 'completed',
+      completedAt: { $gte: date30DaysAgo }
+    });
+
+    // Ziyaret sayısı gibi başka istatistiklerin varsa burada sorgula
+    // Örnek: const visitCount = await Visit.countDocuments({ seller: sellerId });
+    console.log('Seller Stats:', {
+      totalProducts,
+      totalSales,
+      totalRevenue,
+      recentSalesCount,
+    });
+    res.json({
+      totalProducts,
+      totalSales,
+      totalRevenue,
+      recentSalesCount,
+      // visitCount, iadeSayisi, ortalamaFiyat gibi başka metrikler eklenebilir
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

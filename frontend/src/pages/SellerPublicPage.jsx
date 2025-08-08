@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
@@ -13,7 +13,7 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import '../styles/SellerPublicPage.css';  
+import '../styles/SellerPublicPage.css';
 
 const SellerPublicPage = () => {
   const { slug } = useParams();
@@ -22,6 +22,13 @@ const SellerPublicPage = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Ziyaret event'inin bir kere gönderilmesi için ref
+  const visitSent = useRef(false);
+  // Telefon tıklaması sadece 1 kez sayılacak
+  const phoneClickSent = useRef(false);
+  // Konum tıklaması sadece 1 kez sayılacak
+  const locationClickSent = useRef(false);
 
   // Sayfa title ve favicon ayarı
   useEffect(() => {
@@ -52,56 +59,59 @@ const SellerPublicPage = () => {
     }
   };
 
-  // Sayfa veri çekme ve aynı zamanda ziyaret kaydı gönderme
- useEffect(() => {
-  if (!slug) return;
+  // Sayfa veri çekme ve ziyaret kaydı gönderme
+  useEffect(() => {
+    if (!slug) return;
 
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/full`);
-      setData(res.data);
-      setError(null);
-      
-      // Sayfa açılır açılmaz ziyaret kaydı gönder
-      await sendStatEvent('visit');
-      
-    } catch (err) {
-      if (err.response?.status === 404) {
-        navigate('/page/not-found');
-      } else {
-        setError('Veriler yüklenirken hata oluştu.');
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/full`
+        );
+        setData(res.data);
+        setError(null);
+
+        // Sayfa açılır açılmaz ziyaret kaydı sadece bir kere gönderiliyor
+        if (!visitSent.current) {
+          await sendStatEvent('visit');
+          visitSent.current = true;
+        }
+      } catch (err) {
+        if (err.response?.status === 404) {
+          navigate('/page/not-found');
+        } else {
+          setError('Veriler yüklenirken hata oluştu.');
+        }
+      } finally {
+        setLoading(false);
       }
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  fetchData();
+    fetchData();
 
-  const startTime = Date.now();
+    const startTime = Date.now();
 
-  const handleBeforeUnload = () => {
-    const durationSec = Math.floor((Date.now() - startTime) / 1000);
-    if (navigator.sendBeacon) {
-      const url = `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/stats`;
-      const data = JSON.stringify({ eventType: 'visitDuration', duration: durationSec });
-      navigator.sendBeacon(url, new Blob([data], { type: 'application/json' }));
-    } else {
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/stats`, false);
-      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      xhr.send(JSON.stringify({ eventType: 'visitDuration', duration: durationSec }));
-    }
-  };
+    const handleBeforeUnload = () => {
+      const durationSec = Math.floor((Date.now() - startTime) / 1000);
+      if (navigator.sendBeacon) {
+        const url = `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/stats`;
+        const data = JSON.stringify({ eventType: 'visitDuration', duration: durationSec });
+        navigator.sendBeacon(url, new Blob([data], { type: 'application/json' }));
+      } else {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/stats`, false);
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.send(JSON.stringify({ eventType: 'visitDuration', duration: durationSec }));
+      }
+    };
 
-  window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
-  return () => {
-    window.removeEventListener('beforeunload', handleBeforeUnload);
-  };
-}, [slug, navigate]);
-
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [slug, navigate]);
 
   if (error) return <div className="error">{error}</div>;
 
@@ -120,32 +130,42 @@ const SellerPublicPage = () => {
   // Telefon ve mail linkleri için fonksiyon
   const formatPhone = (phone) => phone.replace(/\s+/g, '').replace(/[^+\d]/g, '');
 
-  // Telefon tıklaması için handler
+  // Telefon tıklaması için handler (sadece bir kere say)
   const handlePhoneClick = () => {
-    sendStatEvent('phoneClick');
+    if (!phoneClickSent.current) {
+      sendStatEvent('phoneClick');
+      phoneClickSent.current = true;
+    }
   };
 
-  // Konum tıklaması için handler
-  const handleLocationClick = () => {
-    sendStatEvent('locationClick');
+  // Konum tıklaması için handler (sadece bir kere say) ve gerçek google maps linkiyle
+  const handleLocationClick = (e) => {
+    if (!locationClickSent.current) {
+      sendStatEvent('locationClick');
+      locationClickSent.current = true;
+    }
   };
-
-  // QR kod indirme veya sipariş butonu varsa, oraya da handler eklenebilir
-  // Örnek: handleQRDownload(), handleOrderPlaced() gibi
 
   return (
     <div className="public-page">
-
       {/* Tema CSS'si (örneğin eTicaretTema.css içeriği) */}
       {theme && <style dangerouslySetInnerHTML={{ __html: theme }} />}
 
       {/* Navbar iskeleti */}
       <nav className="navbar">
         <ul>
-          <li><a href="#anasayfa">🏠 Anasayfa</a></li>
-          <li><a href="#hakkimda">ℹ️ Hakkımızda</a></li>
-          <li><a href="#urunler">🛒 Ürünler</a></li>
-          <li><a href="#iletisim">📞 İletişim</a></li>
+          <li>
+            <a href="#anasayfa">🏠 Anasayfa</a>
+          </li>
+          <li>
+            <a href="#hakkimda">ℹ️ Hakkımızda</a>
+          </li>
+          <li>
+            <a href="#urunler">🛒 Ürünler</a>
+          </li>
+          <li>
+            <a href="#iletisim">📞 İletişim</a>
+          </li>
         </ul>
       </nav>
 
@@ -156,8 +176,15 @@ const SellerPublicPage = () => {
         </header>
         <div className="photos-container">
           {photos.length > 1 ? (
-            <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false} interval={4000} stopOnHover={true}>
-              {photos.map(photo => (
+            <Carousel
+              autoPlay
+              infiniteLoop
+              showThumbs={false}
+              showStatus={false}
+              interval={4000}
+              stopOnHover={true}
+            >
+              {photos.map((photo) => (
                 <div key={photo._id} className="carousel-image-wrapper">
                   <img src={photo.imageUrl} alt={photo.caption || company.companyName} />
                 </div>
@@ -189,7 +216,7 @@ const SellerPublicPage = () => {
         </div>
         {products.length ? (
           <div className="product-grid">
-            {products.map(product => (
+            {products.map((product) => (
               <div key={product._id} className="product-card">
                 {product.images?.length ? (
                   <img
@@ -204,13 +231,13 @@ const SellerPublicPage = () => {
                   </div>
                 )}
                 <h3>{product.name}</h3>
-                <p>{product.price} {product.priceCurrency}</p>
+                <p>
+                  {product.price} {product.priceCurrency}
+                </p>
                 {product.descriptionSections?.map((sec, i) => (
                   <div key={i} className="desc-section">
                     <h4>{sec.title}</h4>
-                    <ul>
-                      {sec.items.map((item, j) => <li key={j}>{item}</li>)}
-                    </ul>
+                    <ul>{sec.items.map((item, j) => <li key={j}>{item}</li>)}</ul>
                   </div>
                 ))}
               </div>
@@ -232,28 +259,24 @@ const SellerPublicPage = () => {
           {company.contactInfo?.phone && (
             <li>
               <Phone />{' '}
-              <a
-                href={`tel:${formatPhone(company.contactInfo.phone)}`}
-                onClick={handlePhoneClick} // Telefon tıklama istatistiği gönderiliyor
-              >
+              <a href={`tel:${formatPhone(company.contactInfo.phone)}`} onClick={handlePhoneClick}>
                 {company.contactInfo.phone}
               </a>
             </li>
           )}
           {company.contactInfo?.email && (
             <li>
-              <Mail />{' '}
-              <a href={`mailto:${company.contactInfo.email}`}>
-                {company.contactInfo.email}
-              </a>
+              <Mail /> <a href={`mailto:${company.contactInfo.email}`}>{company.contactInfo.email}</a>
             </li>
           )}
           {company.contactInfo?.address && (
             <li>
               <MapPin />{' '}
               <a
-                href="#iletisim"
-                onClick={handleLocationClick} // Konum tıklama istatistiği gönderiliyor
+                href={`https://maps.google.com/?q=${encodeURIComponent(company.contactInfo.address)}`}
+                target="_blank"
+                rel="noreferrer"
+                onClick={handleLocationClick}
               >
                 {company.contactInfo.address}
               </a>
@@ -295,9 +318,7 @@ const SellerPublicPage = () => {
         )}
       </section>
 
-      <footer className="footer">
-        &copy; {new Date().getFullYear()} {company.companyName}
-      </footer>
+      <footer className="footer">&copy; {new Date().getFullYear()} {company.companyName}</footer>
     </div>
   );
 };
