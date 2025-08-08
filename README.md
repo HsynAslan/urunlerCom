@@ -7,11 +7,17 @@
 ## 🚀 Kurulum & Çalıştırma
 
 # Backend kurulumu ve çalıştırma
+
+```bash
 cd backend
 npm install
 npm start
+```
+
 
 # Yeni terminal açıp frontend kurulumu ve çalıştırma
+
+```bash
 cd frontend
 npm install
 npm start
