@@ -6,9 +6,9 @@ import {
   TextField,
   Button,
   useMediaQuery,
-  Fab,
   createTheme,
   ThemeProvider,
+  Fab,
   MenuItem,
   Stack,
   Tooltip,
@@ -21,24 +21,20 @@ import LanguageSelector from '../components/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-const defaultTheme = createTheme();
-
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    background: { default: '#0e1a2b', paper: '#162f4a' },
-    text: { primary: '#7effa2', secondary: '#a0d8c6' },
+    background: { default: '#101a27', paper: '#1c2b3a' },
+    text: { primary: '#c3e8ff', secondary: '#88aabb' },
   },
-  shadows: defaultTheme.shadows,
 });
 
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
-    background: { default: '#f5f7fa', paper: '#fff' },
-    text: { primary: '#004d40', secondary: '#00695c' },
+    background: { default: '#f4f6f9', paper: '#ffffff' },
+    text: { primary: '#2f3e46', secondary: '#607d8b' },
   },
-  shadows: defaultTheme.shadows,
 });
 
 const currencyOptions = [
@@ -76,50 +72,40 @@ const AddProductPage = () => {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
 
-  // Çoklu açıklama başlığı ve maddeleri için update fonksiyonu
+  // Açıklama bölümü değişiklikleri
   const handleDescriptionChange = (sectionIndex, field, value, itemIndex = null) => {
     setForm(prev => {
       const newSections = [...prev.descriptionSections];
-      if (field === 'title') {
-        newSections[sectionIndex].title = value;
-      } else if (field === 'item' && itemIndex !== null) {
-        newSections[sectionIndex].items[itemIndex] = value;
-      }
+      if (field === 'title') newSections[sectionIndex].title = value;
+      else if (field === 'item' && itemIndex !== null) newSections[sectionIndex].items[itemIndex] = value;
       return { ...prev, descriptionSections: newSections };
     });
   };
 
-  const addDescriptionSection = () => {
+  const addDescriptionSection = () =>
     setForm(prev => ({
       ...prev,
       descriptionSections: [...prev.descriptionSections, { title: '', items: [''] }],
     }));
-  };
 
-  const addDescriptionItem = (sectionIndex) => {
+  const addDescriptionItem = sectionIndex =>
     setForm(prev => {
       const newSections = [...prev.descriptionSections];
       newSections[sectionIndex].items.push('');
       return { ...prev, descriptionSections: newSections };
     });
-  };
 
   const addImage = () => {
     const url = prompt(t('productAdd.enterPhotoUrl', "Fotoğraf URL'si giriniz:"));
-    if (url) {
-      setForm(prev => ({ ...prev, images: [...prev.images, url] }));
-    }
+    if (url) setForm(prev => ({ ...prev, images: [...prev.images, url] }));
   };
 
-  const setShowcaseImage = (index) => {
-    setForm(prev => ({ ...prev, showcaseImageIndex: index }));
-  };
+  const setShowcaseImage = index => setForm(prev => ({ ...prev, showcaseImageIndex: index }));
 
-  const generateSlug = (name) => {
-    return name.toLowerCase().trim().replace(/[\s\W-]+/g, '-');
-  };
+  const generateSlug = name =>
+    name.toLowerCase().trim().replace(/[\s\W-]+/g, '-');
 
-  const onNameChange = (e) => {
+  const onNameChange = e => {
     const name = e.target.value;
     setForm(prev => ({
       ...prev,
@@ -128,12 +114,12 @@ const AddProductPage = () => {
     }));
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setSuccess('');
     setError('');
@@ -146,9 +132,13 @@ const AddProductPage = () => {
         stock: Number(form.stock),
       };
 
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/products`, postData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/products`,
+        postData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       toast.success('✅ ' + t('productAdd.success'));
       setSuccess(t('productAdd.success'));
@@ -170,7 +160,8 @@ const AddProductPage = () => {
     }
   };
 
-  const neonShadowColor = darkMode ? '#00ffd8' : '#00897b';
+  // Neon glow renk (dark modda parlak mavi, açık modda koyu yeşil)
+  const neonShadowColor = darkMode ? '#40c4ff' : '#00897b';
 
   return (
     <ThemeProvider theme={theme}>
@@ -180,92 +171,87 @@ const AddProductPage = () => {
           minHeight: '100vh',
           bgcolor: 'background.default',
           color: 'text.primary',
-          fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
           flexDirection: { xs: 'column', md: 'row' },
+          position: 'relative',
         }}
       >
-        {/* Masaüstünde Sidebar */}
+        {/* Masaüstü Sidebar */}
         {!isMobile && (
           <Box
             sx={{
               width: '20%',
               bgcolor: 'background.paper',
-              borderRight: `2px solid ${darkMode ? '#2196f3' : '#4db6ac'}`,
+              borderRight: `2px solid ${darkMode ? '#3f51b5' : '#cfd8dc'}`,
               p: 3,
               minHeight: '100vh',
               overflowY: 'auto',
-              position: 'relative',
-              zIndex: 1300,
             }}
           >
             <SellerSidebar />
           </Box>
         )}
 
-        {/* Mobilde aç/kapa butonu ortada altta */}
+        {/* Mobil Menü Butonu */}
         {isMobile && (
-          <Tooltip title={t('openMenu', 'Menüyü aç')}>
+          <>
             <Fab
               color="primary"
               aria-label="menu"
-              onClick={() => setMobileSidebarOpen(prev => !prev)}
+              onClick={() => setMobileSidebarOpen((prev) => !prev)}
               sx={{
                 position: 'fixed',
                 bottom: 24,
                 left: '50%',
                 transform: 'translateX(-50%)',
-                zIndex: theme.zIndex.drawer + 1,
-                boxShadow: darkMode ? `0 0 10px 3px ${neonShadowColor}` : 'none',
+                zIndex: 2000,
+                boxShadow: darkMode
+                  ? `0 0 10px 3px ${neonShadowColor}`
+                  : 'none',
               }}
             >
               <MenuIcon />
             </Fab>
-          </Tooltip>
+            <SellerSidebar
+              variant="temporary"
+              mobileOpen={mobileSidebarOpen}
+              setMobileOpen={setMobileSidebarOpen}
+              onClose={() => setMobileSidebarOpen(false)}
+              PaperProps={{
+                sx: {
+                  width: '100%',
+                  height: '100vh',
+                  maxHeight: '100vh',
+                  overflowY: 'auto',
+                  p: 3,
+                },
+              }}
+            />
+          </>
         )}
 
-        {/* Mobil drawer olarak sidebar */}
-        <SellerSidebar
-          variant="temporary"
-          mobileOpen={mobileSidebarOpen}
-          setMobileOpen={setMobileSidebarOpen}
-          onClose={() => setMobileSidebarOpen(false)}
-          anchor="bottom"
-          PaperProps={{
-            sx: {
-              width: '100%',
-              height: '100vh',
-              maxHeight: '100vh',
-              overflowY: 'auto',
-              p: 3,
-            },
-          }}
-        />
-
-        {/* İçerik alanı */}
+        {/* İçerik Alanı */}
         <Box
           component="main"
           sx={{
             flexGrow: 1,
-            pt: 3,
-            pb: 6,
-            px: {  },
-            width: { xs: '100%', md: '80%' },
-            ml: { md: '20%' },
+            pt: 6,
+            pb: 12,
+            px: { xs: 2, sm: 3, md: 6 },
+            width: { md: '80%' },
+            ml: {  },
             position: 'relative',
             minHeight: '100vh',
             overflowY: 'auto',
-            textShadow: darkMode
-              ? `0 0 8px ${neonShadowColor}, 0 0 20px ${neonShadowColor}`
-              : 'none',
+            
           }}
         >
-          {/* Dil seçici sağ üstte */}
+          {/* Dil Seçici sağ üst köşede */}
           <Box sx={{ position: 'absolute', top: 16, right: 16, zIndex: 1500 }}>
             <LanguageSelector />
           </Box>
 
-          {/* Başlık */}
-          <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3 }}>
+          {/* Sayfa Başlığı */}
+          <Typography variant="h4" style={{ display: 'flex', justifyContent: 'center' }} sx={{ fontWeight: 700, mb: 4 }}>
             🆕 {t('productAdd.title')}
           </Typography>
 
@@ -274,11 +260,11 @@ const AddProductPage = () => {
             component="form"
             onSubmit={handleSubmit}
             sx={{
-              maxWidth: 600,
+              maxWidth: 700,
               mx: 'auto',
               display: 'flex',
               flexDirection: 'column',
-              gap: 2,
+              gap: 3,
             }}
           >
             <TextField
@@ -288,6 +274,8 @@ const AddProductPage = () => {
               onChange={onNameChange}
               required
               fullWidth
+              color={darkMode ? 'primary' : 'secondary'}
+              sx={{ '& label.Mui-focused': { color: neonShadowColor } }}
             />
             <TextField
               label={t('productAdd.slug')}
@@ -296,9 +284,10 @@ const AddProductPage = () => {
               onChange={handleChange}
               required
               fullWidth
+              color={darkMode ? 'primary' : 'secondary'}
             />
 
-            <Stack direction="row" spacing={2}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
               <TextField
                 label={t('productAdd.price')}
                 name="price"
@@ -307,6 +296,7 @@ const AddProductPage = () => {
                 type="number"
                 required
                 fullWidth
+                color={darkMode ? 'primary' : 'secondary'}
               />
               <TextField
                 label={t('productAdd.priceCurrency')}
@@ -315,8 +305,9 @@ const AddProductPage = () => {
                 onChange={handleChange}
                 select
                 fullWidth
+                color={darkMode ? 'primary' : 'secondary'}
               >
-                {currencyOptions.map(c => (
+                {currencyOptions.map((c) => (
                   <MenuItem key={c.value} value={c.value}>
                     {c.label}
                   </MenuItem>
@@ -324,7 +315,7 @@ const AddProductPage = () => {
               </TextField>
             </Stack>
 
-            <Stack direction="row" spacing={2}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
               <TextField
                 label={t('productAdd.stock')}
                 name="stock"
@@ -333,6 +324,7 @@ const AddProductPage = () => {
                 type="number"
                 required
                 fullWidth
+                color={darkMode ? 'primary' : 'secondary'}
               />
               <TextField
                 label={t('productAdd.stockUnit')}
@@ -341,8 +333,9 @@ const AddProductPage = () => {
                 onChange={handleChange}
                 select
                 fullWidth
+                color={darkMode ? 'primary' : 'secondary'}
               >
-                {stockUnitOptions.map(s => (
+                {stockUnitOptions.map((s) => (
                   <MenuItem key={s.value} value={s.value}>
                     {s.label}
                   </MenuItem>
@@ -352,22 +345,48 @@ const AddProductPage = () => {
 
             {/* Fotoğraflar */}
             <Box>
-              <Typography variant="h6" gutterBottom>
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{ mb: 1, fontWeight: 'bold', color: neonShadowColor }}
+              >
                 📸 {t('productAdd.photos')}
               </Typography>
-              <Button variant="outlined" onClick={addImage} sx={{ mb: 2 }}>
+              <Button
+                variant="outlined"
+                onClick={addImage}
+                sx={{
+                  mb: 2,
+                  borderColor: neonShadowColor,
+                  color: neonShadowColor,
+                  '&:hover': {
+                    borderColor: neonShadowColor,
+                    backgroundColor: darkMode ? '#15314e' : '#d0f0e9',
+                  },
+                }}
+              >
                 ➕ {t('productAdd.addPhoto')}
               </Button>
 
-              <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                {form.images.length === 0 && <Typography>{t('productAdd.noPhoto')}</Typography>}
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: 1,
+                  flexWrap: 'wrap',
+                }}
+              >
+                {form.images.length === 0 && (
+                  <Typography color="text.secondary">
+                    {t('productAdd.noPhoto')}
+                  </Typography>
+                )}
                 {form.images.map((img, idx) => (
                   <Box
                     key={idx}
                     sx={{
                       border:
                         form.showcaseImageIndex === idx
-                          ? `3px solid ${darkMode ? '#00ffd8' : '#00897b'}`
+                          ? `3px solid ${neonShadowColor}`
                           : '1px solid',
                       borderColor: 'divider',
                       borderRadius: 1,
@@ -376,6 +395,10 @@ const AddProductPage = () => {
                       height: 80,
                       overflow: 'hidden',
                       position: 'relative',
+                      transition: 'box-shadow 0.3s ease',
+                      '&:hover': {
+                        boxShadow: `0 0 8px 3px ${neonShadowColor}`,
+                      },
                     }}
                     onClick={() => setShowcaseImage(idx)}
                     title={
@@ -394,20 +417,35 @@ const AddProductPage = () => {
               </Box>
             </Box>
 
-            {/* Açıklama bölümleri */}
+            {/* Açıklama Bölümleri */}
             <Box>
-              <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{ mt: 4, mb: 1, fontWeight: 'bold', color: neonShadowColor }}
+              >
                 📑 {t('productAdd.descriptionSections')}
               </Typography>
 
               {form.descriptionSections.map((section, sIdx) => (
-                <Box key={sIdx} sx={{ mb: 2, borderBottom: 1, borderColor: 'divider', pb: 2 }}>
+                <Box
+                  key={sIdx}
+                  sx={{
+                    mb: 3,
+                    borderBottom: 1,
+                    borderColor: 'divider',
+                    pb: 2,
+                  }}
+                >
                   <TextField
                     label={t('productAdd.sectionTitle')}
                     value={section.title}
-                    onChange={e => handleDescriptionChange(sIdx, 'title', e.target.value)}
+                    onChange={(e) =>
+                      handleDescriptionChange(sIdx, 'title', e.target.value)
+                    }
                     fullWidth
                     required
+                    color={darkMode ? 'primary' : 'secondary'}
                     sx={{ mb: 1 }}
                   />
                   {section.items.map((item, iIdx) => (
@@ -415,9 +453,12 @@ const AddProductPage = () => {
                       key={iIdx}
                       label={t('productAdd.sectionItem')}
                       value={item}
-                      onChange={e => handleDescriptionChange(sIdx, 'item', e.target.value, iIdx)}
+                      onChange={(e) =>
+                        handleDescriptionChange(sIdx, 'item', e.target.value, iIdx)
+                      }
                       fullWidth
                       required
+                      color={darkMode ? 'primary' : 'secondary'}
                       sx={{ mb: 1 }}
                     />
                   ))}
@@ -425,7 +466,7 @@ const AddProductPage = () => {
                     variant="text"
                     onClick={() => addDescriptionItem(sIdx)}
                     size="small"
-                    sx={{ textTransform: 'none' }}
+                    sx={{ textTransform: 'none', color: neonShadowColor }}
                   >
                     ➕ {t('productAdd.addItem')}
                   </Button>
@@ -436,59 +477,88 @@ const AddProductPage = () => {
                 variant="text"
                 onClick={addDescriptionSection}
                 size="small"
-                sx={{ textTransform: 'none' }}
+                sx={{ textTransform: 'none', color: neonShadowColor }}
               >
                 ➕ {t('productAdd.addSection')}
               </Button>
             </Box>
 
-            <Button type="submit" variant="contained" sx={{ mt: 3 }}>
+            {/* Gönder Butonu */}
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{
+                mt: 4,
+                bgcolor: neonShadowColor,
+                boxShadow: `0 0 12px ${neonShadowColor}`,
+                '&:hover': {
+                  bgcolor: darkMode ? '#29b6f6' : '#00796b',
+                  boxShadow: `0 0 20px ${neonShadowColor}`,
+                },
+              }}
+            >
               🆕 {t('productAdd.add')}
             </Button>
           </Box>
 
+          {/* Başarı / Hata Mesajları */}
           {success && (
-            <Typography color="success.main" sx={{ mt: 2 }}>
+            <Typography
+              color="success.main"
+              sx={{ mt: 3, textAlign: 'center', fontWeight: 'bold' }}
+            >
               ✅ {success}
             </Typography>
           )}
           {error && (
-            <Typography color="error.main" sx={{ mt: 2 }}>
+            <Typography
+              color="error.main"
+              sx={{ mt: 3, textAlign: 'center', fontWeight: 'bold' }}
+            >
               ❌ {error}
             </Typography>
           )}
         </Box>
-      </Box>
 
-      {/* Tema değiştirici */}
-      <Box
-        sx={{
-          position: 'fixed',
-          bottom: 32,
-          left: 32,
-          zIndex: 1600,
-        }}
-      >
-        <Tooltip title={darkMode ? t('switchToLight', 'Açık moda geç') : t('switchToDark', 'Koyu moda geç')}>
-          <Button
-            onClick={() => setDarkMode(!darkMode)}
-            variant="contained"
-            size="small"
-            sx={{
-              minWidth: 40,
-              minHeight: 40,
-              borderRadius: '50%',
-              bgcolor: darkMode ? '#162f4a' : '#e0e0e0',
-              color: darkMode ? '#00ffd8' : '#000',
-              boxShadow: darkMode ? `0 0 10px 3px ${neonShadowColor}` : 'none',
-              '&:hover': { bgcolor: darkMode ? '#1f4571' : '#a5d6f9' },
-              p: 0,
-            }}
-            aria-label="toggle theme"
+        {/* Tema Değiştirici */}
+        <Box
+          sx={{
+            position: 'fixed',
+            bottom: 32,
+            left: 32,
+            zIndex: 1600,
+          }}
+        >
+          <Tooltip
+            title={
+              darkMode
+                ? t('switchToLight', 'Açık moda geç')
+                : t('switchToDark', 'Koyu moda geç')
+            }
           >
-            {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
-          </Button>
-        </Tooltip>
+            <Button
+              onClick={() => setDarkMode(!darkMode)}
+              variant="contained"
+              size="small"
+              sx={{
+                minWidth: 40,
+                minHeight: 40,
+                borderRadius: '50%',
+                bgcolor: darkMode ? '#1c2b3a' : '#e0e0e0',
+                color: darkMode ? '#40c4ff' : '#000',
+                boxShadow: darkMode ? `0 0 12px ${neonShadowColor}` : 'none',
+                p: 0,
+                '&:hover': {
+                  bgcolor: darkMode ? '#2a3e54' : '#b0bec5',
+                },
+              }}
+              aria-label="toggle theme"
+            >
+              {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
+            </Button>
+          </Tooltip>
+        </Box>
       </Box>
     </ThemeProvider>
   );

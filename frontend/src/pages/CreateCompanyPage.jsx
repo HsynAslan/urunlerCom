@@ -13,7 +13,6 @@ import {
   Fab,
   createTheme,
   ThemeProvider,
-  useTheme,
 } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -24,24 +23,20 @@ import LanguageSelector from '../components/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-const defaultTheme = createTheme();
-
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    background: { default: '#0e1a2b', paper: '#162f4a' },
-    text: { primary: '#7effa2', secondary: '#a0d8c6' },
+    background: { default: '#101a27', paper: '#1c2b3a' },
+    text: { primary: '#c3e8ff', secondary: '#88aabb' },
   },
-  shadows: defaultTheme.shadows,
 });
 
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
-    background: { default: '#f5f7fa', paper: '#fff' },
-    text: { primary: '#004d40', secondary: '#00695c' },
+    background: { default: '#f4f6f9', paper: '#ffffff' },
+    text: { primary: '#2f3e46', secondary: '#607d8b' },
   },
-  shadows: defaultTheme.shadows,
 });
 
 const modalStyle = {
@@ -50,6 +45,8 @@ const modalStyle = {
   left: '50%',
   maxWidth: 480,
   width: '90%',
+  maxHeight: '65%', 
+  overflowY: 'auto', 
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
   borderRadius: 2,
@@ -61,11 +58,8 @@ const CreateCompanyPage = () => {
   const { t } = useTranslation();
   const [darkMode, setDarkMode] = useState(true);
   const theme = darkMode ? darkTheme : lightTheme;
-
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const token = localStorage.getItem('token');
-
-  const neonShadowColor = darkMode ? '#00ffd8' : '#00897b';
 
   const [sellerInfo, setSellerInfo] = useState(null);
   const [form, setForm] = useState({
@@ -80,10 +74,8 @@ const CreateCompanyPage = () => {
       instagram: '',
     },
   });
-
   const [showModal, setShowModal] = useState(false);
   const [slugError, setSlugError] = useState(null);
-
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -107,8 +99,7 @@ const CreateCompanyPage = () => {
           },
         });
       } catch (err) {
-        console.error('Seller fetch error:', err);
-        toast.error('Şirket bilgileri alınırken hata oluştu ⚠️');
+        toast.error('❌ Şirket bilgileri alınırken hata oluştu');
       }
     };
     fetchSeller();
@@ -151,7 +142,6 @@ const CreateCompanyPage = () => {
           setSlugError(null);
         }
       } catch (err) {
-        console.error('Slug kontrol hatası:', err);
         toast.error('Slug kontrolü yapılamadı ⚠️');
         showSlugError('Slug kontrolü yapılamadı.');
       }
@@ -161,22 +151,18 @@ const CreateCompanyPage = () => {
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-
     if (name === 'slug') {
       const cleanedSlug = normalizeSlug(value);
       setForm((prev) => ({ ...prev, slug: cleanedSlug }));
-
       if (value !== cleanedSlug) {
         setSlugError('Slug otomatik olarak düzeltildi 🛠️');
         toast.info('Slug geçersiz karakterler içeriyordu, düzeltildi ✏️');
       } else {
         setSlugError(null);
       }
-
       checkSlug(cleanedSlug);
       return;
     }
-
     if (name in form.contactInfo) {
       setForm((prev) => ({
         ...prev,
@@ -199,28 +185,21 @@ const CreateCompanyPage = () => {
       toast.error('Lütfen slug alanındaki hatayı düzeltin ❌');
       return;
     }
-
     try {
       const { data } = await axios.put(
         `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/update`,
         form,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setSellerInfo(data);
       setShowModal(false);
-      toast.success('Bilgiler başarıyla kaydedildi ✅');
+      toast.success('✅ Bilgiler başarıyla kaydedildi');
     } catch (err) {
-      console.error('Save error:', err);
-      toast.error('Kaydetme sırasında hata oluştu ❌');
+      toast.error('❌ Kaydetme sırasında hata oluştu');
     }
   };
 
-  // Tema toggle fonksiyonu
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
-  };
+  const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
   return (
     <ThemeProvider theme={theme}>
@@ -230,79 +209,59 @@ const CreateCompanyPage = () => {
           minHeight: '100vh',
           bgcolor: 'background.default',
           color: 'text.primary',
-          fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
           flexDirection: { xs: 'column', md: 'row' },
-          position: 'relative',
         }}
       >
-        {/* Masaüstünde Sidebar */}
         {!isMobile && (
           <Box
             sx={{
               width: '20%',
               bgcolor: 'background.paper',
-              borderRight: `2px solid ${darkMode ? '#2196f3' : '#4db6ac'}`,
+              borderRight: `2px solid ${darkMode ? '#3f51b5' : '#cfd8dc'}`,
               p: 2,
-              minHeight: '100vh',
-              overflowY: 'visible',
-              position: 'relative',
-              zIndex: 1300,
             }}
           >
             <SellerSidebar />
           </Box>
         )}
 
-        {/* Mobilde aç/kapa butonu */}
         {isMobile && (
-          <Fab
-            color="primary"
-            aria-label="menu"
-            onClick={() => setMobileSidebarOpen((prev) => !prev)}
-            sx={{
-              position: 'fixed',
-              bottom: 24,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              zIndex: theme.zIndex.drawer + 1,
-            }}
-          >
-            <MenuIcon />
-          </Fab>
+          <>
+            <Fab
+              color="primary"
+              onClick={() => setMobileSidebarOpen((prev) => !prev)}
+              sx={{
+                position: 'fixed',
+                bottom: 24,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                zIndex: 2000,
+              }}
+            >
+              <MenuIcon />
+            </Fab>
+            <SellerSidebar
+              mobileOpen={mobileSidebarOpen}
+              setMobileOpen={setMobileSidebarOpen}
+              variant="temporary"
+              PaperProps={{
+                sx: {
+                  width: '100%',
+                  height: '100vh',
+                  maxHeight: '100vh',
+                  overflowY: 'auto',
+                },
+              }}
+            />
+          </>
         )}
 
-        {/* İçerik */}
-        <Box
-          sx={{
-            flexGrow: 1,
-            p: 2,
-            position: 'relative',
-            minHeight: '100vh',
-            overflowY: 'auto',
-            color: 'text.primary',
-            textShadow: darkMode
-              ? `0 0 8px ${neonShadowColor}, 0 0 20px ${neonShadowColor}`
-              : 'none',
-            width: { xs: '90%', md: '80%' },
-          }}
-        >
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 16,
-              right: 16,
-              zIndex: 1500,
-            }}
-          >
+        <Box sx={{ flexGrow: 1, p: 3, width: { md: '80%' } }}>
+          <Box sx={{ position: 'absolute', top: 16, right: 16, zIndex: 1500 }}>
             <LanguageSelector />
           </Box>
 
-          {/* Sayfa başlığı */}
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{ fontWeight: 700, mb: 2, textShadow: 'none', display: 'flex', alignItems: 'center', gap: 1 }}
-          >
+          <Typography variant="h4" sx={{ mb: 3, fontWeight: 700 }}>
             🏢 {t('sellerCreateCompany.title', 'Şirket Oluştur veya Düzenle')}
           </Typography>
 
@@ -311,28 +270,24 @@ const CreateCompanyPage = () => {
               sx={{
                 p: 3,
                 bgcolor: 'background.paper',
-                boxShadow: 3,
-                color: 'text.primary',
+                boxShadow: 4,
                 borderRadius: 2,
               }}
             >
-              <Typography variant="body1" gutterBottom>
-                <strong>📛 {t('sellerCreateCompany.companyName', 'Şirket Adı')}:</strong>{' '}
-                {sellerInfo.companyName || '-'}
+              <Typography gutterBottom>
+                <strong>📛 {t('sellerCreateCompany.companyName', 'Şirket Adı')}:</strong> {sellerInfo.companyName || '-'}
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography gutterBottom>
                 <strong>🔗 {t('sellerCreateCompany.slug', "Sayfa URL'si")}:</strong> {sellerInfo.slug || '-'}
               </Typography>
-              <Typography variant="body1" gutterBottom>
-                <strong>📞 {t('sellerCreateCompany.phone', 'Telefon')}:</strong>{' '}
-                {sellerInfo.contactInfo?.phone || '-'}
+              <Typography gutterBottom>
+                <strong>📞 {t('sellerCreateCompany.phone', 'Telefon')}:</strong> {sellerInfo.contactInfo?.phone || '-'}
               </Typography>
-              <Typography variant="body1" gutterBottom>
-                <strong>📧 {t('sellerCreateCompany.email', 'Email')}:</strong>{' '}
-                {sellerInfo.contactInfo?.email || '-'}
+              <Typography gutterBottom>
+                <strong>📧 {t('sellerCreateCompany.email', 'Email')}:</strong> {sellerInfo.contactInfo?.email || '-'}
               </Typography>
 
-              <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={() => setShowModal(true)}>
+              <Button variant="contained" sx={{ mt: 2 }} onClick={() => setShowModal(true)}>
                 ✏️ {t('sellerCreateCompany.edit', 'Düzenle')}
               </Button>
             </Paper>
@@ -340,10 +295,7 @@ const CreateCompanyPage = () => {
             <Typography>⏳ {t('sellerCreateCompany.loading', 'Yükleniyor...')}</Typography>
           )}
 
-          {/* Modal */}
           <Modal
-            aria-labelledby="edit-company-modal-title"
-            aria-describedby="edit-company-modal-description"
             open={showModal}
             onClose={() => setShowModal(false)}
             closeAfterTransition
@@ -352,12 +304,7 @@ const CreateCompanyPage = () => {
           >
             <Fade in={showModal}>
               <Box sx={modalStyle}>
-                <Typography
-                  id="edit-company-modal-title"
-                  variant="h6"
-                  component="h2"
-                  sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}
-                >
+                <Typography variant="h6" sx={{ mb: 2 }}>
                   📝 {t('sellerCreateCompany.editCompany', 'Şirket Bilgilerini Düzenle')}
                 </Typography>
 
@@ -368,10 +315,7 @@ const CreateCompanyPage = () => {
                     fullWidth
                     value={form.companyName}
                     onChange={handleInput}
-                    variant="outlined"
-                    color={darkMode ? 'secondary' : 'primary'}
                   />
-
                   <TextField
                     label={t('sellerCreateCompany.slug', "Slug (sayfa URL'si)")}
                     name="slug"
@@ -380,10 +324,7 @@ const CreateCompanyPage = () => {
                     onChange={handleInput}
                     error={!!slugError}
                     helperText={slugError}
-                    variant="outlined"
-                    color={darkMode ? 'secondary' : 'primary'}
                   />
-
                   {['phone', 'email', 'address', 'website', 'location', 'instagram'].map((field) => (
                     <TextField
                       key={field}
@@ -392,16 +333,14 @@ const CreateCompanyPage = () => {
                       fullWidth
                       value={form.contactInfo[field]}
                       onChange={handleInput}
-                      variant="outlined"
-                      color={darkMode ? 'secondary' : 'primary'}
                     />
                   ))}
 
-                  <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
+                  <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
                     <Button variant="outlined" color="error" onClick={() => setShowModal(false)}>
                       ❌ {t('sellerCreateCompany.cancel', 'İptal')}
                     </Button>
-                    <Button variant="contained" color="primary" onClick={handleSave} disabled={!!slugError}>
+                    <Button variant="contained" onClick={handleSave} disabled={!!slugError}>
                       💾 {t('sellerCreateCompany.save', 'Kaydet')}
                     </Button>
                   </Box>
@@ -411,7 +350,6 @@ const CreateCompanyPage = () => {
           </Modal>
         </Box>
 
-        {/* Tema değiştirici */}
         <Box
           sx={{
             position: 'fixed',
@@ -423,40 +361,19 @@ const CreateCompanyPage = () => {
           <Button
             onClick={toggleDarkMode}
             variant="contained"
-            size="small"
             sx={{
               minWidth: 40,
               minHeight: 40,
               borderRadius: '50%',
-              bgcolor: darkMode ? '#162f4a' : '#e0e0e0',
-              color: darkMode ? '#00ffd8' : '#000',
-              boxShadow: darkMode ? `0 0 10px 3px ${neonShadowColor}` : 'none',
-              '&:hover': { bgcolor: darkMode ? '#1f4571' : '#a5d6f9' },
+              bgcolor: darkMode ? '#1c2b3a' : '#e0e0e0',
+              color: darkMode ? '#90caf9' : '#000',
+              boxShadow: darkMode ? '0 0 12px rgba(144,202,249,0.6)' : 'none',
               p: 0,
             }}
-            aria-label="toggle theme"
           >
             {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
           </Button>
         </Box>
-
-        {/* Mobil drawer olarak sidebar */}
-       {isMobile && (
-  <SellerSidebar
-    mobileOpen={mobileSidebarOpen}
-    setMobileOpen={setMobileSidebarOpen}
-    variant="temporary"
-    PaperProps={{
-      sx: {
-        width: '100%',         // Tam genişlik
-        height: '100vh',       // Tam yükseklik
-        maxHeight: '100vh',
-        overflowY: 'auto',     // İçerik taşarsa scroll
-      },
-    }}
-  />
-)}
-
       </Box>
     </ThemeProvider>
   );
