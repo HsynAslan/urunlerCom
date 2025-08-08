@@ -76,7 +76,7 @@ const SellerStatisticsPage = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/stats`, {
+      .get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/fullstats`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setStats(res.data))

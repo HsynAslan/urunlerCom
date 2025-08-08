@@ -23,16 +23,24 @@ exports.getSellerInfo = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-exports.getStats = async (req, res) => {
+exports.fullGetStats = async (req, res) => {
   try {
+    console.log('Request started for getStats');
+
     // Seller'ı bul (user id üzerinden)
     const seller = await Seller.findOne({ user: req.user.id });
-    if (!seller) return res.status(404).json({ message: 'Seller not found' });
+    console.log('Seller found:', seller);
+
+    if (!seller) {
+      console.log('Seller not found for user:', req.user.id);
+      return res.status(404).json({ message: 'Seller not found' });
+    }
 
     const sellerId = seller._id;
 
-    // SellerStats'tan tüm kayıtları çek (istersen belli bir tarih aralığı ile filtrele)
+    // SellerStats'tan tüm kayıtları çek
     const statsRecords = await SellerStats.find({ seller: sellerId });
+    console.log('Stats records:', statsRecords);
 
     // Gelen kayıtları toplayarak tek bir toplam istatistik objesi yap
     const aggregatedStats = statsRecords.reduce(
@@ -42,7 +50,7 @@ exports.getStats = async (req, res) => {
         acc.locationClicks += record.locationClicks || 0;
         acc.qrDownloads += record.qrDownloads || 0;
         acc.ordersPlaced += record.ordersPlaced || 0;
-        acc.totalDuration += (record.averageDuration || 0) * 1; // saniye cinsinden ortalama sürelerin toplamı (ortalama için ileride kullanılabilir)
+        acc.totalDuration += (record.averageDuration || 0) * 1;
         acc.recordCount += 1;
         return acc;
       },
@@ -56,15 +64,21 @@ exports.getStats = async (req, res) => {
         recordCount: 0,
       }
     );
+    console.log('Aggregated stats:', aggregatedStats);
 
-    // Ortalama sayfada kalma süresi (tüm kayıtların ortalaması)
+    // Ortalama sayfada kalma süresi
     const averageDuration = aggregatedStats.recordCount > 0
       ? aggregatedStats.totalDuration / aggregatedStats.recordCount
       : 0;
+    console.log('Average duration:', averageDuration);
 
-    // Toplam ürün sayısı ve toplam satışları yine ilgili modellerden alabiliriz
+    // Toplam ürün sayısı
     const totalProducts = await Product.countDocuments({ seller: sellerId });
+    console.log('Total products:', totalProducts);
+
+    // Toplam satış sayısı
     const totalSales = await Order.countDocuments({ seller: sellerId, status: 'completed' });
+    console.log('Total sales:', totalSales);
 
     // Toplam gelir
     const completedOrders = await Order.aggregate([
@@ -72,8 +86,9 @@ exports.getStats = async (req, res) => {
       { $group: { _id: null, totalRevenue: { $sum: '$totalPrice' } } }
     ]);
     const totalRevenue = completedOrders.length > 0 ? completedOrders[0].totalRevenue : 0;
+    console.log('Total revenue:', totalRevenue);
 
-    res.json({
+    const response = {
       totalProducts,
       totalSales,
       totalRevenue,
@@ -83,11 +98,16 @@ exports.getStats = async (req, res) => {
       qrDownloads: aggregatedStats.qrDownloads,
       ordersPlaced: aggregatedStats.ordersPlaced,
       averageDuration, // saniye cinsinden
-    });
+    };
+    console.log('Response JSON:', response);
+
+    res.json(response);
   } catch (error) {
+    console.error('Error in getStats:', error);
     res.status(500).json({ message: error.message });
   }
 };
+
 
 exports.updateSellerInfo = async (req, res) => {
   try {
