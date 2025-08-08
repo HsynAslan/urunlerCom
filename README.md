@@ -15,12 +15,13 @@ npm start
 ```
 
 
-# Yeni terminal açıp frontend kurulumu ve çalıştırma
+# Frontend kurulumu ve çalıştırma
 
 ```bash
 cd frontend
 npm install
 npm start
+```
 
 ---
 
