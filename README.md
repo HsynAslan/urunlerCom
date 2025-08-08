@@ -181,7 +181,7 @@ urunlerim.com, satıcıların ürünlerini kolayca listeleyebildiği, alıcılar
 
 ## 📢 İletişim
 
-Her türlü soru, öneri ve işbirliği için [iletisim@urunlerim.com](mailto:iletisim@urunlerim.com) adresinden bize ulaşabilirsiniz.
+Her türlü soru, öneri ve işbirliği için [iletisim@urunlerim.com](mailto:btdhaslan@gmail.com) adresinden ulaşabilirsiniz.
 
 ---
 
