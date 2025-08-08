@@ -39,26 +39,69 @@ const SellerPublicPage = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (!slug) return;
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/full`);
-        setData(res.data);
-        setError(null);
-      } catch (err) {
-        if (err.response?.status === 404) {
-          navigate('/page/not-found');
-        } else {
-          setError('Veriler yüklenirken hata oluştu.');
-        }
-      } finally {
-        setLoading(false);
+  // Backend istatistik gönderme fonksiyonu
+  const sendStatEvent = async (eventType, duration) => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/stats`,
+        { eventType, duration }
+      );
+    } catch (err) {
+      // Hata loglanabilir ama kullanıcıya göstermiyoruz
+      console.error('İstatistik gönderilemedi:', err);
+    }
+  };
+
+  // Sayfa veri çekme ve aynı zamanda ziyaret kaydı gönderme
+ useEffect(() => {
+  if (!slug) return;
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/full`);
+      setData(res.data);
+      setError(null);
+      
+      // Sayfa açılır açılmaz ziyaret kaydı gönder
+      await sendStatEvent('visit');
+      
+    } catch (err) {
+      if (err.response?.status === 404) {
+        navigate('/page/not-found');
+      } else {
+        setError('Veriler yüklenirken hata oluştu.');
       }
-    };
-    fetchData();
-  }, [slug, navigate]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+
+  const startTime = Date.now();
+
+  const handleBeforeUnload = () => {
+    const durationSec = Math.floor((Date.now() - startTime) / 1000);
+    if (navigator.sendBeacon) {
+      const url = `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/stats`;
+      const data = JSON.stringify({ eventType: 'visitDuration', duration: durationSec });
+      navigator.sendBeacon(url, new Blob([data], { type: 'application/json' }));
+    } else {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/stats`, false);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.send(JSON.stringify({ eventType: 'visitDuration', duration: durationSec }));
+    }
+  };
+
+  window.addEventListener('beforeunload', handleBeforeUnload);
+
+  return () => {
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+  };
+}, [slug, navigate]);
+
 
   if (error) return <div className="error">{error}</div>;
 
@@ -76,6 +119,19 @@ const SellerPublicPage = () => {
 
   // Telefon ve mail linkleri için fonksiyon
   const formatPhone = (phone) => phone.replace(/\s+/g, '').replace(/[^+\d]/g, '');
+
+  // Telefon tıklaması için handler
+  const handlePhoneClick = () => {
+    sendStatEvent('phoneClick');
+  };
+
+  // Konum tıklaması için handler
+  const handleLocationClick = () => {
+    sendStatEvent('locationClick');
+  };
+
+  // QR kod indirme veya sipariş butonu varsa, oraya da handler eklenebilir
+  // Örnek: handleQRDownload(), handleOrderPlaced() gibi
 
   return (
     <div className="public-page">
@@ -176,7 +232,10 @@ const SellerPublicPage = () => {
           {company.contactInfo?.phone && (
             <li>
               <Phone />{' '}
-              <a href={`tel:${formatPhone(company.contactInfo.phone)}`}>
+              <a
+                href={`tel:${formatPhone(company.contactInfo.phone)}`}
+                onClick={handlePhoneClick} // Telefon tıklama istatistiği gönderiliyor
+              >
                 {company.contactInfo.phone}
               </a>
             </li>
@@ -191,7 +250,13 @@ const SellerPublicPage = () => {
           )}
           {company.contactInfo?.address && (
             <li>
-              <MapPin /> {company.contactInfo.address}
+              <MapPin />{' '}
+              <a
+                href="#iletisim"
+                onClick={handleLocationClick} // Konum tıklama istatistiği gönderiliyor
+              >
+                {company.contactInfo.address}
+              </a>
             </li>
           )}
           {company.contactInfo?.website && (
