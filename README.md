@@ -6,7 +6,7 @@
 
 ## 🚀 Kurulum & Çalıştırma
 
-# Backend kurulumu ve çalıştırma
+# Backend kurulumu
 
 ```bash
 cd backend
@@ -15,7 +15,7 @@ npm start
 ```
 
 
-# Frontend kurulumu ve çalıştırma
+# Frontend kurulumu
 
 ```bash
 cd frontend
