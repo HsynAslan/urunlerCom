@@ -62,7 +62,7 @@
   "companyInfo": "Şirket Bilgileri",
   "addProduct": "Ürün Ekle",
   "editProducts": "Ürünleri Düzenle",
-  "statistics": "Şirket İstatistikleri (Beta)",
+  "statistics": "Şirket İstatistikleri",
   "plans": "Planlar (Beta)",
   "freePlan": "Free Plan",
   "premiumPlan": "Premium Plan",
@@ -90,16 +90,33 @@
     "loading": "Yükleniyor..."
   },
 
-  "sellerStatistics": {
+ "sellerStatistics": {
     "title": "İstatistikler",
-    "loading": "Yükleniyor...",
-    "fetchError": "İstatistikler yüklenirken hata oluştu",
     "metric": "Ölçüt",
     "value": "Değer",
+    "fetchError": "İstatistikler yüklenirken hata oluştu",
     "totalProducts": "Toplam Ürün Sayısı",
     "totalSales": "Toplam Satış Adedi",
     "totalRevenue": "Toplam Gelir",
-    "recentSalesCount": "Son 30 Gün Satış Sayısı"
+    "totalVisits": "Toplam Ziyaret",
+    "phoneClicks": "Telefon Aramaları",
+    "locationClicks": "Harita Tıklamaları",
+    "qrDownloads": "QR İndirilenler",
+    "ordersPlaced": "Verilen Siparişler",
+    "averageDuration": "Ortalama Sayfa Süresi",
+    "tooltip": {
+      "totalProducts": "Sistemde kayıtlı toplam ürün sayısı",
+      "totalSales": "Tamamlanmış toplam sipariş sayısı",
+      "totalRevenue": "Tamamlanmış siparişlerden elde edilen toplam gelir",
+      "totalVisits": "Sayfa ziyaretlerinin toplamı",
+      "phoneClicks": "Telefon araması tıklama sayısı",
+      "locationClicks": "Harita üzerindeki konum tıklamaları",
+      "qrDownloads": "QR kodu indirilenlerin sayısı",
+      "ordersPlaced": "Toplam verilen sipariş sayısı",
+      "averageDuration": "Ziyaretçilerin ortalama sayfada kalma süresi"
+    },
+    "themeToggle": "Tema değiştir",
+    "menuToggle": "Menu Aç/Kapat"
   },
 
  "productAdd": {

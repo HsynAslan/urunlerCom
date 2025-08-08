@@ -12,11 +12,19 @@ import {
   Card,
   CardContent,
   CircularProgress,
-  TableContainer,
+  LinearProgress,
+  Tooltip,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import PhoneIcon from '@mui/icons-material/Phone';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import DownloadIcon from '@mui/icons-material/Download';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import axios from 'axios';
 import SellerSidebar from '../components/SellerSidebar';
 import LanguageSelector from '../components/LanguageSelector';
@@ -39,30 +47,74 @@ const lightTheme = createTheme({
   },
 });
 
-// Backend’den gelen key'leri okunabilir label'a çevir
-const metricLabels = {
-  totalProducts: 'Toplam Ürün Sayısı',
-  totalSales: 'Toplam Satış Adedi',
-  totalRevenue: 'Toplam Gelir',
-  totalVisits: 'Toplam Ziyaret',
-  phoneClicks: 'Telefon Aramaları',
-  locationClicks: 'Harita Tıklamaları',
-  qrDownloads: 'QR İndirilenler',
-  ordersPlaced: 'Verilen Siparişler',
-  averageDuration: 'Ortalama Sayfa Süresi',
-};
+// metricMeta objesindeki label ve tooltip artık i18n’den alınacak
+const metricMeta = (t) => ({
+  totalProducts: {
+    label: t('sellerStatistics.totalProducts'),
+    icon: <StorefrontIcon fontSize="large" color="primary" />,
+    color: 'primary.main',
+    tooltip: t('sellerStatistics.tooltip.totalProducts'),
+  },
+  totalSales: {
+    label: t('sellerStatistics.totalSales'),
+    icon: <ShoppingCartIcon fontSize="large" color="success" />,
+    color: 'success.main',
+    tooltip: t('sellerStatistics.tooltip.totalSales'),
+  },
+  totalRevenue: {
+    label: t('sellerStatistics.totalRevenue'),
+    icon: <MonetizationOnIcon fontSize="large" color="warning" />,
+    color: 'warning.main',
+    tooltip: t('sellerStatistics.tooltip.totalRevenue'),
+  },
+  totalVisits: {
+    label: t('sellerStatistics.totalVisits'),
+    icon: <StorefrontIcon fontSize="large" color="info" />,
+    color: 'info.main',
+    tooltip: t('sellerStatistics.tooltip.totalVisits'),
+  },
+  phoneClicks: {
+    label: t('sellerStatistics.phoneClicks'),
+    icon: <PhoneIcon fontSize="large" color="error" />,
+    color: 'error.main',
+    tooltip: t('sellerStatistics.tooltip.phoneClicks'),
+  },
+  locationClicks: {
+    label: t('sellerStatistics.locationClicks'),
+    icon: <LocationOnIcon fontSize="large" color="secondary" />,
+    color: 'secondary.main',
+    tooltip: t('sellerStatistics.tooltip.locationClicks'),
+  },
+  qrDownloads: {
+    label: t('sellerStatistics.qrDownloads'),
+    icon: <DownloadIcon fontSize="large" color="success" />,
+    color: 'success.main',
+    tooltip: t('sellerStatistics.tooltip.qrDownloads'),
+  },
+  ordersPlaced: {
+    label: t('sellerStatistics.ordersPlaced'),
+    icon: <ShoppingCartIcon fontSize="large" color="primary" />,
+    color: 'primary.main',
+    tooltip: t('sellerStatistics.tooltip.ordersPlaced'),
+  },
+  averageDuration: {
+    label: t('sellerStatistics.averageDuration'),
+    icon: <AccessTimeIcon fontSize="large" color="info" />,
+    color: 'info.main',
+    tooltip: t('sellerStatistics.tooltip.averageDuration'),
+  },
+});
 
 const formatValue = (key, value) => {
   if (key === 'totalRevenue') {
     return value.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' });
   }
   if (key === 'averageDuration') {
-    // saniyeyi dakika ve saniyeye çevir (örn: 3dk 20sn)
     const minutes = Math.floor(value / 60);
     const seconds = Math.floor(value % 60);
     return `${minutes}dk ${seconds}sn`;
   }
-  return value;
+  return value.toLocaleString ? value.toLocaleString('tr-TR') : value;
 };
 
 const SellerStatisticsPage = () => {
@@ -82,11 +134,13 @@ const SellerStatisticsPage = () => {
       .then((res) => setStats(res.data))
       .catch((err) => {
         console.error(err);
-        toast.error('❌ ' + (t('sellerStatistics.fetchError') || 'İstatistikler yüklenirken hata oluştu'));
+        toast.error('❌ ' + (t('sellerStatistics.fetchError') || 'Error loading statistics'));
       });
   }, [t]);
 
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
+
+  const maxDurationSeconds = 300;
 
   return (
     <ThemeProvider theme={theme}>
@@ -127,7 +181,7 @@ const SellerStatisticsPage = () => {
                 transform: 'translateX(-50%)',
                 zIndex: 2000,
               }}
-              aria-label="Menu Aç/Kapat"
+              aria-label={t('sellerStatistics.menuToggle')}
             >
               <MenuIcon />
             </Fab>
@@ -163,87 +217,65 @@ const SellerStatisticsPage = () => {
 
           {/* Sayfa başlığı */}
           <Typography variant="h4" sx={{ mb: 3, fontWeight: 700 }}>
-            📊 {t('sellerStatistics.title') || 'İstatistikler'}
+            📊 {t('sellerStatistics.title')}
           </Typography>
 
-          {/* Yükleniyorsa */}
+          {/* Yükleniyor gösterge */}
           {!stats ? (
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
-              <CircularProgress />
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
+              <CircularProgress size={60} thickness={5} />
             </Box>
           ) : (
-            <>
-              {/* Mobilde kartlı özet */}
-              {isMobile ? (
-                <Grid container spacing={2}>
-                  {Object.entries(stats).map(([key, value]) => (
-                    <Grid item xs={6} key={key}>
+            <Grid container spacing={3}>
+              {Object.entries(metricMeta(t)).map(([key, { label, icon, color, tooltip }]) => {
+                if (!(key in stats)) return null;
+                const value = stats[key];
+                let progressPercent = 0;
+                if (key === 'averageDuration') {
+                  progressPercent = Math.min((value / maxDurationSeconds) * 100, 100);
+                }
+                return (
+                  <Grid item xs={12} sm={6} md={4} key={key}>
+                    <Tooltip title={tooltip} arrow>
                       <Card
-                        variant="outlined"
                         sx={{
                           bgcolor: 'background.paper',
-                          height: '100%',
+                          height: '160px',
                           display: 'flex',
                           flexDirection: 'column',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          py: 3,
-                          px: 1,
-                          textAlign: 'center',
+                          justifyContent: 'space-between',
+                          p: 2,
+                          borderLeft: `8px solid`,
+                          borderColor: color,
+                          boxShadow: 3,
                         }}
+                        elevation={4}
                       >
-                        <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                          {metricLabels[key] || key}
-                        </Typography>
-                        <Typography variant="h6" fontWeight={700}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                          {icon}
+                          <Typography variant="subtitle1" color="text.secondary" fontWeight={600}>
+                            {label}
+                          </Typography>
+                        </Box>
+                        <Typography variant="h4" fontWeight={700} sx={{ mb: 1 }}>
                           {formatValue(key, value)}
                         </Typography>
+                        {key === 'averageDuration' ? (
+                          <LinearProgress
+                            variant="determinate"
+                            value={progressPercent}
+                            sx={{ height: 8, borderRadius: 4 }}
+                            color="info"
+                          />
+                        ) : (
+                          <Box sx={{ height: 8 }} />
+                        )}
                       </Card>
-                    </Grid>
-                  ))}
-                </Grid>
-              ) : (
-                // Masaüstü için tablo
-                <Paper>
-                  <TableContainer>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                      <thead>
-                        <tr style={{ borderBottom: `2px solid ${theme.palette.divider}` }}>
-                          <th
-                            style={{
-                              textAlign: 'left',
-                              padding: '12px 16px',
-                              color: theme.palette.text.secondary,
-                            }}
-                          >
-                            {t('sellerStatistics.metric') || 'Ölçüt'}
-                          </th>
-                          <th
-                            style={{
-                              textAlign: 'right',
-                              padding: '12px 16px',
-                              color: theme.palette.text.secondary,
-                            }}
-                          >
-                            {t('sellerStatistics.value') || 'Değer'}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {Object.entries(stats).map(([key, value]) => (
-                          <tr key={key} style={{ borderBottom: `1px solid ${theme.palette.divider}` }}>
-                            <td style={{ padding: '12px 16px' }}>{metricLabels[key] || key}</td>
-                            <td style={{ padding: '12px 16px', textAlign: 'right' }}>
-                              {formatValue(key, value)}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </TableContainer>
-                </Paper>
-              )}
-            </>
+                    </Tooltip>
+                  </Grid>
+                );
+              })}
+            </Grid>
           )}
 
           {/* Tema değiştirme butonu sol altta */}
@@ -267,7 +299,7 @@ const SellerStatisticsPage = () => {
                 boxShadow: darkMode ? '0 0 12px rgba(144,202,249,0.6)' : 'none',
                 p: 0,
               }}
-              aria-label="Tema değiştir"
+              aria-label={t('sellerStatistics.themeToggle')}
             >
               {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
             </Button>

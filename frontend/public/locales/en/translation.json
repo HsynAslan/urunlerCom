@@ -61,7 +61,7 @@
     "companyInfo": "Company Information",
     "addProduct": "Add Product",
     "editProducts": "Edit Products",
-    "statistics": "Company Statistics (Beta)",
+    "statistics": "Company Statistics",
     "plans": "Plans (Beta)",
     "freePlan": "Free Plan",
     "premiumPlan": "Premium Plan",
@@ -75,14 +75,31 @@
 
   "sellerStatistics": {
     "title": "Statistics",
-    "loading": "Loading...",
-    "fetchError": "Error loading statistics",
     "metric": "Metric",
     "value": "Value",
+    "fetchError": "Error loading statistics",
     "totalProducts": "Total Products",
     "totalSales": "Total Sales",
     "totalRevenue": "Total Revenue",
-    "recentSalesCount": "Sales in Last 30 Days"
+    "totalVisits": "Total Visits",
+    "phoneClicks": "Phone Clicks",
+    "locationClicks": "Map Clicks",
+    "qrDownloads": "QR Downloads",
+    "ordersPlaced": "Orders Placed",
+    "averageDuration": "Average Page Duration",
+    "tooltip": {
+      "totalProducts": "Total number of products in the system",
+      "totalSales": "Total number of completed orders",
+      "totalRevenue": "Total revenue from completed orders",
+      "totalVisits": "Total page visits",
+      "phoneClicks": "Number of phone call clicks",
+      "locationClicks": "Number of map location clicks",
+      "qrDownloads": "Number of QR code downloads",
+      "ordersPlaced": "Total number of orders placed",
+      "averageDuration": "Average duration visitors stay on page"
+    },
+    "themeToggle": "Toggle theme",
+    "menuToggle": "Toggle menu"
   },
 
   "sellerCreateCompany": {
