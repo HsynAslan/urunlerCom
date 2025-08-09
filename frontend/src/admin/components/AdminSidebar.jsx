@@ -141,7 +141,7 @@ const AdminSidebar = ({ mobileOpen = false, setMobileOpen = null }) => {
             <ListItemIcon>
               <Visibility />
             </ListItemIcon>
-            <ListItemText primary="Genel Görünüm" />
+            <ListItemText primary="Genel Görünüm (Beta)" />
           </ListItemButton>
         )}
 
@@ -175,9 +175,9 @@ const AdminSidebar = ({ mobileOpen = false, setMobileOpen = null }) => {
             <Collapse in={openDropdowns['admins']} timeout="auto" unmountOnExit>
               <List component="div" disablePadding sx={{ pl: 4 }}>
                 <ListItemButton onClick={() => navigate('/admin/subadmin/list')}>
-                  <ListItemText primary="Admin Listesi" />
+                  <ListItemText primary="Admin Listesi (Beta)" />
                 </ListItemButton>
-                <ListItemButton onClick={() => navigate('/admin/subadmin/create')}>
+                <ListItemButton onClick={() => navigate('/admin/subadmin/')}>
                   <ListItemText primary="Yeni Admin Ekle" />
                 </ListItemButton>
               </List>
