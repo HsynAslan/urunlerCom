@@ -63,13 +63,21 @@ body{
   border-bottom: 1px solid rgba(16,24,32,0.04);
   box-shadow: var(--shadow-soft);
 }
-.navbar .logo{
-  font-weight:900;
-  font-size: clamp(18px, 2.2vw, 24px);
-  color:var(--accent-3);
-  margin-right:28px;
-  letter-spacing:0.8px;
+.navbar {
+  justify-content: center;
+  padding: 0 12px;
+  gap: 16px;
+  flex-wrap: wrap;
 }
+.navbar .logo {
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  margin: 0 auto;
+}
+
 .nav-links{
   display:flex;
   gap:8px;
@@ -109,13 +117,12 @@ body:has(#iletisim:target) .nav-links a[href="#iletisim"]{
   margin:22px auto 6px;
   padding: 0 18px;
 }
-.header h1{
-  margin:0;
-  font-size: clamp(30px, 5.6vw, 56px);
-  line-height:1.02;
-  font-weight:900;
-  color:var(--text);
-  letter-spacing:-1px;
+.header h1,
+.section-header h2,
+.about-section h3 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 .header .tagline{
   margin:6px 0 0;
@@ -142,17 +149,12 @@ body:has(#iletisim:target) .nav-links a[href="#iletisim"]{
   box-shadow: var(--shadow-soft);
 }
 /* artistic overlay shapes */
-.carousel-image-wrapper::before{
-  content:"";
-  position:absolute;
-  left:-6%;
-  top:8%;
-  width:42%;
-  height:120%;
-  background: radial-gradient(closest-side, rgba(255,107,107,0.10), transparent 40%);
-  transform: rotate(-12deg);
-  pointer-events:none;
-  mix-blend-mode: multiply;
+.carousel-image-wrapper::before {
+  width: 25%;
+  height: 90%;
+  opacity: 0.04;
+  left: -4%;
+  top: 12%;
 }
 .carousel-image-wrapper img,
 .hero-single-img{
@@ -243,29 +245,24 @@ body:has(section:target) section:target{
 }
 
 /* Masonry-like feel with grid + variable card heights */
-.product-grid{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--gap);
-  align-items:start;
+  justify-content: center;
+  align-items: start;
 }
+
 
 /* Each card has layer accents and occasional tilt via nth-child */
-.product-card{
-  background: linear-gradient(180deg, #fff, rgba(255,255,255,0.96));
+.product-card {
+  min-height: auto; /* mobilde kaldırmak için */
+  padding: 14px;
+  position: relative;
   border-radius: 16px;
-  padding:14px;
-  position:relative;
-  overflow:visible;
-  min-height: 360px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  transition: transform var(--transition), box-shadow var(--transition);
   box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(16,24,32,0.04);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
-
 /* playful offsets for first few cards */
 .product-grid > .product-card:nth-child(4n+1){ transform: translateY(0px) rotate(-0.6deg); }
 .product-grid > .product-card:nth-child(4n+2){ transform: translateY(8px) rotate(0.2deg); }
@@ -354,20 +351,21 @@ body:has(section:target) section:target{
 }
 
 /* call-to-action area (visual) */
-.product-card::after{
-  content: "İNCELE";
-  position:absolute;
-  right:16px;
-  bottom:14px;
-  background: var(--accent-3);
-  color:white;
-  padding:8px 10px;
-  border-radius:10px;
-  font-weight:800;
-  font-size:13px;
-  box-shadow: 0 10px 30px rgba(76,201,240,0.10);
+.product-card::after {
+  content: "SEPETE EKLE";
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  background: var(--accent-1);
+  color: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 13px;
+  box-shadow: 0 10px 30px rgba(255,107,107,0.2);
   cursor: pointer;
 }
+
 
 /* ---------------- Contact ---------------- */
 .contact-list{
@@ -453,3 +451,10 @@ a:focus, button:focus{ outline:none; box-shadow: 0 0 0 6px rgba(76,201,240,0.12)
 
 Enjoy — istersen bu temaya bir de "dark art" versiyonu veya retro pop art versiyonunu çıkarayım.
 */
+/* Responsive: min-height kaldır */
+@media (max-width: 640px) {
+  .product-card {
+    min-height: unset;
+    padding: 12px;
+  }
+}
