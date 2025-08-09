@@ -11,9 +11,14 @@ import {
   Store,
   Info,
   Image as ImageIcon,
+  Facebook,
+  Twitter,
+  Star,
 } from 'lucide-react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import '../styles/SellerPublicPage.css';
+import '../styles/SellerPublicPage.css'; // Varsayılan stil
+// Örnek: import '../styles/SellerPublicPageDark.css'; // Dark tema
+// Örnek: import '../styles/SellerPublicPageModern.css'; // Modern tema
 
 const SellerPublicPage = () => {
   const { slug } = useParams();
@@ -23,14 +28,10 @@ const SellerPublicPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Ziyaret event'inin bir kere gönderilmesi için ref
   const visitSent = useRef(false);
-  // Telefon tıklaması sadece 1 kez sayılacak
   const phoneClickSent = useRef(false);
-  // Konum tıklaması sadece 1 kez sayılacak
   const locationClickSent = useRef(false);
 
-  // Sayfa title ve favicon ayarı
   useEffect(() => {
     if (data?.company) {
       document.title = data.company.companyName || 'Satıcı Sayfası';
@@ -46,7 +47,6 @@ const SellerPublicPage = () => {
     }
   }, [data]);
 
-  // Backend istatistik gönderme fonksiyonu
   const sendStatEvent = async (eventType, duration) => {
     try {
       await axios.post(
@@ -54,12 +54,10 @@ const SellerPublicPage = () => {
         { eventType, duration }
       );
     } catch (err) {
-      // Hata loglanabilir ama kullanıcıya göstermiyoruz
       console.error('İstatistik gönderilemedi:', err);
     }
   };
 
-  // Sayfa veri çekme ve ziyaret kaydı gönderme
   useEffect(() => {
     if (!slug) return;
 
@@ -71,8 +69,6 @@ const SellerPublicPage = () => {
         );
         setData(res.data);
         setError(null);
-
-        // Sayfa açılır açılmaz ziyaret kaydı sadece bir kere gönderiliyor
         if (!visitSent.current) {
           await sendStatEvent('visit');
           visitSent.current = true;
@@ -91,23 +87,15 @@ const SellerPublicPage = () => {
     fetchData();
 
     const startTime = Date.now();
-
     const handleBeforeUnload = () => {
       const durationSec = Math.floor((Date.now() - startTime) / 1000);
       if (navigator.sendBeacon) {
         const url = `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/stats`;
-        const data = JSON.stringify({ eventType: 'visitDuration', duration: durationSec });
-        navigator.sendBeacon(url, new Blob([data], { type: 'application/json' }));
-      } else {
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/public/sellers/${slug}/stats`, false);
-        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhr.send(JSON.stringify({ eventType: 'visitDuration', duration: durationSec }));
+        const payload = JSON.stringify({ eventType: 'visitDuration', duration: durationSec });
+        navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }));
       }
     };
-
     window.addEventListener('beforeunload', handleBeforeUnload);
-
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
@@ -117,7 +105,7 @@ const SellerPublicPage = () => {
 
   if (loading || !data) {
     return (
-      <div className="loader-wrapper">
+      <div className="loader-wrapper" data-section="loading">
         <div className="loader" />
         <p className="loader-text">Veri Yükleniyor...</p>
       </div>
@@ -127,19 +115,14 @@ const SellerPublicPage = () => {
   const { company, products, about, photos } = data;
   const theme = company.theme?.cssContent;
 
-  // Telefon ve mail linkleri için fonksiyon
   const formatPhone = (phone) => phone.replace(/\s+/g, '').replace(/[^+\d]/g, '');
-
-  // Telefon tıklaması için handler (sadece bir kere say)
   const handlePhoneClick = () => {
     if (!phoneClickSent.current) {
       sendStatEvent('phoneClick');
       phoneClickSent.current = true;
     }
   };
-
-  // Konum tıklaması için handler (sadece bir kere say) ve gerçek google maps linkiyle
-  const handleLocationClick = (e) => {
+  const handleLocationClick = () => {
     if (!locationClickSent.current) {
       sendStatEvent('locationClick');
       locationClickSent.current = true;
@@ -147,43 +130,37 @@ const SellerPublicPage = () => {
   };
 
   return (
-    <div className="public-page">
-      {/* Tema CSS'si (örneğin eTicaretTema.css içeriği) */}
+    
+    <div className="public-page" data-theme={company.theme?.name || 'default'}>
+      <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+
       {theme && <style dangerouslySetInnerHTML={{ __html: theme }} />}
 
-      {/* Navbar iskeleti */}
-      <nav className="navbar">
-        <ul>
-          <li>
-            <a href="#anasayfa">🏠 Anasayfa</a>
-          </li>
-          <li>
-            <a href="#hakkimda">ℹ️ Hakkımızda</a>
-          </li>
-          <li>
-            <a href="#urunler">🛒 Ürünler</a>
-          </li>
-          <li>
-            <a href="#iletisim">📞 İletişim</a>
-          </li>
+      {/* Navbar */}
+      <nav className="navbar" data-section="navbar">
+        <div className="logo">{company.companyName}</div>
+        <ul className="nav-links">
+          <li><a href="#anasayfa">🏠 Anasayfa</a></li>
+          <li><a href="#hakkimda">ℹ️ Hakkımızda</a></li>
+          <li><a href="#urunler">🛒 Ürünler</a></li>
+          <li><a href="#iletisim">📞 İletişim</a></li>
         </ul>
       </nav>
 
+      {/* Banner / Kampanya alanı */}
+      <div className="promo-banner" data-section="banner">
+        <p>🎉 Yaz İndirimleri Başladı! Tüm ürünlerde %30'a varan fırsatlar! 🎉</p>
+      </div>
+
       {/* Anasayfa */}
-      <section id="anasayfa" className="home-section">
+      <section id="anasayfa" className="home-section" data-section="home">
         <header className="header">
           <h1>{company.companyName}</h1>
+          <p className="tagline">{company.tagline || 'Kalite ve güvenin adresi'}</p>
         </header>
         <div className="photos-container">
           {photos.length > 1 ? (
-            <Carousel
-              autoPlay
-              infiniteLoop
-              showThumbs={false}
-              showStatus={false}
-              interval={4000}
-              stopOnHover={true}
-            >
+            <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false} interval={4000}>
               {photos.map((photo) => (
                 <div key={photo._id} className="carousel-image-wrapper">
                   <img src={photo.imageUrl} alt={photo.caption || company.companyName} />
@@ -199,25 +176,30 @@ const SellerPublicPage = () => {
       </section>
 
       {/* Hakkımızda */}
-      <section id="hakkimda" className="about-section">
+      <section id="hakkimda" className="about-section" data-section="about">
         <div className="section-header">
-          <Info />
-          <h2>ℹ️ Hakkımızda</h2>
+          <Info /><h2>ℹ️ Hakkımızda</h2>
         </div>
         <h3>{company.companyName}</h3>
-        <p>{about?.content || 'Hakkımızda bilgisi bulunmamaktadır.'}</p>
+        <p className="about-text long-text">{about?.content || 'Hakkımızda bilgisi bulunmamaktadır.'}</p>
       </section>
 
       {/* Ürünler */}
-      <section id="urunler" className="product-section">
+      <section id="urunler" className="product-section" data-section="products">
         <div className="section-header">
-          <Store />
-          <h2>🛒 Ürünler</h2>
+          <Store /><h2>🛒 Ürünler</h2>
+        </div>
+        <div className="filter-bar">
+          <input type="text" placeholder="Ürün ara..." />
+          <select>
+            <option>Fiyat: Artan</option>
+            <option>Fiyat: Azalan</option>
+          </select>
         </div>
         {products.length ? (
           <div className="product-grid">
             {products.map((product) => (
-              <div key={product._id} className="product-card">
+              <div key={product._id} className="product-card" data-product-id={product._id}>
                 {product.images?.length ? (
                   <img
                     src={product.images[product.showcaseImageIndex || 0]}
@@ -226,14 +208,15 @@ const SellerPublicPage = () => {
                     loading="lazy"
                   />
                 ) : (
-                  <div className="product-placeholder">
-                    <ImageIcon size={48} />
-                  </div>
+                  <div className="product-placeholder"><ImageIcon size={48} /></div>
                 )}
-                <h3>{product.name}</h3>
-                <p>
-                  {product.price} {product.priceCurrency}
-                </p>
+                <h3 className="product-name">{product.name}</h3>
+                <p className="product-price">{product.price} {product.priceCurrency}</p>
+                <div className="rating">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className={i < (product.rating || 0) ? 'filled' : ''} />
+                  ))}
+                </div>
                 {product.descriptionSections?.map((sec, i) => (
                   <div key={i} className="desc-section">
                     <h4>{sec.title}</h4>
@@ -249,76 +232,50 @@ const SellerPublicPage = () => {
       </section>
 
       {/* İletişim */}
-      <section id="iletisim" className="contact-section">
+      <section id="iletisim" className="contact-section" data-section="contact">
         <div className="section-header">
-          <MapPin />
-          <h2>📞 İletişim</h2>
+          <MapPin /><h2>📞 İletişim</h2>
         </div>
         <h3>{company.companyName}</h3>
         <ul className="contact-list">
           {company.contactInfo?.phone && (
-            <li>
-              <Phone />{' '}
-              <a href={`tel:${formatPhone(company.contactInfo.phone)}`} onClick={handlePhoneClick}>
-                {company.contactInfo.phone}
-              </a>
-            </li>
+            <li><Phone /> <a href={`tel:${formatPhone(company.contactInfo.phone)}`} onClick={handlePhoneClick}>{company.contactInfo.phone}</a></li>
           )}
           {company.contactInfo?.email && (
-            <li>
-              <Mail /> <a href={`mailto:${company.contactInfo.email}`}>{company.contactInfo.email}</a>
-            </li>
+            <li><Mail /> <a href={`mailto:${company.contactInfo.email}`}>{company.contactInfo.email}</a></li>
           )}
           {company.contactInfo?.address && (
-            <li>
-              <MapPin />{' '}
-              <a
-                href={`https://maps.google.com/?q=${encodeURIComponent(company.contactInfo.address)}`}
-                target="_blank"
-                rel="noreferrer"
-                onClick={handleLocationClick}
-              >
-                {company.contactInfo.address}
-              </a>
-            </li>
+            <li><MapPin /> <a href={`https://maps.google.com/?q=${encodeURIComponent(company.contactInfo.address)}`} target="_blank" rel="noreferrer" onClick={handleLocationClick}>{company.contactInfo.address}</a></li>
           )}
           {company.contactInfo?.website && (
-            <li>
-              <Globe />{' '}
-              <a href={company.contactInfo.website} target="_blank" rel="noreferrer">
-                {company.contactInfo.website}
-              </a>
-            </li>
+            <li><Globe /> <a href={company.contactInfo.website} target="_blank" rel="noreferrer">{company.contactInfo.website}</a></li>
           )}
           {company.contactInfo?.instagram && (
-            <li>
-              <Instagram />{' '}
-              <a
-                href={`https://instagram.com/${company.contactInfo.instagram}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                @{company.contactInfo.instagram}
-              </a>
-            </li>
+            <li><Instagram /> <a href={`https://instagram.com/${company.contactInfo.instagram}`} target="_blank" rel="noreferrer">@{company.contactInfo.instagram}</a></li>
+          )}
+          {/* Ek sosyal ikonlar */}
+          {company.contactInfo?.facebook && (
+            <li><Facebook /> <a href={company.contactInfo.facebook} target="_blank" rel="noreferrer">Facebook</a></li>
+          )}
+          {company.contactInfo?.twitter && (
+            <li><Twitter /> <a href={company.contactInfo.twitter} target="_blank" rel="noreferrer">Twitter</a></li>
           )}
         </ul>
-
-        {/* Google Maps iframe (adres varsa) */}
         {company.contactInfo?.address && (
-          <div className="map-container" aria-label="Şirket Adresi Haritası">
+          <div className="map-container">
             <iframe
               title="Google Maps"
               src={`https://maps.google.com/maps?q=${encodeURIComponent(company.contactInfo.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
               allowFullScreen
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
         )}
       </section>
 
-      <footer className="footer">&copy; {new Date().getFullYear()} {company.companyName}</footer>
+      <footer className="footer" data-section="footer">
+        <p>&copy; {new Date().getFullYear()} {company.companyName}</p>
+      </footer>
     </div>
   );
 };

@@ -1,0 +1,464 @@
+/* SellerPublicPage.dark-neon.css
+   Dark Neon theme for SellerPublicPage.jsx (no JSX changes required).
+   Usage: import '../styles/SellerPublicPage.dark-neon.css'
+*/
+
+/* ---------------- Variables ---------------- */
+:root{
+  --bg-900: #050507;
+  --bg-800: #0b0b0f;
+  --panel: rgba(12,12,18,0.6);
+  --muted: #9aa3b2;
+  --text: #e9f2ff;
+  --accent-1: #7c3cff; /* purple */
+  --accent-2: #00e5ff; /* cyan */
+  --accent-3: #ff3ca6; /* pink */
+  --glass: rgba(255,255,255,0.03);
+  --card-radius: 16px;
+  --shadow-neon: 0 6px 30px rgba(124,60,255,0.14);
+  --nav-height: 72px;
+  --mobile-nav-height: 60px;
+  --container: 1250px;
+  --gap: 20px;
+  --transition: 260ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* ------------- Global reset & base ------------- */
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:
+    radial-gradient(1200px 600px at 10% 10%, rgba(124,60,255,0.06), transparent 8%),
+    radial-gradient(1000px 400px at 90% 90%, rgba(0,229,255,0.04), transparent 8%),
+    linear-gradient(180deg, var(--bg-900), var(--bg-800));
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  -webkit-text-size-adjust:100%;
+}
+
+/* ensure public-page fills viewport and arranges footer bottom */
+.public-page{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  align-items:stretch;
+  width:100%;
+}
+
+/* ------------- Navbar ------------- */
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:1400;
+  height:var(--nav-height);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  backdrop-filter: blur(8px) saturate(120%);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.02);
+}
+.navbar .logo{
+  font-family: "Orbitron", sans-serif;
+  font-weight:700;
+  font-size:clamp(18px, 2.2vw, 24px);
+  color:var(--accent-1);
+  text-shadow: 0 0 8px rgba(124,60,255,0.22);
+  margin-right:28px;
+  letter-spacing:0.6px;
+}
+.nav-links{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.nav-links a{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:12px;
+  color:var(--muted);
+  text-decoration:none;
+  font-weight:700;
+  font-size:14px;
+  transition: all var(--transition);
+  border: 1px solid transparent;
+}
+.nav-links a:hover,
+.nav-links a:focus{
+  color:var(--text);
+  transform:translateY(-3px);
+  box-shadow: 0 10px 30px rgba(124,60,255,0.08);
+  border-color: rgba(124,60,255,0.12);
+}
+ /* active link when a section is targeted (modern browsers) */
+body:has(section:target) .nav-links a { opacity:0.7; }
+body:has(#anasayfa:target) .nav-links a[href="#anasayfa"],
+body:has(#hakkimda:target) .nav-links a[href="#hakkimda"],
+body:has(#urunler:target) .nav-links a[href="#urunler"],
+body:has(#iletisim:target) .nav-links a[href="#iletisim"]{
+  opacity:1;
+  color:var(--accent-2);
+  box-shadow: 0 6px 24px rgba(0,229,255,0.08);
+  border-color: rgba(0,229,255,0.12);
+}
+
+/* fallback: when :has unsupported, highlight first link (home) */
+@supports not (selector(:has(*))) {
+  .nav-links a[href="#anasayfa"]{ color:var(--accent-1); box-shadow:0 6px 24px rgba(124,60,255,0.06); }
+}
+
+/* ------------- Promo banner ------------- */
+.promo-banner{
+  max-width:var(--container);
+  margin: 12px auto 0;
+  padding: 10px 16px;
+  border-radius:12px;
+  background: linear-gradient(90deg, rgba(124,60,255,0.06), rgba(0,229,255,0.03));
+  color:var(--accent-3);
+  font-weight:700;
+  text-align:center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+
+/* ------------- Sections base & default visibility ------------- */
+section{
+  width:100%;
+  max-width:var(--container);
+  margin: 14px auto;
+  padding: 10px 18px 36px;
+  box-sizing:border-box;
+  display:block;
+  transition: opacity 240ms ease, transform 240ms ease;
+}
+
+/* Full-height visible area for hero & main sections */
+.home-section,
+.product-section,
+.about-section,
+.contact-section{
+  min-height: calc(100vh - var(--nav-height) - 120px);
+  display:block;
+}
+
+/* Hide other sections when a section is targeted (modern browsers) */
+body:has(section:target) section{ display:none; }
+body:has(section:target) section:target{
+  display:block;
+  min-height: calc(100vh - var(--nav-height) - 96px);
+  animation: fadeInUp 360ms ease both;
+}
+
+/* Fallback: when :has unsupported, show all sections (still fine) */
+
+/* ------------- Header / Hero ------------- */
+.header{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+  margin: 18px 0;
+}
+.header h1{
+  margin:0;
+  font-family: "Orbitron", sans-serif;
+  color:var(--accent-1);
+  font-size: clamp(26px, 4vw, 44px);
+  letter-spacing: -0.6px;
+  text-shadow: 0 0 12px rgba(124,60,255,0.18), 0 2px 0 rgba(0,0,0,0.4);
+}
+.header .tagline{
+  margin:0;
+  color:var(--muted);
+  font-size: clamp(14px, 1.8vw, 18px);
+}
+
+/* ------------- Photos / Carousel ------------- */
+.photos-container{
+  width:100%;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), var(--shadow-neon);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+}
+.carousel-image-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height: clamp(380px, 50vh, 760px);
+  overflow:hidden;
+}
+.carousel-image-wrapper img,
+.hero-single-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transform-origin:center;
+  transition: transform 600ms cubic-bezier(.2,.9,.3,1);
+  filter: saturate(1.05) contrast(1.02);
+}
+.carousel-image-wrapper img:hover{ transform: scale(1.02); }
+
+/* react-responsive-carousel overrides for dark look */
+.carousel .carousel-status, .carousel .thumbs-wrapper { display:none !important; }
+.carousel .control-arrow, .carousel .control-dots { filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6)); }
+.carousel .control-next.control-arrow, .carousel .control-prev.control-arrow{
+  background: linear-gradient(90deg, rgba(124,60,255,0.08), rgba(0,229,255,0.04));
+  border-radius:999px;
+  color:var(--text);
+  width:44px;height:44px;
+}
+
+/* ------------- About ------------- */
+.section-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+.section-header h2{
+  margin:0;
+  color:var(--accent-2);
+  font-size: clamp(18px, 2.8vw, 24px);
+  font-weight:800;
+  text-shadow: 0 0 10px rgba(0,229,255,0.08);
+}
+.about-section h3{
+  margin:6px 0 12px;
+  font-family:"Orbitron", sans-serif;
+  font-size: clamp(18px, 2.6vw, 28px);
+  color:var(--accent-1);
+}
+.about-text{
+  color:var(--text);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding:18px;
+  border-radius:14px;
+  font-style:italic;
+  font-size: clamp(16px, 2.4vw, 20px);
+  line-height:1.6;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.02);
+  max-width: 110ch; /* long text readable */
+}
+
+/* ------------- Product area ------------- */
+.filter-bar{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin:8px 0 12px;
+}
+.filter-bar input[type="text"],
+.filter-bar select{
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:12px;
+  min-height:44px;
+  font-weight:600;
+  width:100%;
+  max-width:360px;
+}
+
+/* product grid - large symmetric cards */
+.product-grid{
+  display:grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(4, 1fr);
+  align-items:stretch;
+  margin-top:12px;
+}
+
+/* product card - wide, tall, symmetric */
+.product-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: var(--card-radius);
+  padding:14px;
+  box-shadow: 0 20px 50px rgba(2,6,23,0.6), 0 8px 30px rgba(124,60,255,0.06);
+  border: 1px solid rgba(124,60,255,0.06);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  min-height: 420px; /* larger cards */
+  transition: transform var(--transition), box-shadow var(--transition);
+  overflow:hidden;
+}
+.product-card:hover{
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 30px 80px rgba(2,6,23,0.7), 0 18px 50px rgba(124,60,255,0.16);
+}
+
+/* product image area */
+.product-image{
+  width:100%;
+  height: 260px;
+  object-fit:cover;
+  border-radius:10px;
+  display:block;
+  background: linear-gradient(180deg,#0c0c0f,#141419);
+  box-shadow: inset 0 -10px 30px rgba(0,0,0,0.6);
+}
+.product-placeholder{
+  width:100%;
+  height:260px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(180deg,#07070a,#0e0e14);
+  color:var(--muted);
+}
+
+/* product meta */
+.product-name{
+  margin:0;
+  font-size: clamp(16px, 2.2vw, 20px);
+  font-weight:800;
+  color:var(--text);
+}
+.product-price{
+  margin:0;
+  font-size: clamp(15px, 1.8vw, 18px);
+  font-weight:900;
+  color:var(--accent-2);
+}
+
+/* rating stars */
+.rating{ display:flex; gap:6px; align-items:center; }
+.rating svg{ width:18px; height:18px; color: rgba(255,255,255,0.12); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6)); }
+.rating svg.filled{ color: var(--accent-3); filter: drop-shadow(0 10px 24px rgba(255,60,166,0.12)); transform: scale(1.02); }
+
+/* description sections - support both short & long */
+.desc-section{ margin-top:8px; color:var(--muted); font-size:14px; overflow:auto; max-height:120px; }
+.desc-section h4{ margin:0 0 6px; color:var(--text); font-weight:800; font-size:14px; }
+.desc-section ul{ margin:0 0 0 18px; padding:0; list-style: disc; color:var(--muted); line-height:1.4; }
+
+/* floating cart pill (pure CSS) */
+.product-card::after{
+  content: "Sepete Ekle";
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
+  color:#fff;
+  padding:10px 14px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:13px;
+  box-shadow: 0 12px 40px rgba(124,60,255,0.12);
+  transform: translateY(0);
+  transition: transform var(--transition);
+  cursor:pointer;
+}
+
+/* ------------- Contact ------------- */
+.contact-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin:10px 0 0;
+  padding:0;
+  max-width:760px;
+}
+.contact-list li{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.02);
+  color:var(--muted);
+  font-weight:700;
+}
+.contact-list a{ color:var(--accent-2); text-decoration:none; }
+.contact-list a:hover{ text-decoration:underline; }
+
+/* map container */
+.map-container{
+  margin-top:16px;
+  height:380px;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.02);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.6);
+}
+.map-container iframe{ width:100%; height:100%; border:0; display:block; filter: contrast(1.02) saturate(1.05); }
+
+/* ------------- Footer ------------- */
+.footer{
+  width:100%;
+  text-align:center;
+  padding:18px 12px;
+  color:var(--muted);
+  border-top:1px solid rgba(255,255,255,0.02);
+  margin-top:auto;
+  font-size:14px;
+}
+
+/* ------------- Responsive rules ------------- */
+@media (max-width:1200px){ .product-grid{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width:900px){ 
+  .product-grid{ grid-template-columns: repeat(2, 1fr); }
+  .header{ align-items:center; text-align:center; }
+  .header h1{ font-size: clamp(22px, 5.6vw, 34px); }
+  .promo-banner{ margin:8px 12px; }
+}
+@media (max-width:640px){
+  .navbar{ height:var(--mobile-nav-height); padding:8px; }
+  .nav-links{ gap:6px; }
+  .product-grid{ grid-template-columns: 1fr; gap:14px; padding:0 12px; }
+  .product-card{ min-height: auto; padding:12px; }
+  .product-image, .product-placeholder{ height:190px; }
+  .about-text{ font-size:15px; padding:12px; }
+  .map-container{ height:220px; }
+  section{ padding-bottom:20px; }
+}
+
+/* ------------- Tiny interactions & animations ------------- */
+@keyframes fadeInUp{ from{ opacity:0; transform: translateY(12px);} to{ opacity:1; transform: translateY(0);} }
+
+/* focus and accessibility */
+a:focus, button:focus{ outline:none; box-shadow: 0 0 0 4px rgba(0,229,255,0.08); border-radius:8px; }
+
+/* ------------- Developer notes -------------
+1) :has() is used to hide non-target sections when a hash is present (so clicking nav links shows only that section).
+   - Modern browsers (Chrome 105+, Edge, Safari 15.4+, Firefox latest with flags) support :has.
+   - If you must support old browsers, add a tiny JS fallback to add `body.has-target` when location.hash exists,
+     then duplicate the selectors replacing body:has(section:target) with body.has-target.
+
+   Fallback example (optional JS you can add once in app):
+   ------------------------------------------------------
+   // run once on mount
+   if ('onhashchange' in window) {
+     const update = ()=> {
+       if (location.hash) document.body.classList.add('has-target');
+       else document.body.classList.remove('has-target');
+     };
+     update();
+     window.addEventListener('hashchange', update);
+   }
+   Then in CSS replace `body:has(section:target)` selectors with `body.has-target`.
+
+2) Card "Sepete Ekle" is presentational (CSS ::after). If you want it clickable, convert to a button in JSX.
+
+3) All typography uses clamp() so varying font-size settings still produce balanced layout.
+
+4) Colors & radii are in :root variables; you can easily tune neon colors.
+
+------------------------------------------------- */
+
