@@ -228,7 +228,7 @@ const SellerPublicPage = () => {
   {/* Sepete ekle butonu */}
   <button
     className="add-to-cart-btn"
-    onClick={() => window.location.href = `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/login`}
+    onClick={() => window.location.href = `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:3005'}/login`}
   >
     Sepete Ekle
   </button>
