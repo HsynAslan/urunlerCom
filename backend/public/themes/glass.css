@@ -56,26 +56,23 @@ body{
 }
 
 /* ---------- Navbar ---------- */
-.navbar{
-  position:sticky;
-  top:0;
-  z-index:1200;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:var(--nav-height);
-  padding:0 18px;
-  backdrop-filter: blur(var(--backdrop-blur));
-  background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.30));
-  border-bottom: 1px solid rgba(255,255,255,0.6);
-  box-shadow: var(--shadow-soft);
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Logo solda, nav-links sağda */
+  align-items: center;
+  padding: 0 20px;
 }
-.navbar .logo{
-  font-weight:800;
-  font-size: clamp(18px, 2.4vw, 26px);
-  color:var(--accent);
-  letter-spacing:0.4px;
-  margin-right:24px;
+
+.navbar .logo {
+  font-weight: 800;
+  font-size: clamp(18px, 5vw, 26px);
+  color: var(--accent);
+  letter-spacing: 0.4px;
+  margin-right: 16px;
+  max-width: 60vw;          /* Maks genişlik ver, ekranın %60'ı kadar */
+  white-space: nowrap;      /* Logo kelimesi satır kaymasın */
+  overflow: hidden;
+  text-overflow: ellipsis;  /* Taşarsa ... ile göster */
 }
 .nav-links{ display:flex; gap:10px; align-items:center; margin:0; padding:0; list-style:none; }
 .nav-links a{
@@ -155,13 +152,19 @@ body:has(section:target) section:target{
   gap:10px;
   margin: 18px 0;
 }
-.header h1{
-  margin:0;
-  font-weight:900;
-  font-size: clamp(26px, 4.6vw, 44px);
-  color:var(--text);
-  letter-spacing:-0.4px;
+.header h1 {
+  margin: 0;
+  font-weight: 900;
+  font-size: clamp(22px, 5vw, 34px);
+  color: var(--text);
+  letter-spacing: -0.4px;
+  max-width: 100%;           /* Taşmayı önle */
+  word-wrap: break-word;     /* Uzun kelimelerde kır */
+  overflow-wrap: break-word; /* Eski destek için */
+  white-space: normal;       /* Satır kaymasını etkinleştir */
+  text-align: center;        /* Mobilde ortala */
 }
+
 .header .tagline{
   margin:0;
   color:var(--muted);
@@ -262,12 +265,14 @@ body:has(section:target) section:target{
 
 /* product card glass style, bigger and symmetric */
 .product-card{
-  position:relative;
+   position: relative;
+  padding-bottom: 56px; /* CTA için alt boşluk */
+  
   display:flex;
   flex-direction:column;
   gap:10px;
   min-height:420px;
-  padding:14px;
+  
   border-radius: var(--radius-lg);
   background: linear-gradient(180deg, rgba(255,255,255,0.20), rgba(255,255,255,0.10));
   border: 1px solid rgba(255,255,255,0.55);
@@ -427,3 +432,47 @@ a:focus, button:focus{ outline:none; box-shadow: 0 0 0 6px rgba(43,108,255,0.08)
 4) Tweak variables at the top (:root) for different glass intensity, accent colors, blur radius, etc.
 
 */
+/* Mobilde ayrıca container padding ve overflow kontrolü */
+
+section, .public-page {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+@media (max-width: 640px) {
+  .header {
+    padding: 0 12px; /* Yana yaslanmayı önle */
+  }
+   .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .navbar .logo {
+    max-width: 100%;
+    text-align: center;
+    margin-right: 0;
+    margin-bottom: 6px;
+  }
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+  }
+   .product-card::after {
+    position: relative;
+    display: block;
+    margin: 12px auto 0;
+    right: auto;
+    bottom: auto;
+    max-width: 90%;
+    text-align: center;
+    padding: 12px 0;
+  }
+  section, .public-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
