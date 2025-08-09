@@ -199,31 +199,41 @@ const SellerPublicPage = () => {
         {products.length ? (
           <div className="product-grid">
             {products.map((product) => (
-              <div key={product._id} className="product-card" data-product-id={product._id}>
-                {product.images?.length ? (
-                  <img
-                    src={product.images[product.showcaseImageIndex || 0]}
-                    alt={product.name}
-                    className="product-image"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="product-placeholder"><ImageIcon size={48} /></div>
-                )}
-                <h3 className="product-name">{product.name}</h3>
-                <p className="product-price">{product.price} {product.priceCurrency}</p>
-                <div className="rating">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={i < (product.rating || 0) ? 'filled' : ''} />
-                  ))}
-                </div>
-                {product.descriptionSections?.map((sec, i) => (
-                  <div key={i} className="desc-section">
-                    <h4>{sec.title}</h4>
-                    <ul>{sec.items.map((item, j) => <li key={j}>{item}</li>)}</ul>
-                  </div>
-                ))}
-              </div>
+             <div key={product._id} className="product-card" data-product-id={product._id}>
+  {product.images?.length ? (
+    <img
+      src={product.images[product.showcaseImageIndex || 0]}
+      alt={product.name}
+      className="product-image"
+      loading="lazy"
+    />
+  ) : (
+    <div className="product-placeholder"><ImageIcon size={48} /></div>
+  )}
+  <h3 className="product-name">{product.name}</h3>
+  <p className="product-price">{product.price} {product.priceCurrency}</p>
+  <div className="rating">
+    {[...Array(5)].map((_, i) => (
+      <Star key={i} className={i < (product.rating || 0) ? 'filled' : ''} />
+    ))}
+  </div>
+
+  {product.descriptionSections?.map((sec, i) => (
+    <div key={i} className="desc-section">
+      <h4>{sec.title}</h4>
+      <ul>{sec.items.map((item, j) => <li key={j}>{item}</li>)}</ul>
+    </div>
+  ))}
+
+  {/* Sepete ekle butonu */}
+  <button
+    className="add-to-cart-btn"
+    onClick={() => window.location.href = `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/login`}
+  >
+    Sepete Ekle
+  </button>
+</div>
+
             ))}
           </div>
         ) : (
