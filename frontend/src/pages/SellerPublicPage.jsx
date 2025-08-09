@@ -149,7 +149,7 @@ const SellerPublicPage = () => {
 
       {/* Banner / Kampanya alanı */}
       <div className="promo-banner" data-section="banner">
-        <p>🎉 Yaz İndirimleri Başladı! Tüm ürünlerde %30'a varan fırsatlar! 🎉</p>
+        <p>🎉 Hoşgeldiniz🎉</p>
       </div>
 
       {/* Anasayfa */}
