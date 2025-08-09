@@ -328,6 +328,25 @@ body:has(section:target) section:target{
 .desc-section h4{ margin:0 0 6px; color:var(--text); font-weight:800; font-size:14px; }
 .desc-section ul{ margin:0 0 0 18px; padding:0; list-style: disc; line-height:1.4; }
 
+.product-card{
+  content: "Sepete Ekle";
+  opacity: 0;
+  position:absolute;
+  right:16px;
+  bottom:16px;
+  background: linear-gradient(90deg, rgba(43,108,255,0.9), rgba(0,191,166,0.9));
+  color:white;
+  padding:10px 14px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:13px;
+  box-shadow: 0 12px 36px rgba(11,30,50,0.12);
+  transform: translateY(0);
+  transition: transform var(--transition);
+  cursor:pointer;
+}
+
+
 /* floating CTA pill (presentational) */
 .product-card::after{
   content: "Sepete Ekle";

@@ -427,7 +427,12 @@ body:has(section:target) section:target{
   .about-text{ font-size:15px; padding:14px; }
   .map-container{ height:220px; }
 }
-
+.promo-banner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
 /* ---------------- Tiny Animations & Accessibility ---------------- */
 @keyframes floatIn{ from{ opacity:0; transform: translateY(10px) scale(0.998);} to{ opacity:1; transform:none;} }
 a:focus, button:focus{ outline:none; box-shadow: 0 0 0 6px rgba(76,201,240,0.12); border-radius:8px; }
