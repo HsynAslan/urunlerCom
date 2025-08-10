@@ -23,6 +23,80 @@ exports.getSellerInfo = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.contentReview = async (req, res) => {
+  try {
+    const { company, products, about, photos } = req.body;
+
+    let score = 0;
+    const recommendations = [];
+
+    // Şirket bilgileri kontrolü
+    if (company?.companyName && company.companyName.trim().length > 2) {
+      score += 20;
+    } else {
+      recommendations.push('Şirket adı eksik veya çok kısa, daha açıklayıcı bir isim girin.');
+    }
+
+    if (company?.contactInfo?.phone) {
+      score += 10;
+    } else {
+      recommendations.push('İletişim telefonu eksik, mutlaka ekleyin.');
+    }
+
+    if (company?.contactInfo?.email) {
+      score += 10;
+    } else {
+      recommendations.push('İletişim e-posta adresi ekleyin.');
+    }
+
+    if (company?.contactInfo?.address) {
+      score += 10;
+    } else {
+      recommendations.push('Şirket adresi eksik.');
+    }
+
+    // Ürünler kontrolü
+    if (Array.isArray(products) && products.length > 0) {
+      score += 20;
+      const missingInfoProducts = products.filter(p => !p.name || !p.price);
+      if (missingInfoProducts.length > 0) {
+        recommendations.push('Bazı ürünlerde isim veya fiyat bilgisi eksik.');
+      }
+    } else {
+      recommendations.push('En az bir ürün ekleyin.');
+    }
+
+    // Hakkında yazısı kontrolü
+    if (about && about.trim().length >= 50) {
+      score += 20;
+    } else {
+      recommendations.push('Hakkında kısmını en az 50 karakter olacak şekilde detaylandırın.');
+    }
+
+    // Fotoğraflar kontrolü
+    if (Array.isArray(photos) && photos.length >= 3) {
+      score += 10;
+    } else {
+      recommendations.push('En az 3 adet fotoğraf ekleyin, görsel içerik sayfanızı güçlendirir.');
+    }
+
+    // Toplam skoru %100'e tamamla (max 100)
+    if (score > 100) score = 100;
+
+    return res.status(200).json({
+      success: true,
+      score,
+      recommendations,
+    });
+  } catch (error) {
+    console.error('Content review error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'İçerik değerlendirmesi sırasında hata oluştu.',
+    });
+  }
+};
+
 exports.fullGetStats = async (req, res) => {
   try {
     console.log('Request started for getStats');
