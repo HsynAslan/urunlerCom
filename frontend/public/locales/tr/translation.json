@@ -411,50 +411,85 @@
   "openHelp": "🆙 Yardımı Aç"
 },
 
-  "publishPage":{
-     "title": "Sayfayı Yayınlamaya Hazırla",
-  "companyInfo": "Şirket Bilgileri",
-  "companyName": "Şirket Adı",
-  "slug": "Sayfa URL'si (slug)",
-  "phone": "Telefon",
-  "email": "Email",
-  "address": "Adres",
-  "noData": "Bilgi bulunamadı.",
-  "products": "Ürünler",
-  "about": "Hakkımda",
-  "noAbout": "Henüz yazı eklenmemiş.",
-  "photos": "Fotoğraflar",
-  "photoAlt": "Fotoğraf",
-  "errors": {
-    "title": "Eksikler:",
-    "sellerInfo": "Satıcı bilgisi alınamadı.",
-    "publicData": "Veriler alınırken hata oluştu.",
-    "companyInfo": "Şirket bilgileri eksik.",
-    "products": "En az bir ürün eklenmeli.",
-    "about": "Hakkımda yazısı yeterli değil.",
-    "photos": "En az bir fotoğraf eklenmeli.",
-    "schemas": "Şemalar alınamadı.",
-    "saveSchema": "Şema kaydedilemedi."
-  },
-  "warnings": {
-    "completeData": "Lütfen eksik bilgileri tamamlayın."
-  },
-  "info": {
-    "selectSchema": "Lütfen bir şema seçin."
-  },
-  "success": {
-    "published": "Şema seçildi ve sayfanız yayınlandı!"
-  },
-  "continue": "Devam Et",
-  "schemaModal": {
-    "title": "Şema Seçiniz",
-    "noSchemas": "Şema bulunamadı.",
-    "previewAlt": "önizlemesi",
-    "saving": "Kaydediliyor...",
-    "confirm": "Onayla ve Yayınla",
-    "cancel": "İptal"
-  },
-  "publishedUrlLabel": "Sayfanız yayınlandı:"
+
+  "publishPage": {
+    "title": "📢 Sayfayı Yayınlamaya Hazırla",
+    "companyInfo": "🏢 Şirket Bilgileri",
+    "companyName": "🏢 Şirket Adı",
+    "slug": "🔗 Sayfa URL'si (slug)",
+    "phone": "📞 Telefon",
+    "email": "📧 Email",
+    "address": "📍 Adres",
+    "products": "🛒 Ürünler",
+    "about": "✍️ Hakkımda",
+    "photos": "🖼️ Fotoğraflar",
+    "noData": "ℹ️ Bilgi bulunamadı.",
+    "noAbout": "ℹ️ Henüz yazı eklenmemiş.",
+    "photoAlt": "🖼️ Fotoğraf",
+    "previewAlt": "🔍 Önizlemesi",
+    "errors": {
+      "title": "⚠️ Eksikler:",
+      "sellerInfo": "Satıcı bilgisi alınamadı.",
+      "publicData": "Veriler alınırken hata oluştu.",
+      "companyInfo": "Şirket bilgileri eksik.",
+      "products": "En az bir ürün eklenmeli.",
+      "about": "Hakkımda yazısı yeterli değil.",
+      "photos": "En az bir fotoğraf eklenmeli.",
+      "schemas": "Şemalar alınamadı.",
+      "saveSchema": "Şema kaydedilemedi."
+    },
+    "warnings": {
+      "completeData": "⚠️ Lütfen eksik bilgileri tamamlayın."
+    },
+    "info": {
+      "selectSchema": "📑 Lütfen bir şema seçin."
+    },
+    "success": {
+      "published": "✅ Şema seçildi ve sayfanız yayınlandı!"
+    },
+    "continue": "➡️ Devam Et",
+    "confirm": "✔️ Onayla ve Yayınla",
+    "cancel": "❌ İptal",
+    "schemaModal": {
+      "title": "📑 Şema Seçiniz",
+      "noSchemas": "📭 Şema bulunamadı.",
+      "saving": "💾 Kaydediliyor...",
+      "confirm": "✔️ Onayla ve Yayınla",
+      "cancel": "❌ İptal",
+      "previewAlt": "önizlemesi"
+    },
+    "publishedUrlLabel": "🌐 Sayfanız yayınlandı:",
+    "helpTitle": "🆘 Yayınlama Yardımı",
+    "contactUs": "📩 Bize Yazın",
+    "yourQuestion": "❓ Sorunuz...",
+    "howTo": "📋 Yayınlama Adımları",
+    "contactFormAlert": "📧 Mail formu burada olacak",
+    "steps": [
+      "1️⃣ Şirket bilgilerinizi doldurun.",
+      "2️⃣ En az bir ürün ekleyin.",
+      "3️⃣ 'Hakkımda' yazısını yazın.",
+      "4️⃣ En az bir fotoğraf yükleyin.",
+      "5️⃣ Şema seçin ve onaylayın."
+    ],
+    "faqTitle": "📚 Sıkça Sorulan Sorular",
+    "faq": [
+      {
+        "q": "❓ Yayınladıktan sonra sayfamı düzenleyebilir miyim?",
+        "a": "💡 Evet, istediğiniz zaman düzenleyebilirsiniz."
+      },
+      {
+        "q": "❓ Şema nedir?",
+        "a": "💡 Şema, sayfanızın görünüm ve yapısını belirleyen şablondur."
+      }
+    ],
+    "contactPrompt": "💬 Sorularınız mı var? Aşağıdan bize yazabilirsiniz.",
+    "backToHelp": "🔙 Yardım Sayfasına Dön",
+    "helpHint": "❓ Yayınlama sırasında sorun mu yaşıyorsunuz?",
+    "close": "✖️ Kapat",
+    "openHelp": "🆙 Yardımı Aç"
   }
+
+
+
 
 }
