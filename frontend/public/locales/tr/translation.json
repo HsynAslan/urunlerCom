@@ -436,7 +436,14 @@
       "about": "Hakkımda yazısı yeterli değil.",
       "photos": "En az bir fotoğraf eklenmeli.",
       "schemas": "Şemalar alınamadı.",
-      "saveSchema": "Şema kaydedilemedi."
+      "saveSchema": "Şema kaydedilemedi.",
+      "contentReview": "İçerik değerlendirmesi sırasında bir hata oluştu."
+    },
+    "contentReview": {
+    "title": "Sayfa Değerlendirmesi",
+      "description": "Sayfanızın profesyonel görünmesi için öneriler:",
+      "editButton": "İçerikleri Düzenle",
+      "proceedButton": "Şema Seçimine Geç"
     },
     "warnings": {
       "completeData": "⚠️ Lütfen eksik bilgileri tamamlayın."

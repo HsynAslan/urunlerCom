@@ -15,6 +15,8 @@ import {
   Radio,
   FormControlLabel,
   RadioGroup,
+  List,
+  ListItem,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -26,6 +28,7 @@ import { useTranslation } from 'react-i18next';
 import SellerSidebar from '../components/SellerSidebar';
 import LanguageSelector from '../components/LanguageSelector';
 import HelpWidget from '../components/HelpWidget';
+import { useNavigate } from 'react-router-dom';
 
 const darkTheme = createTheme({
   palette: {
@@ -65,7 +68,16 @@ const SellerPublishPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
+  const [showContentReviewDialog, setShowContentReviewDialog] = useState(false);
+  const [contentReviewResult, setContentReviewResult] = useState(null);
+
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    if (isMobile) setMobileSidebarOpen(false);
+  };
 
   // 1. Seller info çek
   useEffect(() => {
@@ -129,9 +141,29 @@ const SellerPublishPage = () => {
     return errorList.length === 0;
   };
 
+  // Yeni: İçerik değerlendirmesi çağrısı
+  const runContentReview = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'}/api/sellers/content-review`,
+        { company, products, about, photos },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setContentReviewResult(res.data);
+      setShowContentReviewDialog(true);
+    } catch (err) {
+      console.error('İçerik değerlendirme başarısız:', err);
+      toast.error(t('publishPage.errors.contentReview'));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // handleContinue artık önce içerik değerlendirmesi yapıyor
   const handleContinue = () => {
     if (checkDataCompleteness()) {
-      fetchSchemas();
+      runContentReview();
     } else {
       toast.warn(t('publishPage.warnings.completeData'));
     }
@@ -187,6 +219,33 @@ const SellerPublishPage = () => {
   };
 
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
+
+  // İçerik Değerlendirme Dialogu
+  function ContentReviewDialog({ open, onClose, data, onEdit, onSchemaSelect }) {
+    if (!data) return null;
+
+    return (
+      <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+        <DialogTitle>{`${t('publishPage.contentReview.title')} - ${data.score}/100`}</DialogTitle>
+        <DialogContent dividers>
+          <Typography sx={{ mb: 2 }}>
+            {t('publishPage.contentReview.description')}
+          </Typography>
+          <List>
+            {data.suggestions?.map((sug, i) => (
+              <ListItem key={i}>• {sug}</ListItem>
+            ))}
+          </List>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onEdit}>{t('publishPage.contentReview.editButton')}</Button>
+          <Button onClick={onSchemaSelect} variant="contained" color="primary">
+            {t('publishPage.contentReview.proceedButton')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
 
   if (loading)
     return (
@@ -295,7 +354,12 @@ const SellerPublishPage = () => {
               >
                 <Typography>
                   {t('publishPage.publishedUrlLabel')}{' '}
-                  <a href={publishedUrl} target="_blank" rel="noopener noreferrer" style={{color: darkMode ? '#90caf9' : '#3f51b5'}}>
+                  <a
+                    href={publishedUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: darkMode ? '#90caf9' : '#3f51b5' }}
+                  >
                     {publishedUrl}
                   </a>
                 </Typography>
@@ -402,12 +466,7 @@ const SellerPublishPage = () => {
             )}
 
             {/* Devam Butonu */}
-            <Button
-              variant="contained"
-              onClick={handleContinue}
-              sx={{ minWidth: 150 }}
-              endIcon={<span>➡️</span>}
-            >
+            <Button variant="contained" onClick={handleContinue} sx={{ minWidth: 150 }} endIcon={<span>➡️</span>}>
               {t('publishPage.continue')}
             </Button>
 
@@ -461,12 +520,7 @@ const SellerPublishPage = () => {
                           p: 1,
                         }}
                       >
-                        <FormControlLabel
-                          value={schema._id}
-                          control={<Radio />}
-                          label={schema.name}
-                          sx={{ flexGrow: 1 }}
-                        />
+                        <FormControlLabel value={schema._id} control={<Radio />} label={schema.name} sx={{ flexGrow: 1 }} />
                         {schema.previewImageUrl && (
                           <Box
                             component="img"
@@ -489,10 +543,26 @@ const SellerPublishPage = () => {
                 </Button>
               </DialogActions>
             </Dialog>
+
+            {/* İçerik Değerlendirme Dialogu */}
+            <ContentReviewDialog
+              open={showContentReviewDialog}
+              data={contentReviewResult}
+              onClose={() => setShowContentReviewDialog(false)}
+              onEdit={() => {
+                setShowContentReviewDialog(false);
+                // Kullanıcıyı düzenleme sayfasına yönlendirebilirsin:
+                handleNavigation('/seller/about');
+              }}
+              onSchemaSelect={() => {
+                setShowContentReviewDialog(false);
+                fetchSchemas();
+              }}
+            />
           </Box>
         </Box>
       </ThemeProvider>
-      <HelpWidget pageKey={"publishPage"} />
+      <HelpWidget pageKey={'publishPage'} />
     </>
   );
 };
