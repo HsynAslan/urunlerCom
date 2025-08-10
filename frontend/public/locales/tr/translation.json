@@ -186,10 +186,11 @@
   "error": "❌ Ürün eklenirken hata oluştu.",
   "enterPhotoUrl": "🌐 Fotoğraf URL'si giriniz:",
 
-  "helpTitle": "🆘 Yardım",
+"helpTitle": "🆘 Yardım",
   "contactUs": "📩 Bize Yazın",
   "yourQuestion": "❓ Sorunuz...",
-  "howTo": "🛠️ Nasıl Yapılır?",
+  "howTo": "🛠️ Sırasıyla Ne Yapılmalı?",
+  "contactFormAlert": "📧 Mail formu burada olacak",
   "steps": [
     "1️⃣ Ürün adını ve slug'ı girin.",
     "2️⃣ Fiyat ve para birimini seçin.",
@@ -240,12 +241,55 @@
   "openHelp": "🆙 Yardımı Aç"
 },
 "productList": {
-    "title": "Ürünlerim",
-    "loadError": "Ürünler alınamadı.",
-    "confirmDelete": "Bu ürünü silmek istediğinize emin misiniz?",
-    "edit": "Düzenle",
-    "delete": "Sil"
-  },
+  "title": " Ürünlerim",
+  "loadError": "❌ Ürünler alınamadı. Lütfen sayfayı yenileyin veya tekrar deneyin.",
+  "confirmDelete": "⚠️ Bu ürünü silmek istediğinize emin misiniz?",
+  "edit": " Düzenle",
+  "delete": " Sil",
+
+"helpTitle": "🆘 Yardım",
+  "contactUs": "📩 Bize Yazın",
+  "yourQuestion": "❓ Sorunuz...",
+  "howTo": "🛠️ Sırasıyla Ne Yapılmalı?",
+  "contactFormAlert": "📧 Mail formu burada olacak",
+  "steps": [
+    "1️⃣ Ürünlerim sayfasında mevcut ürünlerinizi liste halinde görebilirsiniz.",
+    "2️⃣ Ürün kartında ürün adı, fiyatı ve stok bilgisi gösterilir.",
+    "3️⃣ 'Düzenle' butonuna tıklayarak ürün bilgilerini güncelleyebilirsiniz.",
+    "4️⃣ 'Sil' butonuna basarak ürünü sistemden kaldırabilirsiniz. Silme işlemi onay ister.",
+    "5️⃣ Yeni ürün eklemek için 'Yeni Ürün Ekle' sayfasını kullanabilirsiniz."
+    
+  ],
+
+  "faqTitle": "📚 Sıkça Sorulan Sorular",
+  "faq": [
+    {
+      "q": "❓ Ürünlerim sayfasında ne tür bilgiler bulunur?",
+      "a": "Ürün adı, fiyat, stok miktarı ve varsa vitrindeki fotoğraf gösterilir."
+    },
+    {
+      "q": "❓ Ürünü nasıl düzenlerim?",
+      "a": "Ürün kartındaki 'Düzenle' butonuna tıklayıp, açılan pencerede bilgileri değiştirip kaydedebilirsiniz."
+    },
+   
+    {
+      "q": "❓ Ürün silindikten sonra geri getirebilir miyim?",
+      "a": "Şu an için ürün silme işlemi kalıcıdır ve geri getirilemez."
+    },
+    {
+      "q": "❓ Ürünlerim sayfasında hata alırsam ne yapmalıyım?",
+      "a": "İnternet bağlantınızı kontrol edin, sayfayı yenileyin veya destek ekibiyle iletişime geçin."
+    }
+   
+  ],
+
+  "contactPrompt": "💬 Sorularınız mı var? Aşağıdaki seçeneklerden birini seçebilir veya kendi sorunuzu yazabilirsiniz.",
+
+  "backToHelp": "🔙 Yardım Sayfasına Dön",
+  "helpHint": "❓ Yardıma mı ihtiyacınız var?",
+  "close": "✖️ Kapat",
+  "openHelp": "🆙 Yardımı Aç"
+},
   "productEdit": {
     "title": "Ürünü Düzenle",
     "name": "Ürün Adı",

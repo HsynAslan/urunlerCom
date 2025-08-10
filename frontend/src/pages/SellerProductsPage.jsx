@@ -23,7 +23,7 @@ import LanguageSelector from '../components/LanguageSelector';
 import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-
+import HelpWidget from '../components/HelpWidget'; 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -134,6 +134,7 @@ const SellerProductsPage = () => {
   if (loading) return <Spinner />;
 
   return (
+    <>
     <ThemeProvider theme={theme}>
       <Box
         sx={{
@@ -334,6 +335,8 @@ const SellerProductsPage = () => {
         </Dialog>
       </Box>
     </ThemeProvider>
+     <HelpWidget pageKey="productList" />
+    </>
   );
 };
 
