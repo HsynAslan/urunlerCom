@@ -357,20 +357,60 @@
   "close": "✖️ Kapat",
   "openHelp": "🆙 Yardımı Aç"
 },
-  "photoList":{
-     "title": "Fotoğraflarım",
-  "imageUrl": "Görsel URL",
-  "caption": "Açıklama",
-  "captionPlaceholder": "Ürün vitrin resmi vs.",
-  "add": "Ekle",
-  "delete": "Sil",
-  "photoAlt": "Fotoğraf",
-  "fetchError": "Fotoğraflar alınamadı.",
-  "addError": "Fotoğraf eklenemedi.",
-  "deleteError": "Fotoğraf silinemedi.",
-  "added": "Fotoğraf eklendi.",
-  "deleted": "Fotoğraf silindi."
-  },
+"photoList": {
+  "title": "📷 Fotoğraflarım",
+  "imageUrl": "🌐 Görsel URL",
+  "caption": "📝 Açıklama",
+  "captionPlaceholder": "📌 Örn: Ürün vitrin resmi, profil fotoğrafı vb.",
+  "add": "➕ Ekle",
+  "delete": "🗑️ Sil",
+  "photoAlt": "🖼️ Fotoğraf",
+  "fetchError": "❌ Fotoğraflar alınamadı. Lütfen sayfayı yenileyin veya tekrar deneyin.",
+  "addError": "⚠️ Fotoğraf eklenemedi.",
+  "deleteError": "⚠️ Fotoğraf silinemedi.",
+  "added": "✅ Fotoğraf başarıyla eklendi.",
+  "deleted": "🗑️ Fotoğraf silindi.",
+
+  "helpTitle": "🆘 Yardım",
+  "contactUs": "📩 Bize Yazın",
+  "yourQuestion": "❓ Sorunuz...",
+  "howTo": "🛠️ Fotoğraf Ekleme ve Yönetme Adımları",
+  "contactFormAlert": "📧 Mail formu burada olacak",
+  "steps": [
+    "1️⃣ 'Fotoğraflarım' sayfasında mevcut fotoğraflarınızı liste halinde görebilirsiniz.",
+    "2️⃣ 'Görsel URL' alanına internetten aldığınız görsel bağlantısını yapıştırın.",
+    "3️⃣ 'Açıklama' alanına fotoğrafın neyi temsil ettiğini yazabilirsiniz (örn: ürün vitrini, kapak resmi).",
+    "4️⃣ 'Ekle' butonuna tıklayarak fotoğrafı listenize ekleyin.",
+    "5️⃣ Fotoğraf kartının altındaki 'Sil' butonuna basarak istemediğiniz fotoğrafı kaldırabilirsiniz."
+  ],
+
+  "faqTitle": "📚 Sıkça Sorulan Sorular",
+  "faq": [
+    {
+      "q": "❓ Hangi formatlarda fotoğraf ekleyebilirim?",
+      "a": "JPEG, PNG ve WEBP formatlarında fotoğrafları ekleyebilirsiniz."
+    },
+    {
+      "q": "❓ Fotoğraf boyut sınırı var mı?",
+      "a": "Şimdilik url üzerinden alındığı için boyut sınırı yok, ancak çok büyük dosyalar yüklememeye çalışın."
+    },
+    {
+      "q": "❓ Fotoğraf URL'si zorunlu mu?",
+      "a": "Evet, sistem şu an yalnızca internet üzerindeki görsel bağlantılarını kabul etmektedir."
+    },
+    {
+      "q": "❓ Eklediğim fotoğraf görünmüyorsa ne yapmalıyım?",
+      "a": "URL'nin doğru ve herkese açık olduğundan emin olun, ardından sayfayı yenileyin. Resim sonu .jpg, .png veya .webp ile bitmelidir."
+    }
+  ],
+
+  "contactPrompt": "💬 Fotoğraflarla ilgili sorularınız mı var? Aşağıdan bize yazabilirsiniz.",
+  "backToHelp": "🔙 Yardım Sayfasına Dön",
+  "helpHint": "❓ Fotoğraf eklerken sorun mu yaşıyorsunuz?",
+  "close": "✖️ Kapat",
+  "openHelp": "🆙 Yardımı Aç"
+},
+
   "publishPage":{
      "title": "Sayfayı Yayınlamaya Hazırla",
   "companyInfo": "Şirket Bilgileri",

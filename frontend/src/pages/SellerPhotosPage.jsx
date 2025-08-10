@@ -19,7 +19,7 @@ import SellerSidebar from '../components/SellerSidebar';
 import LanguageSelector from '../components/LanguageSelector';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-
+import HelpWidget from '../components/HelpWidget';
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -97,6 +97,7 @@ const SellerPhotosPage = () => {
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
   return (
+    <>
     <ThemeProvider theme={theme}>
       <Box
         sx={{
@@ -278,6 +279,8 @@ const SellerPhotosPage = () => {
         </Box>
       </Box>
     </ThemeProvider>
+    <HelpWidget pageKey={"photoList"}/>
+    </>
   );
 };
 
