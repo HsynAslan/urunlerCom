@@ -163,30 +163,82 @@
     "menuToggle": "Menu Aç/Kapat"
   },
 
- "productAdd": {
-    "title": "Yeni Ürün Ekle",
-    "name": "Ürün Adı",
-    "slug": "Slug",
-    "price": "Fiyat",
-    "priceCurrency": "Para Birimi",
-    "stock": "Stok",
-    "stockUnit": "Stok Birimi",
-    "photos": "Fotoğraflar",
-    "addPhoto": "Fotoğraf Ekle",
-    "noPhoto": "Henüz fotoğraf yok.",
-    "showcasePhoto": "Vitrin Fotoğrafı",
-    "makeShowcase": "Vitrin fotoğrafı yap",
-    "descriptionSections": "Açıklama Bölümleri",
-    "sectionTitle": "Başlık",
-    "sectionItem": "Madde",
-    "addItem": "Madde Ekle",
-    "addSection": "Yeni Bölüm Ekle",
-    "add": "Ekle",
-    "success": "Ürün başarıyla eklendi.",
-    "error": "Ürün eklenirken hata oluştu.",
-    "enterPhotoUrl": "Fotoğraf URL'si giriniz:"
-  },
+"productAdd": {
+  "title": "🆕 Yeni Ürün Ekle",
+  "name": "🏷️ Ürün Adı",
+  "slug": "🔗 Slug",
+  "price": "💰 Fiyat",
+  "priceCurrency": "💱 Para Birimi",
+  "stock": "📦 Stok",
+  "stockUnit": "📏 Stok Birimi",
+  "photos": "📸 Fotoğraflar",
+  "addPhoto": "➕ Fotoğraf Ekle",
+  "noPhoto": "ℹ️ Henüz fotoğraf yok.",
+  "showcasePhoto": "🌟 Vitrin Fotoğrafı",
+  "makeShowcase": "⭐ Vitrin fotoğrafı yap",
+  "descriptionSections": "📑 Açıklama Bölümleri",
+  "sectionTitle": "📝 Başlık",
+  "sectionItem": "🔹 Madde",
+  "addItem": "➕ Madde Ekle",
+  "addSection": "➕ Yeni Bölüm Ekle",
+  "add": "🆕 Ekle",
+  "success": "✅ Ürün başarıyla eklendi.",
+  "error": "❌ Ürün eklenirken hata oluştu.",
+  "enterPhotoUrl": "🌐 Fotoğraf URL'si giriniz:",
 
+  "helpTitle": "🆘 Yardım",
+  "contactUs": "📩 Bize Yazın",
+  "yourQuestion": "❓ Sorunuz...",
+  "howTo": "🛠️ Nasıl Yapılır?",
+  "steps": [
+    "1️⃣ Ürün adını ve slug'ı girin.",
+    "2️⃣ Fiyat ve para birimini seçin.",
+    "3️⃣ Stok miktarı ve stok birimini belirleyin.",
+    "4️⃣ Fotoğraf eklemek için 'Fotoğraf Ekle' butonuna tıklayın ve URL girin.",
+    "5️⃣ Vitrin fotoğrafını seçmek için fotoğraflardan birine tıklayın.",
+    "6️⃣ Ürün açıklama bölümleri ekleyin, başlıklar ve maddeler oluşturun.",
+    "7️⃣ 'Ekle' butonuna basarak ürünü kaydedin."
+  ],
+  
+  "faqTitle": "📚 Sıkça Sorulan Sorular",
+  "faq": [
+    {
+      "q": "❓ Ürün adı ve slug nasıl olmalı?",
+      "a": "🏷️ Ürün adı açıklayıcı ve kolay bulunabilir olmalı. Slug otomatik olarak ürün adından oluşturulur, küçük harf, rakam ve tire içermelidir."
+    },
+    {
+      "q": "❓ Fiyat ve para birimi nasıl belirlenir?",
+      "a": "💰 Ürünün satış fiyatını girin ve TL, USD veya EUR gibi uygun para birimini seçin."
+    },
+    {
+      "q": "❓ Stok ve stok birimi ne anlama geliyor?",
+      "a": "📦 Stok, ürününüzde bulunan miktardır. Stok birimi ise adet, kilogram, mililitre gibi ölçü birimidir."
+    },
+    {
+      "q": "❓ Ürün fotoğraflarını nasıl eklerim?",
+      "a": "📸 Fotoğraf eklemek için 'Fotoğraf Ekle' butonuna tıklayıp internetten erişilebilir fotoğraf URL’si girin."
+    },
+    {
+      "q": "❓ Vitrin fotoğrafı nedir ve nasıl seçilir?",
+      "a": "🌟 Vitrin fotoğrafı ürün listelemelerinde ön planda gösterilen ana fotoğraftır. Eklediğiniz fotoğraflar arasından tıklayarak seçebilirsiniz."
+    },
+    {
+      "q": "❓ Açıklama bölümleri nasıl düzenlenir?",
+      "a": "📑 Ürününüzle ilgili farklı başlıklar ve maddeler ekleyerek detaylı açıklama yapabilirsiniz. Yeni bölüm ve madde ekleyebilirsiniz."
+    },
+    {
+      "q": "❓ Ürün eklerken hata alırsam ne yapmalıyım?",
+      "a": "❌ Hata mesajını dikkatlice okuyun. Genellikle zorunlu alanların eksik veya hatalı doldurulmasından kaynaklanır. Gerekirse destek ile iletişime geçin."
+    }
+  ],
+
+  "contactPrompt": "💬 Aşağıdaki sorulardan birini seçebilir veya kendi sorunuz yazabilirsiniz.",
+
+  "backToHelp": "🔙 Geri Dön",
+  "helpHint": "❓ Yardım ister misiniz?",
+  "close": "✖️ Kapat",
+  "openHelp": "🆙 Yardımı Aç"
+},
 "productList": {
     "title": "Ürünlerim",
     "loadError": "Ürünler alınamadı.",

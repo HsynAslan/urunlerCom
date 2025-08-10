@@ -20,7 +20,7 @@ import SellerSidebar from '../components/SellerSidebar';
 import LanguageSelector from '../components/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-
+import HelpWidget from '../components/HelpWidget'; 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -164,6 +164,7 @@ const AddProductPage = () => {
   const neonShadowColor = darkMode ? '#40c4ff' : '#00897b';
 
   return (
+    <>
     <ThemeProvider theme={theme}>
       <Box
         sx={{
@@ -561,6 +562,8 @@ const AddProductPage = () => {
         </Box>
       </Box>
     </ThemeProvider>
+     <HelpWidget pageKey="productAdd" />
+</>
   );
 };
 
