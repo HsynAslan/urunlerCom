@@ -102,7 +102,7 @@
     "menuToggle": "Toggle menu"
   },
 
-  "sellerCreateCompany": {
+"sellerCreateCompany": {
     "title": "Create or Edit Company",
     "companyName": "Company Name",
     "phone": "Phone",
@@ -115,7 +115,50 @@
     "editCompany": "Edit Company Information",
     "save": "Save",
     "cancel": "Cancel",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "faq": [
+      {
+        "q": "How do I update company information?",
+        "a": "Click the 'Edit' button at the top of the page to change your company name, description, and other details. Don't forget to save."
+      },
+      {
+        "q": "What is a slug?",
+        "a": "A slug is the short name that appears in your company page's URL. For example: urunler.com/company-name. It can only contain letters, numbers, and hyphens."
+      },
+      {
+        "q": "How do I upload a logo and cover photo?",
+        "a": "You can upload your logo and cover photo from the 'Media' section on the company editing page. Changes will be reflected immediately after upload."
+      },
+      {
+        "q": "Where can I change my address and contact information?",
+        "a": "Go to the 'Contact' field in the company settings tab to update your phone, email, and address details."
+      },
+      {
+        "q": "Will my company description appear on Google?",
+        "a": "Yes, if you add an accurate and up-to-date description, search engines like Google may display this information."
+      }
+    ],
+    "steps": [
+      "📋 You can edit your company’s basic information under the \"Your Company\" section in the Store menu.",
+      "➕ Click the \"Add Product\" button to add new products or use the \"Edit Products\" section to modify existing ones.",
+      "👤 Go to the \"About Me\" page to add information about yourself.",
+      "📸 Upload your product photos and cover photo from the \"My Photos\" tab.",
+      "🚀 Use the \"Publish Pages\" section to review all your info and publish your page.",
+      "📊 Track your store’s performance from the \"Company Statistics\" section.",
+      "⭐ By upgrading to the Premium plan, you can benefit from additional features like dynamic URLs and multilingual support."
+    ],
+    "contactPrompt": "You can select one of the questions below or write your own question to us.",
+
+    "helpTitle": "Help",
+  "contactUs": "Contact Us",
+  "yourQuestion": "Your Question...",
+  "howTo": "How To",
+  "faqTitle": "Frequently Asked Questions",
+  "backToHelp": "Back to Help",
+  "helpHint": "Need help?",
+  "close": "Close",
+  "openHelp": "Open Help",
+  "contactFormAlert": "Contact form will be here"
   },
 
   "productAdd": {

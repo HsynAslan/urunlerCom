@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import Spinner from './components/Spinner';
 import MaintenancePage from './pages/MaintenancePage';
-
+import HelpWidget from './components/HelpWidget';
 // Admin pages
 import AdminLogin from './admin/panel/AdminLogin';
 import AdminDashboardPage from './admin/panel/AdminDashboardPage';

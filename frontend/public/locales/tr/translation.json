@@ -74,21 +74,65 @@
   "logout": "Çıkış Yap"
 },
 
- "sellerCreateCompany": {
-    "title": "Şirket Oluştur veya Düzenle",
-    "companyName": "Şirket Adı",
-    "phone": "Telefon",
-    "email": "E-posta",
-    "address": "Adres",
-    "website": "Web Sitesi",
-    "location": "Konum",
-    "instagram": "Instagram",
-    "edit": "Düzenle",
-    "editCompany": "Şirket Bilgilerini Düzenle",
-    "save": "Kaydet",
-    "cancel": "İptal",
-    "loading": "Yükleniyor..."
-  },
+
+"sellerCreateCompany": {
+  "title": "🏢 Şirket Oluştur veya Düzenle",
+  "companyName": "🏷️ Şirket Adı",
+  "phone": "📞 Telefon",
+  "email": "📧 E-posta",
+  "address": "🏠 Adres",
+  "website": "🌐 Web Sitesi",
+  "location": "📍 Konum",
+  "instagram": "📸 Instagram",
+  "edit": "✏️ Düzenle",
+  "editCompany": "🏢 Şirket Bilgilerini Düzenle",
+  "save": "💾 Kaydet",
+  "cancel": "❌ İptal",
+  "loading": "⏳ Yükleniyor...",
+  "faq": [
+    {
+      "q": "❓ Şirket bilgilerini nasıl güncellerim?",
+      "a": "✏️ Sayfanın üstündeki 'Düzenle' butonuna tıklayın, şirket adınızı, açıklamanızı ve diğer detayları değiştirin. Kaydetmeyi unutmayın."
+    },
+    {
+      "q": "❓ Slug nedir?",
+      "a": "🔗 Slug, şirket sayfanızın URL'sinde görünen kısa isimdir. Örneğin: urunler.com/sirket-adi. Sadece harf, rakam ve tire içerebilir."
+    },
+    {
+      "q": "❓ Logo ve kapak fotoğrafı nasıl yüklerim?",
+      "a": "🖼️ Şirket düzenleme sayfasındaki 'Medya' bölümünden logo ve kapak fotoğrafınızı yükleyebilirsiniz. Değişiklikler hemen görünür."
+    },
+    {
+      "q": "❓ Adres ve iletişim bilgilerini nereden değiştirebilirim?",
+      "a": "📞📧🏠 Şirket ayarları sekmesindeki 'İletişim' alanına gidip telefon, e-posta ve adres bilgilerinizi güncelleyebilirsiniz."
+    },
+    {
+      "q": "❓ Şirket açıklamam Google'da görünür mü?",
+      "a": "🔍 Evet, doğru ve güncel açıklama eklerseniz, Google gibi arama motorları bu bilgiyi gösterebilir."
+    }
+  ],
+  "steps": [
+    "1️⃣ 📋 Mağaza menüsündeki \"Şirketiniz\" bölümünden temel bilgilerinizi düzenleyin. (Şu anda bu adımdayız!)",
+    "2️⃣ ➕ \"Ürün Ekle\" butonuyla yeni ürün ekleyin veya \"Ürünleri Düzenle\" ile mevcut ürünleri değiştirin.",
+    "3️⃣ 👤 \"Hakkımda\" sayfasına giderek kendinizle ilgili bilgileri ekleyin.",
+    "4️⃣ 📸 \"Fotoğraflarım\" sekmesinden ürün fotoğraflarınızı ve kapak fotoğrafınızı yükleyin.",
+    "5️⃣ 🚀 \"Sayfaları Yayınla\" bölümünü kullanarak bilgilerinizi gözden geçirin ve sayfanızı yayınlayın.",
+    "6️⃣ 📊 \"Şirket İstatistikleri\" bölümünden mağaza performansınızı takip edin.",
+    "7️⃣ ⭐ Premium plana yükselterek dinamik URL'ler ve çoklu dil desteği gibi ek özelliklerin tadını çıkarın."
+  ],
+  "contactPrompt": "💬 Aşağıdaki sorulardan birini seçebilir veya bize kendi sorunuz yazabilirsiniz.",
+
+  "helpTitle": "🆘 Yardım",
+  "contactUs": "📩 Bize Yazın",
+  "yourQuestion": "❓ Sorunuz...",
+  "howTo": "🛠️ Sırasıyla Ne Yapılmalı?",
+  "faqTitle": "📚 Sıkça Sorulan Sorular",
+  "backToHelp": "🔙 Geri Dön",
+  "helpHint": "❓ Yardım ister misiniz?",
+  "close": "✖️ Kapat",
+  "openHelp": "🆙 Yardımı Aç",
+  "contactFormAlert": "📧 Mail formu burada olacak"
+},
 
  "sellerStatistics": {
     "title": "İstatistikler",
