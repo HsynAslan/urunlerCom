@@ -439,11 +439,21 @@
       "saveSchema": "Şema kaydedilemedi.",
       "contentReview": "İçerik değerlendirmesi sırasında bir hata oluştu."
     },
-    "contentReview": {
-    "title": "Sayfa Değerlendirmesi",
+      "contentReview": {
+         "defaultLowScoreWarning": "Sayfa puanı düşük, içeriğinizi daha ayrıntılı yazmanız faydalı olur.",
+      "title": "Sayfa Değerlendirmesi",
       "description": "Sayfanızın profesyonel görünmesi için öneriler:",
       "editButton": "İçerikleri Düzenle",
-      "proceedButton": "Şema Seçimine Geç"
+      "proceedButton": "Şema Seçimine Geç",
+      "suggestionsTitle": "Öneriler",
+      "noSuggestions": "Hiçbir öneri bulunmamaktadır.",
+      "aboutShortWarning": "Hakkımda yazısı çok kısa. Daha fazla bilgi eklemeniz faydalı olur.",
+      "fields": {
+        "about": "Hakkımda",
+        "companyInfo": "Şirket Bilgileri",
+        "products": "Ürünler",
+        "photos": "Fotoğraflar"
+      }
     },
     "warnings": {
       "completeData": "⚠️ Lütfen eksik bilgileri tamamlayın."

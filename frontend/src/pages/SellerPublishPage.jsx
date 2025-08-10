@@ -46,6 +46,36 @@ const lightTheme = createTheme({
   },
 });
 
+// Yeni: Skoru renkli yuvarlak olarak gösteren bileşen
+function ScoreCircle({ score }) {
+  let color = '#2196f3'; // mavi - orta
+  if (score >= 75) color = '#4caf50'; // yeşil - yüksek
+  else if (score < 50) color = '#f44336'; // kırmızı - düşük
+
+  return (
+    <Box
+      sx={{
+        width: 60,
+        height: 60,
+        borderRadius: '50%',
+        border: `6px solid ${color}`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontWeight: 'bold',
+        fontSize: 18,
+        color,
+        userSelect: 'none',
+        mb: 2,
+      }}
+      aria-label={`Score: ${score}`}
+      title={`Score: ${score}`}
+    >
+      {score}
+    </Box>
+  );
+}
+
 const SellerPublishPage = () => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
@@ -68,6 +98,7 @@ const SellerPublishPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
+  // İçerik değerlendirme popup durumu ve sonucu
   const [showContentReviewDialog, setShowContentReviewDialog] = useState(false);
   const [contentReviewResult, setContentReviewResult] = useState(null);
 
@@ -79,7 +110,7 @@ const SellerPublishPage = () => {
     if (isMobile) setMobileSidebarOpen(false);
   };
 
-  // 1. Seller info çek
+  // 1. Satıcı bilgisi al
   useEffect(() => {
     const fetchSellerInfo = async () => {
       try {
@@ -98,11 +129,10 @@ const SellerPublishPage = () => {
     fetchSellerInfo();
   }, [token, t]);
 
-  // 2. Public seller data çek + linki her zaman en üstte göster
+  // 2. Public satıcı verisi çek ve linki ayarla
   useEffect(() => {
     if (!slug) return;
 
-    // Linki slug geldiğinde set et
     const url = `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:3000'}/${slug}`;
     setPublishedUrl(url);
 
@@ -128,20 +158,25 @@ const SellerPublishPage = () => {
     fetchPublicSellerData();
   }, [slug, t]);
 
+  // Güncellenen kontrol: ürün zorunluluğu kaldırıldı,
+  // hakkında kısa olsa bile uyarı verir ama engellemez,
+  // diğer zorunlu alanlar şirket adı ve telefon
   const checkDataCompleteness = () => {
     const errorList = [];
 
     if (!company?.companyName || !company.contactInfo?.phone)
       errorList.push(t('publishPage.errors.companyInfo'));
-    if (products.length === 0) errorList.push(t('publishPage.errors.products'));
-    if (!about || about.trim().length < 10) errorList.push(t('publishPage.errors.about'));
+    // Ürün zorunlu değil, kaldırıldı
+    // if (products.length === 0) errorList.push(t('publishPage.errors.products'));
+    // Hakkında çok kısa ise uyarı ama engelleme yok, onu popup'ta göster
+    // Fotoğraf zorunlu
     if (photos.length < 1) errorList.push(t('publishPage.errors.photos'));
 
     setErrors(errorList);
     return errorList.length === 0;
   };
 
-  // Yeni: İçerik değerlendirmesi çağrısı
+  // İçerik değerlendirme çağrısı
   const runContentReview = async () => {
     try {
       setLoading(true);
@@ -160,7 +195,7 @@ const SellerPublishPage = () => {
     }
   };
 
-  // handleContinue artık önce içerik değerlendirmesi yapıyor
+  // handleContinue, zorunlu alanlar doğruysa içerik değerlendirme yapar
   const handleContinue = () => {
     if (checkDataCompleteness()) {
       runContentReview();
@@ -169,6 +204,7 @@ const SellerPublishPage = () => {
     }
   };
 
+  // Şemalar çekilir
   const fetchSchemas = async () => {
     try {
       setLoading(true);
@@ -185,6 +221,7 @@ const SellerPublishPage = () => {
     }
   };
 
+  // Şema seçimi kaydet
   const handleSchemaSelect = async () => {
     if (!selectedSchemaId) {
       toast.info(t('publishPage.info.selectSchema'));
@@ -220,32 +257,62 @@ const SellerPublishPage = () => {
 
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
-  // İçerik Değerlendirme Dialogu
-  function ContentReviewDialog({ open, onClose, data, onEdit, onSchemaSelect }) {
-    if (!data) return null;
+function ContentReviewDialog({ open, onClose, data, onEdit, onSchemaSelect }) {
+  if (!data) return null;
 
-    return (
-      <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-        <DialogTitle>{`${t('publishPage.contentReview.title')} - ${data.score}/100`}</DialogTitle>
-        <DialogContent dividers>
-          <Typography sx={{ mb: 2 }}>
-            {t('publishPage.contentReview.description')}
-          </Typography>
-          <List>
-            {data.suggestions?.map((sug, i) => (
-              <ListItem key={i}>• {sug}</ListItem>
-            ))}
-          </List>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onEdit}>{t('publishPage.contentReview.editButton')}</Button>
-          <Button onClick={onSchemaSelect} variant="contained" color="primary">
-            {t('publishPage.contentReview.proceedButton')}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
+  // Tüm önerileri tek listede toplayalım
+  const allSuggestions = [];
+  if (data.suggestions) {
+    Object.entries(data.suggestions).forEach(([key, arr]) => {
+      if (Array.isArray(arr) && arr.length > 0) {
+        arr.forEach((msg) => allSuggestions.push({ field: key, message: msg }));
+      }
+    });
   }
+
+  // Öneri var mı kontrolü
+  const hasSuggestions = allSuggestions.length > 0;
+  const showDefaultWarning = data.score < 80 && !hasSuggestions;
+  // Alan isimlerini kullanıcıya gösterilecek hale çevirmek için:
+  const fieldLabels = {
+    about: t('publishPage.contentReview.fields.about', 'Hakkında'),
+    companyInfo: t('publishPage.contentReview.fields.companyInfo', 'Şirket Bilgileri'),
+    products: t('publishPage.contentReview.fields.products', 'Ürünler'),
+    photos: t('publishPage.contentReview.fields.photos', 'Fotoğraflar'),
+  };
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <DialogTitle sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span>{t('publishPage.contentReview.title')}</span>
+        <ScoreCircle score={data.score} />
+      </DialogTitle>
+      <DialogContent dividers>
+        <Typography sx={{ mb: 2 }}>{t('publishPage.contentReview.description')}</Typography>
+
+        {hasSuggestions ? (
+  <List dense>
+    {data.suggestions.map((sug, i) => (
+      <ListItem key={i}>• {sug}</ListItem>
+    ))}
+  </List>
+) : showDefaultWarning ? (
+  <Typography color="warning.main" sx={{ mt: 2 }}>
+    {t('publishPage.contentReview.defaultLowScoreWarning')}
+  </Typography>
+) : (
+  <Typography>{t('publishPage.contentReview.noSuggestions')}</Typography>
+)}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onEdit}>{t('publishPage.contentReview.editButton')}</Button>
+        <Button onClick={onSchemaSelect} variant="contained" color="primary">
+          {t('publishPage.contentReview.proceedButton')}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
 
   if (loading)
     return (
@@ -338,7 +405,7 @@ const SellerPublishPage = () => {
               <LanguageSelector />
             </Box>
 
-            {/* Her zaman görünen link */}
+            {/* Yayınlanmış Link (her zaman üstte) */}
             {publishedUrl && (
               <Box
                 sx={{
@@ -551,7 +618,6 @@ const SellerPublishPage = () => {
               onClose={() => setShowContentReviewDialog(false)}
               onEdit={() => {
                 setShowContentReviewDialog(false);
-                // Kullanıcıyı düzenleme sayfasına yönlendirebilirsin:
                 handleNavigation('/seller/about');
               }}
               onSchemaSelect={() => {
