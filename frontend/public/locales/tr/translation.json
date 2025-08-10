@@ -309,15 +309,54 @@
     "save": "Kaydet",
     "cancel": "İptal"
   },
-  "sellerAbout":{
-    "title": "Hakkımda",
-  "textLabel": "Hakkınızda yazı",
-  "placeholder": "Hakkınızda bir şeyler yazın...",
-  "save": "Kaydet",
-  "success": "Kaydedildi!",
-  "fetchError": "Veri alınamadı.",
-  "saveError": "Kaydetme işlemi başarısız."
-  },
+"sellerAbout": {
+  "title": "ℹ️ Hakkımda",
+  "textLabel": "📝 Hakkınızda Yazı",
+  "placeholder": "💬 Kendiniz veya işletmeniz hakkında kısa bir açıklama yazın...",
+  "save": "💾 Kaydet",
+  "success": "✅ Kaydedildi!",
+  "fetchError": "❌ Bilgiler alınamadı. Lütfen sayfayı yenileyin.",
+  "saveError": "⚠️ Kaydetme işlemi başarısız oldu. Tekrar deneyin.",
+
+  "helpTitle": "🆘 Yardım",
+  "contactUs": "📩 Bize Yazın",
+  "yourQuestion": "❓ Sorunuz...",
+  "howTo": "🛠️ Sırasıyla Ne Yapılmalı?",
+  "contactFormAlert": "📧 Mail formu burada olacak",
+  "steps": [
+    "1️⃣ 'Hakkımda' sayfasına girin.",
+    "2️⃣ 'Hakkınızda Yazı' alanına kendinizi veya işletmenizi tanıtan bir metin yazın.",
+    "3️⃣ Yazınızı gözden geçirip düzenleyin.",
+    "4️⃣ 'Kaydet' butonuna tıklayarak bilgilerinizi güncelleyin.",
+    "5️⃣ Kaydetme işlemi başarılı olduğunda sayfanız ziyaretçilere güncel bilgilerle görünecektir."
+  ],
+
+  "faqTitle": "📚 Sıkça Sorulan Sorular",
+  "faq": [
+    {
+      "q": "❓ Hakkımda kısmına ne yazmalıyım?",
+      "a": "Kendiniz veya işletmeniz hakkında kısa, net ve güven veren bilgiler yazabilirsiniz. Örneğin; hizmetleriniz, deneyiminiz, vizyonunuz."
+    },
+    {
+      "q": "❓ Yazımı daha sonra değiştirebilir miyim?",
+      "a": "Evet, istediğiniz zaman 'Hakkımda' sayfasına girerek metni düzenleyip tekrar kaydedebilirsiniz."
+    },
+    {
+      "q": "❓ Kaydet butonuna bastığımda hata alırsam ne yapmalıyım?",
+      "a": "İnternet bağlantınızı kontrol edin, sayfayı yenileyin ve tekrar deneyin. Sorun devam ederse destek ekibine ulaşın."
+    },
+    {
+      "q": "❓ Hakkımda kısmı herkese açık mı?",
+      "a": "Evet, kaydettiğiniz bilgiler mağaza sayfanızda ziyaretçilere görünür."
+    }
+  ],
+
+  "contactPrompt": "💬 Sorularınız mı var? Aşağıdaki seçeneklerden birini seçebilir veya kendi sorunuzu yazabilirsiniz.",
+  "backToHelp": "🔙 Yardım Sayfasına Dön",
+  "helpHint": "❓ Yardıma mı ihtiyacınız var?",
+  "close": "✖️ Kapat",
+  "openHelp": "🆙 Yardımı Aç"
+},
   "photoList":{
      "title": "Fotoğraflarım",
   "imageUrl": "Görsel URL",
