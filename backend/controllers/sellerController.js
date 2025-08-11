@@ -351,3 +351,26 @@ exports.contentReview = async (req, res) => {
     });
   }
 };
+
+
+exports.upgradeSellerPlan = async (req, res) => {
+  try {
+    const seller = await Seller.findOne({ user: req.user.id });
+    if (!seller) {
+      return res.status(404).json({ message: 'Satıcı bulunamadı' });
+    }
+
+    // Zaten premium ise tekrar yapma
+    if (seller.plan === 'premium') {
+      return res.status(400).json({ message: 'Zaten premium plandasınız' });
+    }
+
+    seller.plan = 'premium';
+    await seller.save();
+
+    res.json({ message: 'Plan başarıyla premiuma yükseltildi', seller });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Sunucu hatası' });
+  }
+};

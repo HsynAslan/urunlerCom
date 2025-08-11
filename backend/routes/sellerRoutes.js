@@ -13,7 +13,8 @@ const {
   selectSchema,
   checkSlug,
   fullGetStats,
-  contentReview
+  contentReview,
+  upgradeSellerPlan
 } = require('../controllers/sellerController');
 const { protect } = require('../middlewares/authMiddleware');
 const { allowRoles } = require('../middlewares/roleMiddleware');
@@ -34,4 +35,7 @@ router.get('/stats', protect, allowRoles('seller'), getStats);
 router.get('/store', protect, allowRoles('seller'), createOrGetSeller);
 router.post('/content-review', protect, allowRoles('seller'), contentReview);
 router.post('/select-schema', protect, allowRoles('seller'), selectSchema);
+router.put('/upgrade-plan', protect, allowRoles('seller'), router.put('/upgrade-plan', protect, allowRoles('seller'), upgradeSellerPlan);
+);
+
 module.exports = router;
