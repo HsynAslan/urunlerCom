@@ -504,9 +504,91 @@
     "helpHint": "❓ Yayınlama sırasında sorun mu yaşıyorsunuz?",
     "close": "✖️ Kapat",
     "openHelp": "🆙 Yardımı Aç"
+  },
+
+
+ "premiumPlanPage": {
+    "title": "💎 Premium Plan",
+    "description": "Premium plan ile tüm özelliklerin kilidini açın.",
+    "yourName": "Adınız",
+    "monthly": "Aylık",
+    "yearly": "Yıllık",
+    "lifetime": "Sabit",
+    "buyNow": "Hemen Satın Al",
+    "paymentInfo": "Ödeme Bilgileri",
+    "cardName": "Kart Üzerindeki İsim",
+    "cardNumber": "Kart Numarası",
+    "expiry": "Son Kullanma",
+    "cvv": "CVV",
+    "premiumAdvantages": "Premium Plan Avantajları",
+    "moreProducts": "1000+ ürün ekleyebilme kapasitesi.",
+    "prioritySupport": "7/24 canlı müşteri desteği.",
+    "featuredStore": "Anasayfada daha fazla görünürlük.",
+    "loading": "Yükleniyor...",
+    "upgradeSuccess": "Premium plana geçildi!",
+    "upgradeFail": "Yükseltme başarısız",
+    "testCard": "💳 Test Kartı ile Geçiş Yap",
+    "steps": [
+      "1. Ürünlerinizi ekleyin.",
+      "2. Planınızı seçin ve ödemeyi yapın.",
+      "3. Satışa başlayın."
+    ],
+    "errors": {
+      "fetchSeller": "Satıcı bilgileri alınamadı.",
+      "paymentFailed": "Ödeme işlemi başarısız oldu.",
+      "validation": "Lütfen tüm ödeme bilgilerini doğru doldurun."
+    },
+    "success": {
+      "paymentCompleted": "Ödeme başarılı! Premium plan aktifleştirildi."
+    },
+    "warnings": {
+      "incompletePayment": "⚠️ Ödeme bilgileri eksik veya hatalı.",
+      "lowBalance": "⚠️ Yeterli bakiye bulunmamaktadır."
+    },
+    "info": {
+      "selectPlan": "📋 Bir plan seçin ve ödeme bilgilerinizi girin.",
+      "testCardInfo": "Test kartı ile ödeme yapabilirsiniz."
+    },
+    "help": {
+      "helpTitle": "🆘 Yardım",
+      "contactUs": "📩 Destek Ekibi ile İletişime Geçin",
+      "faqTitle": "📚 Sıkça Sorulan Sorular",
+      "faq": [
+        {
+          "q": "Premium plan nedir?",
+          "a": "Tüm gelişmiş özelliklere erişim sağlayan özel üyelik planıdır."
+        },
+        {
+          "q": "Ödeme yöntemleri nelerdir?",
+          "a": "Kredi kartı ve test kartı ile ödeme yapabilirsiniz."
+        },
+        {
+          "q": "Planımı değiştirebilir miyim?",
+          "a": "Evet, istediğiniz zaman planınızı yükseltebilir veya iptal edebilirsiniz."
+        }
+      ],
+      "contactPrompt": "💬 Sorularınız mı var? Bize yazabilirsiniz.",
+      "close": "✖️ Kapat",
+      "openHelp": "🆙 Yardımı Aç"
+    },
+    "continue": "➡️ Devam Et",
+    "confirm": "✔️ Onayla ve Yayınla",
+    "cancel": "❌ İptal",
+    "schemaModal": {
+      "title": "📑 Şema Seçiniz",
+      "noSchemas": "📭 Şema bulunamadı.",
+      "saving": "💾 Kaydediliyor...",
+      "confirm": "✔️ Onayla ve Yayınla",
+      "cancel": "❌ İptal",
+      "previewAlt": "önizlemesi"
+    },
+    "publishedUrlLabel": "🌐 Sayfanız yayınlandı:",
+    "helpTitle": "🆘 Yayınlama Yardımı",
+    "yourQuestion": "❓ Sorunuz...",
+    "howTo": "📋 Yayınlama Adımları",
+    "contactFormAlert": "📧 Mail formu burada olacak",
+    "backToHelp": "🔙 Yardım Sayfasına Dön",
+    "helpHint": "❓ Yayınlama sırasında sorun mu yaşıyorsunuz?"
   }
-
-
-
 
 }
