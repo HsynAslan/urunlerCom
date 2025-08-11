@@ -215,24 +215,7 @@ const SellerPublicPage = () => {
       {/* Ürünler */}
       {products.length > 0 && (
         <>
-          {/* Sağ altta ürün arama ve sıralama kutusu */}
-          <div className="product-filter-fixed">
-            <input
-              type="text"
-              placeholder="Ürün ara..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="product-search-input"
-            />
-            <select
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-              className="product-sort-select"
-            >
-              <option value="priceAsc">Fiyat: Artan</option>
-              <option value="priceDesc">Fiyat: Azalan</option>
-            </select>
-          </div>
+         
 
           <section id="urunler" className="product-section" data-section="products">
             <div className="section-header">
