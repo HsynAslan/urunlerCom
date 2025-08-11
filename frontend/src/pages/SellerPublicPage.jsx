@@ -32,6 +32,10 @@ const SellerPublicPage = () => {
   const phoneClickSent = useRef(false);
   const locationClickSent = useRef(false);
 
+  // Ürün filtreleme state (arama metni ve sıralama)
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('priceAsc');
+
   useEffect(() => {
     if (data?.company) {
       document.title = data.company.companyName || 'Satıcı Sayfası';
@@ -129,10 +133,21 @@ const SellerPublicPage = () => {
     }
   };
 
+  // Ürünleri filtrele ve sırala
+  const filteredProducts = products
+    .filter((p) => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .sort((a, b) => {
+      if (sortOrder === 'priceAsc') return a.price - b.price;
+      if (sortOrder === 'priceDesc') return b.price - a.price;
+      return 0;
+    });
+
   return (
-    
     <div className="public-page" data-theme={company.theme?.name || 'default'}>
-      <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+        rel="stylesheet"
+      />
 
       {theme && <style dangerouslySetInnerHTML={{ __html: theme }} />}
 
@@ -140,10 +155,18 @@ const SellerPublicPage = () => {
       <nav className="navbar" data-section="navbar">
         <div className="logo">{company.companyName}</div>
         <ul className="nav-links">
-          <li><a href="#anasayfa">🏠 Anasayfa</a></li>
-          <li><a href="#hakkimda">ℹ️ Hakkımızda</a></li>
-          <li><a href="#urunler">🛒 Ürünler</a></li>
-          <li><a href="#iletisim">📞 İletişim</a></li>
+          <li>
+            <a href="#anasayfa">🏠 Anasayfa</a>
+          </li>
+          <li>
+            <a href="#hakkimda">ℹ️ Hakkımızda</a>
+          </li>
+          <li>
+            <a href="#urunler">🛒 Ürünler</a>
+          </li>
+          <li>
+            <a href="#iletisim">📞 İletişim</a>
+          </li>
         </ul>
       </nav>
 
@@ -168,7 +191,11 @@ const SellerPublicPage = () => {
               ))}
             </Carousel>
           ) : photos.length === 1 ? (
-            <img src={photos[0].imageUrl} alt={company.companyName} className="hero-single-img" />
+            <img
+              src={photos[0].imageUrl}
+              alt={company.companyName}
+              className="hero-single-img"
+            />
           ) : (
             <div className="no-photos-placeholder">Fotoğraf bulunmamaktadır</div>
           )}
@@ -178,104 +205,169 @@ const SellerPublicPage = () => {
       {/* Hakkımızda */}
       <section id="hakkimda" className="about-section" data-section="about">
         <div className="section-header">
-          <Info /><h2>ℹ️ Hakkımızda</h2>
+          <Info />
+          <h2>ℹ️ Hakkımızda</h2>
         </div>
         <h3>{company.companyName}</h3>
         <p className="about-text long-text">{about?.content || 'Hakkımızda bilgisi bulunmamaktadır.'}</p>
       </section>
 
       {/* Ürünler */}
-      <section id="urunler" className="product-section" data-section="products">
-        <div className="section-header">
-          <Store /><h2>🛒 Ürünler</h2>
-        </div>
-        <div className="filter-bar">
-          <input type="text" placeholder="Ürün ara..." />
-          <select>
-            <option>Fiyat: Artan</option>
-            <option>Fiyat: Azalan</option>
-          </select>
-        </div>
-        {products.length ? (
-          <div className="product-grid">
-            {products.map((product) => (
-             <div key={product._id} className="product-card" data-product-id={product._id}>
-  {product.images?.length ? (
-    <img
-      src={product.images[product.showcaseImageIndex || 0]}
-      alt={product.name}
-      className="product-image"
-      loading="lazy"
-    />
-  ) : (
-    <div className="product-placeholder"><ImageIcon size={48} /></div>
-  )}
-  <h3 className="product-name">{product.name}</h3>
-  <p className="product-price">{product.price} {product.priceCurrency}</p>
-  <div className="rating">
-    {[...Array(5)].map((_, i) => (
-      <Star key={i} className={i < (product.rating || 0) ? 'filled' : ''} />
-    ))}
-  </div>
-
-  {product.descriptionSections?.map((sec, i) => (
-    <div key={i} className="desc-section">
-      <h4>{sec.title}</h4>
-      <ul>{sec.items.map((item, j) => <li key={j}>{item}</li>)}</ul>
-    </div>
-  ))}
-
-  {/* Sepete ekle butonu */}
-  <button
-    className="add-to-cart-btn"
-    onClick={() => window.location.href = `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:3005'}/login`}
-  >
-    Sepete Ekle
-  </button>
-</div>
-
-            ))}
+      {products.length > 0 && (
+        <>
+          {/* Sağ altta ürün arama ve sıralama kutusu */}
+          <div className="product-filter-fixed">
+            <input
+              type="text"
+              placeholder="Ürün ara..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="product-search-input"
+            />
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="product-sort-select"
+            >
+              <option value="priceAsc">Fiyat: Artan</option>
+              <option value="priceDesc">Fiyat: Azalan</option>
+            </select>
           </div>
-        ) : (
-          <p>Henüz ürün eklenmemiş.</p>
-        )}
-      </section>
+
+          <section id="urunler" className="product-section" data-section="products">
+            <div className="section-header">
+              <Store />
+              <h2>🛒 Ürünler</h2>
+            </div>
+            {filteredProducts.length ? (
+              <div className="product-grid">
+                {filteredProducts.map((product) => (
+                  <div key={product._id} className="product-card" data-product-id={product._id}>
+                    {product.images?.length ? (
+                      <img
+                        src={product.images[product.showcaseImageIndex || 0]}
+                        alt={product.name}
+                        className="product-image"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="product-placeholder">
+                        <ImageIcon size={48} />
+                      </div>
+                    )}
+                    <h3 className="product-name">{product.name}</h3>
+                    <p className="product-price">
+                      {product.price} {product.priceCurrency}
+                    </p>
+                    <div className="rating">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className={i < (product.rating || 0) ? 'filled' : ''} />
+                      ))}
+                    </div>
+
+                    {product.descriptionSections?.map((sec, i) => (
+                      <div key={i} className="desc-section">
+                        <h4>{sec.title}</h4>
+                        <ul>{sec.items.map((item, j) => <li key={j}>{item}</li>)}</ul>
+                      </div>
+                    ))}
+
+                    {/* Sepete ekle butonu */}
+                    <button
+                      className="add-to-cart-btn"
+                      onClick={() =>
+                        (window.location.href = `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:3005'}/login`)
+                      }
+                    >
+                      Sepete Ekle
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </section>
+        </>
+      )}
 
       {/* İletişim */}
       <section id="iletisim" className="contact-section" data-section="contact">
         <div className="section-header">
-          <MapPin /><h2>📞 İletişim</h2>
+          <MapPin />
+          <h2>📞 İletişim</h2>
         </div>
         <h3>{company.companyName}</h3>
         <ul className="contact-list">
           {company.contactInfo?.phone && (
-            <li><Phone /> <a href={`tel:${formatPhone(company.contactInfo.phone)}`} onClick={handlePhoneClick}>{company.contactInfo.phone}</a></li>
+            <li>
+              <Phone />{' '}
+              <a href={`tel:${formatPhone(company.contactInfo.phone)}`} onClick={handlePhoneClick}>
+                {company.contactInfo.phone}
+              </a>
+            </li>
           )}
           {company.contactInfo?.email && (
-            <li><Mail /> <a href={`mailto:${company.contactInfo.email}`}>{company.contactInfo.email}</a></li>
+            <li>
+              <Mail /> <a href={`mailto:${company.contactInfo.email}`}>{company.contactInfo.email}</a>
+            </li>
           )}
           {company.contactInfo?.address && (
-            <li><MapPin /> <a href={`https://maps.google.com/?q=${encodeURIComponent(company.contactInfo.address)}`} target="_blank" rel="noreferrer" onClick={handleLocationClick}>{company.contactInfo.address}</a></li>
+            <li>
+              <MapPin>{' '}</MapPin>{' '}
+              <a
+                href={`https://maps.google.com/?q=${encodeURIComponent(company.contactInfo.address)}`}
+                target="_blank"
+                rel="noreferrer"
+                onClick={handleLocationClick}
+              >
+                {company.contactInfo.address}
+              </a>
+            </li>
           )}
           {company.contactInfo?.website && (
-            <li><Globe /> <a href={company.contactInfo.website} target="_blank" rel="noreferrer">{company.contactInfo.website}</a></li>
+            <li>
+              <Globe />{' '}
+              <a href={company.contactInfo.website} target="_blank" rel="noreferrer">
+                {company.contactInfo.website}
+              </a>
+            </li>
           )}
           {company.contactInfo?.instagram && (
-            <li><Instagram /> <a href={`https://instagram.com/${company.contactInfo.instagram}`} target="_blank" rel="noreferrer">@{company.contactInfo.instagram}</a></li>
+            <li>
+              <Instagram />{' '}
+              <a
+                href={`https://instagram.com/${company.contactInfo.instagram}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                @{company.contactInfo.instagram}
+              </a>
+            </li>
           )}
           {/* Ek sosyal ikonlar */}
           {company.contactInfo?.facebook && (
-            <li><Facebook /> <a href={company.contactInfo.facebook} target="_blank" rel="noreferrer">Facebook</a></li>
+            <li>
+              <Facebook />{' '}
+              <a href={company.contactInfo.facebook} target="_blank" rel="noreferrer">
+                Facebook
+              </a>
+            </li>
           )}
           {company.contactInfo?.twitter && (
-            <li><Twitter /> <a href={company.contactInfo.twitter} target="_blank" rel="noreferrer">Twitter</a></li>
+            <li>
+              <Twitter />{' '}
+              <a href={company.contactInfo.twitter} target="_blank" rel="noreferrer">
+                Twitter
+              </a>
+            </li>
           )}
         </ul>
         {company.contactInfo?.address && (
           <div className="map-container">
             <iframe
               title="Google Maps"
-              src={`https://maps.google.com/maps?q=${encodeURIComponent(company.contactInfo.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                company.contactInfo.address
+              )}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
               allowFullScreen
               loading="lazy"
             />
@@ -284,7 +376,9 @@ const SellerPublicPage = () => {
       </section>
 
       <footer className="footer" data-section="footer">
-        <p>&copy; {new Date().getFullYear()} {company.companyName}</p>
+        <p>
+          &copy; {new Date().getFullYear()} {company.companyName}
+        </p>
       </footer>
     </div>
   );

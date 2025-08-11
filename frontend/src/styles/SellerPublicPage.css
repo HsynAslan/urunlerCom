@@ -1,0 +1,44 @@
+/* Tek fotoğraf için yükseklik sınırı */
+.hero-single-img {
+  max-height: 400px; /* İstersen burayı küçültüp büyütebilirsin */
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Ürün arama ve sıralama kutusu sağ altta sabit */
+.product-filter-fixed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 180px;
+}
+
+.product-filter-fixed input.product-search-input,
+.product-filter-fixed select.product-sort-select {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.product-filter-fixed input.product-search-input:focus,
+.product-filter-fixed select.product-sort-select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Ürünler bölümü, ürün yoksa görünmez */
+.product-section {
+  margin-top: 60px; /* Arama kutusu sabit olduğu için alan bırak */
+}
