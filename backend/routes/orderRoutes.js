@@ -1,15 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const {
-  createOrder,
-  getSellerOrders,
-  updateOrderStatus
-} = require('../controllers/orderController');
-const { protect } = require('../middlewares/authMiddleware');
-const { allowRoles } = require('../middlewares/roleMiddleware');
+const { protect } = require('../middlewares/authMiddleware'); // Token doğrulama middleware
 
-router.post('/', createOrder);
-router.get('/my', protect, allowRoles('seller'), getSellerOrders);
-router.put('/:orderId/status', protect, allowRoles('seller'), updateOrderStatus);
+const orderController = require('../controllers/orderController');
+
+// Sipariş işlemleri
+router.post('/', protect, orderController.createOrder);
+router.get('/my', protect, orderController.getCustomerOrders);
+router.put('/:orderId/status', protect, orderController.updateOrderStatus);
+
+// Premium ürün listeleme
+router.get('/products/premium', orderController.getPremiumProducts);
+
+// Favorilere ürün ekleme
+router.post('/favorites', protect, orderController.addFavorite);
+
+// Satıcıya soru sorma
+router.post('/questions', protect, orderController.askQuestion);
+
+// Profil işlemleri
+router.get('/profile', protect, orderController.getProfile);
+router.put('/profile', protect, orderController.updateProfile);
 
 module.exports = router;

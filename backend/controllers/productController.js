@@ -2,6 +2,7 @@ const Product = require('../models/Product');
 const Seller = require('../models/Seller');
 const mongoose = require('mongoose');
 
+
 exports.getSellerProducts = async (req, res) => {
   try {
     const seller = await Seller.findOne({ user: req.user._id });
