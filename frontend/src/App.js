@@ -32,6 +32,7 @@ import SellerAboutPage from './pages/SellerAboutPage';
 import SellerPhotosPage from './pages/SellerPhotosPage';
 import SellerPublishPage from './pages/SellerPublishPage';
 import SellerStatisticsPage from './pages/SellerStatisticsPage';
+import SellerPremiumPlanPage from './pages/SellerPremiumPage';
 
 // Customer pages
 import CustomerHome from './pages/CustomerHome';
@@ -127,6 +128,18 @@ function AnimatedRoutes({ maintenanceMode }) {
             <Route path="/seller/publish-page" element={
               <PageTransition><ProtectedRoute requireSeller><SellerPublishPage /></ProtectedRoute></PageTransition>
             } />
+
+            <Route
+  path="/seller/plans/premium"
+  element={
+    <PageTransition>
+      <ProtectedRoute requireSeller>
+        <SellerPremiumPlanPage />
+      </ProtectedRoute>
+    </PageTransition>
+  }
+/>
+
           <Route
   path="/seller/statistics"
   element={
