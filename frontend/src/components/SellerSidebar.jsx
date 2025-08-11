@@ -147,27 +147,13 @@ const SellerSidebar = ({ mobileOpen = false, setMobileOpen = null }) => {
           <ListItemText primary={t('sellerSidebar.statistics')} />
         </ListItemButton>
 
-        <ListItemButton onClick={() => toggleDropdown('plans')}>
+        <ListItemButton onClick={() => handleNavigation('/seller/plans/premium')} >
           <ListItemIcon><MonetizationOn /></ListItemIcon>
-          <ListItemText primary={t('sellerSidebar.plans')} />
-          {openDropdown === 'plans' ? <ExpandLess /> : <ExpandMore />}
+         <ListItemText primary={t('sellerSidebar.premiumPlan')} />
         </ListItemButton>
-        <Collapse in={openDropdown === 'plans'} timeout="auto" unmountOnExit>
-          <List disablePadding>
-            <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/plans/free')}>
-              <ListItemIcon><CheckCircle /></ListItemIcon>
-              <ListItemText primary={t('sellerSidebar.freePlan')} />
-            </ListItemButton>
-            <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/plans/premium')}>
-              <ListItemIcon><CheckCircle /></ListItemIcon>
-              <ListItemText primary={t('sellerSidebar.premiumPlan')} />
-            </ListItemButton>
-            <ListItemButton sx={{ pl: 4 }} onClick={() => handleNavigation('/seller/plans/business')}>
-              <ListItemIcon><CheckCircle /></ListItemIcon>
-              <ListItemText primary={t('sellerSidebar.businessPlan')} />
-            </ListItemButton>
-          </List>
-        </Collapse>
+
+        
+       
 
         <Divider sx={{ my: 2 }} />
 
