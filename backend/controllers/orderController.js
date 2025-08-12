@@ -224,3 +224,32 @@ exports.updateProfile = async (req, res) => {
     return res.status(500).json({ message: 'Sunucu hatası' });
   }
 };
+
+// Kullanıcının favorilerini getirme
+const getFavorites = async (req, res) => {
+  try {
+    const favorites = await Favorite.find({ user: req.user._id })
+      .populate('product', 'name price images') // product bilgileri
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(favorites);
+  } catch (error) {
+    console.error('Favoriler alınırken hata:', error);
+    res.status(500).json({ message: 'Favoriler alınırken bir hata oluştu.' });
+  }
+};
+
+// Kullanıcının sorduğu soruları getirme
+const getQuestions = async (req, res) => {
+  try {
+    const questions = await Question.find({ customer: req.user._id })
+      .populate('seller', 'companyName')
+      .populate('product', 'name price images')
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(questions);
+  } catch (error) {
+    console.error('Sorular alınırken hata:', error);
+    res.status(500).json({ message: 'Sorular alınırken bir hata oluştu.' });
+  }
+};

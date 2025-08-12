@@ -22,4 +22,11 @@ router.post('/questions', protect, askQuestion);
 router.get('/profile', protect, getProfile);
 router.put('/profile', protect, updateProfile);
 
+
+// Favoriler listesi
+router.get('/favorites', protect, orderController.getFavorites);
+
+// Sorular listesi
+router.get('/questions', protect, orderController.getQuestions);
+
 module.exports = router;
