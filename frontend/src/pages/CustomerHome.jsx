@@ -38,6 +38,7 @@ import {
   Card,
   CardContent,
   CardActions,
+  CardMedia,
 } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -50,7 +51,8 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 const drawerWidth = 300;
 
 const darkTheme = createTheme({
@@ -70,7 +72,7 @@ const lightTheme = createTheme({
 });
 
 const CustomerHome = () => {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const theme = darkMode ? darkTheme : lightTheme;
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -438,7 +440,7 @@ const CustomerHome = () => {
         </ListItem>
 
         <ListItem button onClick={() => { setOpenOrdersDialog(true); setMobileOpen(false); }}>
-          <ListItemIcon><Avatar sx={{ width: 24, height: 24 }}>O</Avatar></ListItemIcon>
+          <ListItemIcon><ShoppingBagIcon /></ListItemIcon>
           <ListItemText primary="Siparişlerim" />
         </ListItem>
 
@@ -448,7 +450,7 @@ const CustomerHome = () => {
         </ListItem>
 
         <ListItem button onClick={() => { setOpenProfileDialog(true); setMobileOpen(false); }}>
-          <ListItemIcon><Avatar sx={{ width: 24, height: 24 }}>P</Avatar></ListItemIcon>
+        <ListItemIcon><AccountCircleIcon /></ListItemIcon>
           <ListItemText primary="Profil" />
         </ListItem>
       </List>
@@ -457,12 +459,8 @@ const CustomerHome = () => {
 
       <Divider sx={{ my: 1 }} />
       <Stack direction="row" spacing={1} justifyContent="space-between">
-        <Button variant="outlined" size="small" onClick={() => { setFeatured((f) => { shuffleArray(f); setFeatured([...f]); return f; }); }}>
-          Yenile Featured
-        </Button>
-        <Button variant="contained" size="small" onClick={() => { setDarkMode((d) => !d); }}>
-          {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-        </Button>
+       
+   
       </Stack>
     </Box>
   );
@@ -478,8 +476,8 @@ const CustomerHome = () => {
                 <MenuIcon />
               </IconButton>
             )}
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>📦 Urunler — Müşteri Paneli</Typography>
-
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>📦Müşteri Paneli</Typography>
+{/* 
             <TextField
               size="small"
               placeholder="Ürün ara..."
@@ -490,7 +488,7 @@ const CustomerHome = () => {
                 sx: { bgcolor: 'background.paper', borderRadius: 1, mr: 2, width: { xs: 120, md: 280 } },
               }}
               onFocus={() => setShowSearchDialog(true)}
-            />
+            /> */}
 
             <IconButton color="inherit" onClick={() => { setOpenCartDialog(true); }}>
               <Badge badgeContent={cart.reduce((s, i) => s + i.quantity, 0)} color="error">
@@ -781,37 +779,117 @@ const CustomerHome = () => {
         </Dialog>
 
         {/* Search dialog */}
-        <Dialog open={showSearchDialog} onClose={() => setShowSearchDialog(false)} fullWidth maxWidth="lg">
-          <DialogTitle>Ürün Ara</DialogTitle>
-          <DialogContent>
-            <TextField fullWidth placeholder="Ara..." value={search} onChange={(e) => setSearch(e.target.value)} sx={{ mb: 2 }} />
-            <Grid container spacing={2}>
-              {searchResults.length === 0 ? <Typography>Sonuç yok</Typography> :
-                searchResults.slice(0, 100).map(p => (
-                  <Grid item xs={12} sm={6} md={4} key={p._id}>
-                    <Card>
-                      <CardContent>
-                        <Typography variant="subtitle1">{p.name}</Typography>
-                        <Typography variant="body2" color="text.secondary" noWrap>{p.translations ? p.translations.get('tr')?.descriptionSections?.[0]?.title || '' : ''}</Typography>
-                        <Typography variant="h6" color="primary" sx={{ mt: 1 }}>{p.price} {p.priceCurrency}</Typography>
-                      </CardContent>
-                      <CardActions>
-                        <Button size="small" onClick={() => favorites.includes(p._id) ? handleRemoveFavorite(p._id) : handleAddFavorite(p._id)}>
-                          {favorites.includes(p._id) ? 'Favoride' : 'Favorilere Ekle'}
-                        </Button>
-                        <Button size="small" variant="contained" onClick={() => addToCart(p)}>Sepete Ekle</Button>
-                        <Button size="small" onClick={() => { openQuestionForProduct(p._id); setShowSearchDialog(false); }}>Soru Sor</Button>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                ))
-              }
-            </Grid>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setShowSearchDialog(false)}>Kapat</Button>
-          </DialogActions>
-        </Dialog>
+<Dialog
+  open={showSearchDialog}
+  onClose={() => setShowSearchDialog(false)}
+  fullWidth
+  maxWidth="lg"
+>
+  <DialogTitle>Ürün Ara</DialogTitle>
+  <DialogContent>
+    <TextField
+      fullWidth
+      placeholder="Ara..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      sx={{ mb: 2 }}
+    />
+    <Grid container spacing={2}>
+      {searchResults.length === 0 ? (
+        <Typography>Sonuç yok</Typography>
+      ) : (
+        searchResults.slice(0, 100).map((p) => (
+          <Grid item xs={12} sm={6} md={4} key={p._id}>
+            <Card>
+              {/* Ürün resmi */}
+              <CardMedia
+                component="img"
+                height="180"
+                image={
+                  p.images && p.images.length > 0
+                    ? p.images[0]
+                    : "/no-image.jpg" // yedek resim
+                }
+                alt={p.name}
+                style={{ objectFit: "cover" }}
+              />
+
+              {/* Ürün bilgileri */}
+              <CardContent>
+                <Typography variant="subtitle1">{p.name}</Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  noWrap
+                >
+                  {p.translations
+                    ? p.translations.get("tr")?.descriptionSections?.[0]
+                        ?.title || ""
+                    : ""}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  color="primary"
+                  sx={{ mt: 1 }}
+                >
+                  {p.price} {p.priceCurrency}
+                </Typography>
+              </CardContent>
+
+              {/* Butonlar */}
+              <CardActions>
+                <Button
+                  size="small"
+                  onClick={() =>
+                    favorites.includes(p._id)
+                      ? handleRemoveFavorite(p._id)
+                      : handleAddFavorite(p._id)
+                  }
+                >
+                  {favorites.includes(p._id)
+                    ? "Favoride"
+                    : "Favorilere Ekle"}
+                </Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  onClick={() => addToCart(p)}
+                >
+                  Sepete Ekle
+                </Button>
+                <Button
+                  size="small"
+                  onClick={() => {
+                    openQuestionForProduct(p._id);
+                    setShowSearchDialog(false);
+                  }}
+                >
+                  Soru Sor
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))
+      )}
+    </Grid>
+  </DialogContent>
+
+<DialogActions>
+  <Button
+    type="button"
+    onClick={() => {
+      console.log('Kapat butonuna basılmadan önce:', showSearchDialog);
+      setShowSearchDialog(false);
+      console.log('Kapat butonuna basıldıktan sonra:', false);
+    }}
+  >
+    Kapat
+  </Button>
+</DialogActions>
+
+</Dialog>
+
+
 
         {/* Snackbar */}
         <Snackbar open={snackbar.open} autoHideDuration={4500} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
