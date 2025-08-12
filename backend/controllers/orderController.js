@@ -226,7 +226,7 @@ exports.updateProfile = async (req, res) => {
 };
 
 // Kullanıcının favorilerini getirme
-const getFavorites = async (req, res) => {
+exports.getFavorites = async (req, res) => {
   try {
     const favorites = await Favorite.find({ user: req.user._id })
       .populate('product', 'name price images') // product bilgileri
@@ -240,7 +240,7 @@ const getFavorites = async (req, res) => {
 };
 
 // Kullanıcının sorduğu soruları getirme
-const getQuestions = async (req, res) => {
+exports.getQuestions = async (req, res) => {
   try {
     const questions = await Question.find({ customer: req.user._id })
       .populate('seller', 'companyName')
