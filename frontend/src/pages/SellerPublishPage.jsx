@@ -248,7 +248,7 @@ const SellerPublishPage = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
     } catch (err) {
-      console.error('Şema kaydedilemedi veya mail gönderilemedi:', err);
+      
       toast.error(t('publishPage.errors.saveSchema'));
     } finally {
       setSavingSchema(false);

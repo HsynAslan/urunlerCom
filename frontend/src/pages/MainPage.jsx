@@ -1,431 +1,213 @@
-import React from 'react';
-import {
-  Box,
-  Typography,
-  Button,
-  Container,
-  Grid,
-  useScrollTrigger,
-  Zoom,
-  Fab,
-  useMediaQuery,
-  IconButton,
-} from '@mui/material';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import {
-  FaStore,
-  FaGlobe,
-  FaMobileAlt,
-  FaLock,
-  FaClipboardList,
-} from 'react-icons/fa';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import LanguageSelector from '../components/LanguageSelector';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+// pages/MainPage.jsx
+import React, { useState, useRef, useEffect } from 'react';
+import { Box, IconButton, Fab } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-// Tema renkleri (rehberden)
-const colors = {
-  darkBg: '#121212',
-  lightBg: '#f5f5f5',
-  darkCardBg: '#1e1e1e',
-  lightCardBg: '#ffffff',
-  darkText: '#e0e0e0',
-  lightText: '#212121',
-  primary: '#1976d2',
-  success: '#66bb6a',
-  error: '#ef5350',
-};
+import HeroSection from '../components/HeroSection';
+import FeaturesOverview from '../components/FeaturesOverview';
+import FeatureDetailSection from '../components/FeatureDetail';
+import PricingSection from '../components/PricingSection';
+import FooterSection from '../components/Footer';
+import SectionIndicator from '../components/SectionIndicator';
 
-// Koyu tema
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: colors.darkBg,
-      paper: colors.darkCardBg,
+      default: '#111111', // sayfa arka planı
+      paper: '#1e1e1e',   // kartlar, paper vb.
     },
-    primary: {
-      main: colors.primary,
-    },
-    success: {
-      main: colors.success,
-      contrastText: '#000',
-    },
-    error: {
-      main: colors.error,
-      contrastText: '#000',
-    },
+    primary: { main: '#00ff99' }, // neon yeşil
+    secondary: { main: '#00ff99' }, // gerekirse ikincil
     text: {
-      primary: colors.darkText,
-      secondary: '#bbbbbb',
+      primary: '#e0e0e0', // ana yazı
+      secondary: '#aaa',  // açıklamalar, alt yazılar
     },
-  },
-  typography: {
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    h1: {
-      fontWeight: '900',
-      letterSpacing: '0.1em',
-      color: colors.success,
-    },
+    neon: { main: '#00ff99' }, // özel neon renk (kart border, glow vb.)
   },
   components: {
-    MuiButton: {
+    MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
-          textTransform: 'none',
-          fontWeight: 700,
-          boxShadow: 'none',
-          transition: 'background-color 0.3s ease',
+          backgroundColor: '#1e1e1e',
         },
-        containedPrimary: {
-          backgroundColor: colors.primary,
-          color: '#fff',
-          '&:hover': {
-            backgroundColor: '#115293',
-          },
-        },
-        containedSuccess: {
-          backgroundColor: colors.success,
-          color: '#000',
-          '&:hover': {
-            backgroundColor: '#4caf50',
-          },
-        },
-        containedError: {
-          backgroundColor: colors.error,
-          color: '#000',
-          '&:hover': {
-            backgroundColor: '#d32f2f',
-          },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#121212',
         },
       },
     },
   },
 });
 
-// Açık tema
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
     background: {
-      default: colors.lightBg,
-      paper: colors.lightCardBg,
+      default: '#f5f5f5',
+      paper: '#ffffff',
     },
-    primary: {
-      main: colors.primary,
-    },
-    success: {
-      main: colors.success,
-      contrastText: '#fff',
-    },
-    error: {
-      main: colors.error,
-      contrastText: '#fff',
-    },
+    primary: { main: '#1976d2' },
+    secondary: { main: '#00ff99' }, // neon vurgular light mode’da da
     text: {
-      primary: colors.lightText,
+      primary: '#212121',
       secondary: '#555',
     },
-  },
-  typography: {
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    h1: {
-      fontWeight: '900',
-      color: colors.primary,
-    },
+    neon: { main: '#00ff99' },
   },
   components: {
-    MuiButton: {
+    MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
-          textTransform: 'none',
-          fontWeight: 700,
-          boxShadow: 'none',
-          transition: 'background-color 0.3s ease',
+          backgroundColor: '#ffffff',
         },
-        containedPrimary: {
-          backgroundColor: colors.primary,
-          color: '#fff',
-          '&:hover': {
-            backgroundColor: '#115293',
-          },
-        },
-        containedSuccess: {
-          backgroundColor: colors.success,
-          color: '#fff',
-          '&:hover': {
-            backgroundColor: '#4caf50',
-          },
-        },
-        containedError: {
-          backgroundColor: colors.error,
-          color: '#fff',
-          '&:hover': {
-            backgroundColor: '#d32f2f',
-          },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#f5f5f5',
         },
       },
     },
   },
 });
 
-const ScrollTop = (props) => {
-  const { children } = props;
-  const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 100 });
+export default function MainPage() {
+  const [darkMode, setDarkMode] = useState(true);
+  const [activeSection, setActiveSection] = useState(0);
+  const sectionRefs = useRef([]);
+  const isScrolling = useRef(false);
+  const activeRef = useRef(0);
+  const touchStartY = useRef(0);
 
-  const handleClick = (event) => {
-    const anchor =
-      (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
-    if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const sections = [
+    { component: <HeroSection />, id: 'hero' },
+    
+    { component: <FeatureDetailSection feature="Kolay Mağaza Kurulumu" />, id: 'feature-1' },
+    { component: <FeatureDetailSection feature="Ürün ve Sipariş Takibi" />, id: 'feature-2' },
+    { component: <FeatureDetailSection feature="Çok Dilli Destek" />, id: 'feature-3' },
+    { component: <FeatureDetailSection feature="Güvenli Ödeme Altyapısı" />, id: 'feature-4' },
+    { component: <PricingSection />, id: 'pricing' },
+    { component: <FooterSection />, id: 'footer' }, // footer en altta
+  ];
+
+  const scrollToSection = (index) => {
+    if (isScrolling.current) return;
+    const ref = sectionRefs.current[index];
+    if (!ref) return;
+
+    isScrolling.current = true;
+    activeRef.current = index;
+    setActiveSection(index);
+    ref.scrollIntoView({ behavior: 'smooth' });
+
+    setTimeout(() => {
+      isScrolling.current = false;
+    }, 700);
   };
 
+  const handleWheel = (e) => {
+    e.preventDefault();
+    if (isScrolling.current) return;
+    if (e.deltaY > 0) {
+      scrollToSection(Math.min(activeRef.current + 1, sections.length - 1));
+    } else if (e.deltaY < 0) {
+      scrollToSection(Math.max(activeRef.current - 1, 0));
+    }
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+    const delta = touchStartY.current - touchEndY;
+    if (Math.abs(delta) < 50) return;
+
+    if (delta > 0) {
+      scrollToSection(Math.min(activeRef.current + 1, sections.length - 1));
+    } else {
+      scrollToSection(Math.max(activeRef.current - 1, 0));
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, []);
+
   return (
-    <Zoom in={trigger}>
-      <Box
-        onClick={handleClick}
-        role="presentation"
-        sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 1000 }}
-      >
-        {children}
-      </Box>
-    </Zoom>
-  );
-};
-
-const FeatureCard = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  color: theme.palette.text.primary,
-  padding: '20px',
-  borderRadius: 12,
-  boxShadow: theme.shadows[4],
-  display: 'flex',
-  alignItems: 'center',
-  gap: 12,
-  fontWeight: 600,
-  fontSize: '1.1rem',
-  cursor: 'default',
-  transition: 'transform 0.3s ease',
-  '&:hover': {
-    transform: 'scale(1.05)',
-    boxShadow: theme.shadows[8],
-  },
-}));
-
-export default function MainPage() {
-  const { t } = useTranslation();
-  const [darkMode, setDarkMode] = React.useState(true);
-  const theme = darkMode ? darkTheme : lightTheme;
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  return (
-    <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          bgcolor: 'background.default',
-          color: 'text.primary',
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          
-        }}
-      >
-        <Box id="back-to-top-anchor" />
-
-        <Container maxWidth="lg" sx={{ py: 4, flexGrow: 1 }}>
-          {/* Header */}
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: 2,
-              mb: 4,
-              position: 'relative',
-            }}
-          >
-            {/* Dil Seçici */}
-            {isMobile ? (
-              <Box sx={{ position: 'absolute', top: 16, left: 16, zIndex: 1100 }}>
-                <LanguageSelector />
-              </Box>
-            ) : (
-              <Box sx={{ position: 'absolute', top: 16, left: 16 }}>
-                <LanguageSelector />
-              </Box>
-            )}
-
-            {/* Logo */}
-            <Box
-              sx={{
-                flexGrow: isMobile ? 1 : 0,
-                display: 'flex',
-                justifyContent: isMobile ? 'center' : 'flex-start',
-                order: isMobile ? 1 : 0,
-                width: isMobile ? '100%' : 'auto',
-              }}
-            >
-              <Typography variant="h4" sx={{ fontWeight: '900', color: colors.success }}>
-                urunler.com
-              </Typography>
-            </Box>
-
-            {/* Butonlar */}
-            <Box
-              sx={{
-                display: 'flex',
-                gap: 2,
-                justifyContent: isMobile ? 'center' : 'flex-end',
-                order: isMobile ? 2 : 1,
-                width: isMobile ? '100%' : 'auto',
-                mt: isMobile ? 2 : 0,
-              }}
-            >
-              <Link to="/register" style={{ textDecoration: 'none' }}>
-                <Button variant="contained" color="success" sx={{ minWidth: 100 }}>
-                  {t('mainPage.register')}
-                </Button>
-              </Link>
-              <Link to="/login" style={{ textDecoration: 'none' }}>
-                <Button variant="contained" color="primary" sx={{ minWidth: 100 }}>
-                  {t('mainPage.login')}
-                </Button>
-              </Link>
-            </Box>
-          </Box>
-
-          {/* Hero */}
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography
-              variant="h2"
-              gutterBottom
-              sx={{ fontWeight: '900', color: colors.success, mb: 2 }}
-            >
-              {t('mainPage.title')}
-            </Typography>
-            <Typography
-              variant="h6"
-              color="text.secondary"
-              maxWidth={600}
-              mx="auto"
-              sx={{ px: { xs: 2, sm: 0 } }}
-            >
-              {t('mainPage.subtitle')}
-            </Typography>
-          </Box>
-
-          {/* Features */}
-          <Box sx={{ mb: 8 }}>
-            <Typography
-              variant="h4"
-              gutterBottom
-              sx={{ mb: 3, color: colors.success, textAlign: 'center' }}
-            >
-              {t('mainPage.featuresTitle')}
-            </Typography>
-            <Grid
-              container
-              spacing={4}
-              justifyContent="center"
-              alignItems="stretch"
-              sx={{ px: { xs: 2, sm: 0 } }}
-            >
-              {[
-                { icon: <FaStore size={24} />, text: t('mainPage.feature1') },
-                { icon: <FaClipboardList size={24} />, text: t('mainPage.feature2') },
-                { icon: <FaGlobe size={24} />, text: t('mainPage.feature3') },
-                { icon: <FaLock size={24} />, text: t('mainPage.feature4') },
-                { icon: <FaMobileAlt size={24} />, text: t('mainPage.feature5') },
-              ].map(({ icon, text }, idx) => (
-                <Grid
-                  key={idx}
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  sx={{ display: 'flex', justifyContent: 'center' }}
-                >
-                  <FeatureCard>
-                    {icon} {text}
-                  </FeatureCard>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-
-          {/* CTA */}
-          <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography variant="h5" gutterBottom sx={{ mb: 2, color: colors.success }}>
-              {t('mainPage.ctaTitle')}
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{ mb: 3, maxWidth: 600, mx: 'auto', px: { xs: 2, sm: 0 } }}
-            >
-              {t('mainPage.ctaText')}
-            </Typography>
-            <Link to="/register" style={{ textDecoration: 'none' }}>
-              <Button variant="contained" color="success" sx={{ minWidth: 100 }}>
-                {t('mainPage.register')}
-              </Button>
-            </Link>
-          </Box>
-
-          {/* Footer */}
-          <Box
-            sx={{
-              textAlign: 'center',
-              py: 3,
-              borderTop: `1px solid ${colors.primary}`,
-              color: '#777',
-            }}
-          >
-            <Typography variant="body2">{t('mainPage.footerAbout')}</Typography>
-            <Typography variant="body2">{t('mainPage.footerContact')}</Typography>
-            <Typography variant="caption" sx={{ mt: 1, display: 'block' }}>
-              © 2025 urunler.com - {t('mainPage.footerRights')}
-            </Typography>
-          </Box>
-        </Container>
-
-        {/* Scroll Top */}
-        <ScrollTop>
-          <Fab
-            color="primary"
-            size="small"
-            aria-label="scroll back to top"
-            sx={{}}
-          >
-            <KeyboardArrowUpIcon />
-          </Fab>
-        </ScrollTop>
-
-        {/* Tema değiştirici buton */}
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      {sections.map((section, idx) => (
         <Box
+          key={idx}
+          id={`section-${idx}`}
+          ref={(el) => (sectionRefs.current[idx] = el)}
           sx={{
-            position: 'fixed',
-            bottom: 32,
-            left: 32,
-            zIndex: 1200,
+            height: { xs: 'auto', md: '100vh' }, // mobilde içerik kadar, desktopta tam ekran
+            minHeight: '100vh', // az içerik varsa bile tam ekran
+            width: '100%',
+            scrollSnapAlign: 'start',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+             bgcolor: 'background.default', // <-- burası dinamik
           }}
         >
-          <IconButton
-            onClick={() => setDarkMode(!darkMode)}
-            color="primary"
-            size="large"
-            sx={{ backgroundColor: 'background.paper', '&:hover': { backgroundColor: 'grey.300' } }}
-          >
-            {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
+          {section.component}
         </Box>
+      ))}
+
+      {/* Section indicator sadece desktopta */}
+      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        <SectionIndicator
+          sectionCount={sections.length}
+          active={activeSection}
+          onNavigate={scrollToSection}
+        />
       </Box>
+
+      {/* Tema butonu */}
+      <Box sx={{ position: 'fixed', bottom: 32, left: 32, zIndex: 1200 }}>
+        <IconButton
+          onClick={() => setDarkMode(!darkMode)}
+          color="primary"
+          size="large"
+          sx={{
+            backgroundColor: 'background.paper',
+            '&:hover': { backgroundColor: 'grey.300' },
+          }}
+        >
+          {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+        </IconButton>
+      </Box>
+
+      {/* Yukarı çık butonu */}
+      <Fab
+        color="primary"
+        size="small"
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+        onClick={() => scrollToSection(0)}
+      >
+        <KeyboardArrowUpIcon />
+      </Fab>
     </ThemeProvider>
   );
 }
