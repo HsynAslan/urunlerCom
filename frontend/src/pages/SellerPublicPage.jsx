@@ -19,7 +19,8 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import '../styles/SellerPublicPage.css'; // Varsayılan stil
 // Örnek: import '../styles/SellerPublicPageDark.css'; // Dark tema
 // Örnek: import '../styles/SellerPublicPageModern.css'; // Modern tema
-
+import QRMenu from '../components/QRMenu';
+import { Box } from '@mui/material';
 const SellerPublicPage = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -259,7 +260,7 @@ const SellerPublicPage = () => {
                     <button
                       className="add-to-cart-btn"
                       onClick={() =>
-                        (window.location.href = `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:3005'}/login`)
+                        (window.location.href = `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:3000'}/login`)
                       }
                     >
                       Sepete Ekle
@@ -356,14 +357,33 @@ const SellerPublicPage = () => {
             />
           </div>
         )}
-      </section>
+   </section>
 
-      <footer className="footer" data-section="footer">
-        <p>
-          &copy; {new Date().getFullYear()} {company.companyName}
-        </p>
-      </footer>
-    </div>
+<footer className="footer" data-section="footer">
+  <p>
+    &copy; {new Date().getFullYear()} {company?.companyName || 'Şirket Adı'}
+  </p>
+</footer>
+{company && (
+  <>
+    {console.log('QRMenu props:', {
+      url: `https://urunler-com.vercel.app/${slug}`,
+      companyName: company.companyName,
+      logoUrl: photos?.[0]?.imageUrl || '/default-logo.png',
+    })}
+<QRMenu
+  url={`https://urunler-com.vercel.app/${slug}`}
+  companyName={company?.companyName || 'Şirket Adı'}
+/>
+
+  </>
+)}
+      
+
+
+</div>
+
+    
   );
 };
 

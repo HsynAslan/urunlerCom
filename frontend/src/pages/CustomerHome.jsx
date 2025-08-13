@@ -422,7 +422,7 @@ const CustomerHome = () => {
       <List>
         <ListItem button onClick={() => { setFeatured((f) => f); setMobileOpen(false); }}>
           <ListItemIcon><CheckCircleOutlineIcon /></ListItemIcon>
-          <ListItemText primary="Anasayfa (Featured)" />
+          <ListItemText primary="Anasayfa" />
         </ListItem>
 
         <ListItem button onClick={() => { setShowSearchDialog(true); setMobileOpen(false); }}>
