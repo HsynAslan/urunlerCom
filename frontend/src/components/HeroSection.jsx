@@ -1,6 +1,6 @@
 // components/HeroSection.jsx
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { motion, useAnimation } from 'framer-motion';
 import HeroVideo from '../public/images/herosection.mp4';
 
@@ -11,7 +11,8 @@ export default function HeroSection() {
   const controls = useAnimation();
 
   useEffect(() => {
-    controls.start({ pathLength: 1, transition: { duration: 1.8, ease: 'easeInOut' } })
+    controls
+      .start({ pathLength: 1, transition: { duration: 1.8, ease: 'easeInOut' } })
       .then(() => setShowVideo(true));
   }, [controls]);
 
@@ -23,7 +24,7 @@ export default function HeroSection() {
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         overflow: 'hidden',
         bgcolor: '#111',
@@ -65,7 +66,7 @@ export default function HeroSection() {
         />
       ))}
 
-      {/* Başlık ve Açıklama */}
+      {/* Üst Bilgi Alanı */}
       <Box
         sx={{
           position: 'relative',
@@ -75,16 +76,17 @@ export default function HeroSection() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 3,
+          gap: 2,
+          pt: { xs: 4, md: 8 },
+          px: 2,
         }}
       >
-        {/* Neon Başlık */}
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
           style={{
-            fontSize: '3rem',
+            fontSize: '2.5rem',
             color: '#00ff99',
             textShadow: '0 0 10px #00ff99, 0 0 20px #00ff99, 0 0 40px #00ff99',
             fontFamily: "'Brush Script MT', cursive",
@@ -93,64 +95,58 @@ export default function HeroSection() {
           urunler.com
         </motion.h1>
 
-        {/* Açıklama */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
           style={{ textAlign: 'center' }}
         >
-          <Typography sx={{ color: '#00ff99', fontSize: { xs: '1.2rem', md: '1.5rem' }, mb: 1 }}>
-            🚀 Mağazanızı saniyeler içinde kurun, ürünlerinizi hızlıca yönetin ve satışlarınızı artırın! 💼✨
+          <Typography sx={{ color: '#00ff99', fontSize: { xs: '1rem', md: '1.3rem' }, mb: 1 }}>
+            🚀 Mağazanızı saniyeler içinde kurun, ürünlerinizi hızlıca yönetin ve satışlarınızı artırın!
           </Typography>
-          <Typography sx={{ color: '#00ff99', fontSize: { xs: '1rem', md: '1.2rem' } }}>
-            👀 Aşağı kaydırarak tüm özelliklerimizi keşfedin
+          <Typography sx={{ color: '#00ff99', fontSize: { xs: '0.9rem', md: '1.1rem' } }}>
+            👀 Aşağıdaki videodan özelliklerimizi keşfedin
           </Typography>
         </motion.div>
-
-        {/* Video */}
-        {showVideo && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            style={{ width: '80%', maxWidth: 500, marginTop: 20 }}
-          >
-            <Box
-              component="video"
-              autoPlay
-              loop
-              muted
-              playsInline
-              sx={{
-                width: '100%',
-                borderRadius: 3,
-                border: '2px solid #00ff99',
-                boxShadow: '0 0 50px 15px #00ff99',
-              }}
-            >
-              <source src={HeroVideo} type="video/mp4" />
-            </Box>
-          </motion.div>
-        )}
       </Box>
 
-      {/* Aşağı Kaydırma İpuçları */}
+      {/* Video (Alta sabitlenmiş, her cihazda yatay görünecek) */}
       {showVideo && (
         <motion.div
-          animate={{ y: [0, 10, 0], opacity: [0, 1, 1, 0.8, 1] }}
-          transition={{ repeat: Infinity, duration: 1.5, delay: 1 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
           style={{
             position: 'absolute',
-            bottom: 40,
-            color: '#00ff99',
-            fontSize: '2.5rem',
-            textAlign: 'center',
+            bottom: 20,
+            left: 'translateX(-50%)',
+            right: 'translateX(-50%)',
+           
+
+
+            transform: 'translateX(-50%)',
             zIndex: 2,
-            cursor: 'pointer',
+            width: '90%',
+            maxWidth: '100vh',
           }}
         >
-          ⬇️
+          <Box
+            component="video"
+            autoPlay
+            loop
+            muted
+            playsInline
+            sx={{
+              width: '100%',
+              aspectRatio: '16/9', // oran sabit
+              borderRadius: 3,
+              border: '2px solid #00ff99',
+              boxShadow: '0 0 30px 10px #00ff99',
+              objectFit: 'cover',
+            }}
+          >
+            <source src={HeroVideo} type="video/mp4" />
+          </Box>
         </motion.div>
       )}
     </Box>
